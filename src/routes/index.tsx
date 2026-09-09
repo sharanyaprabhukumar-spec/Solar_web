@@ -6,7 +6,7 @@ import {
   OurServices,
   SystemTypes,
   Systems,
-  EMIOptions,
+  YearlySavingsOptions,
   Contact,
   Footer,
 } from "@/components/site/Sections";
@@ -39,7 +39,7 @@ function Index() {
         <OurServices />
         <SystemTypes />
         <Systems />
-        <EMIOptions />
+        <YearlySavingsOptions />
         <Contact />
       </main>
       <Footer />

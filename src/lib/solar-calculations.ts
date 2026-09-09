@@ -15,7 +15,7 @@ export type Pricing = {
 };
 
 export type SolarProjection = Pricing & {
-  monthlyEmi: number;
+  annualSavings: number;
   annualGeneration: number;
   twentyFiveYearSavings: number;
 };
@@ -59,7 +59,7 @@ export function getSolarProjection(capacity: number): SolarProjection {
 
   return {
     ...pricing,
-    monthlyEmi: pricing.afterSubsidy / 24,
+    annualSavings,
     annualGeneration,
     twentyFiveYearSavings: annualSavings * 25,
   };
