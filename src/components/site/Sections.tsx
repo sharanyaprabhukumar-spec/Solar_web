@@ -71,7 +71,7 @@ export function Hero() {
     <section id="top" className="overflow-hidden bg-surface">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 pb-6 pt-10 sm:px-6 sm:pb-8 sm:pt-14 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-16 lg:pb-10 lg:pt-16">
         <div className="relative z-10">
-          <p className="eyebrow text-accent">Switch to Solar with Zero Investment</p>
+          <p className="eyebrow text-accent">Switch to solar at Zero Investment</p>
           <h1 className="mt-5 max-w-2xl text-5xl leading-[0.98] font-bold text-primary sm:text-6xl lg:text-7xl">Power your home. <span className="text-accent">Own your savings.</span></h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">Install your solar system today with convenient EMI options. Government subsidy can help lower your solar investment, while your system helps to reduce the electricity bill. Choose Aaryon Energy and save up to ₹78,000.</p>
           <div className="mt-8 flex flex-wrap items-center gap-4">
