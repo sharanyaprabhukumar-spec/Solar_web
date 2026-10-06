@@ -1,10 +1,10 @@
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
-import logo from "@/assets/Aaryon Logo.png";
+import logo from "@/assets/TrueBright Energy Solutions Logo.png";
 
 const links = [
   { label: "Home", href: "/#top" },
-  { label: "Why Aaryon", href: "/#trust" },
+  { label: "Why TrueBright", href: "/#trust" },
   { label: "Our services", href: "/#services" },
   { label: "Contact", href: "/#contact" },
 ];
@@ -18,7 +18,7 @@ export function Nav() {
         <a href="/#top" className="flex min-w-0 items-center" onClick={() => setMenuOpen(false)}>
           <img
             src={logo}
-            alt="Aaryon Energy Solutions"
+            alt="TrueBright Energy Solutions"
             width={220}
             height={148}
             className="h-14 w-auto object-contain sm:h-16 md:h-20"

@@ -12,7 +12,7 @@ import {
 export const Route = createFileRoute("/solar-calculator")({
   head: () => ({
     meta: [
-      { title: "Solar Capacity Calculator | Aaryon Energy" },
+      { title: "Solar Capacity Calculator | TrueBright Energy" },
       {
         name: "description",
         content:
@@ -71,7 +71,7 @@ function SolarCalculator() {
             </div>
             <div className="flex items-center gap-4 border-t border-deep-foreground/15 pt-6 lg:border-t-0 lg:border-l lg:pl-8">
               <div className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-solar text-deep"><Sun size={22} /></div>
-              <p className="text-sm leading-relaxed text-deep-foreground/75">A quick estimate based on the Aaryon rule of thumb: monthly units divided by 120.</p>
+              <p className="text-sm leading-relaxed text-deep-foreground/75">A quick estimate based on the TrueBright rule of thumb: monthly units divided by 120.</p>
             </div>
           </div>
         </section>
@@ -118,7 +118,7 @@ function ThankYou({ calculation, onReset }: { calculation: Calculation; onReset:
       <div className="grid h-12 w-12 place-items-center rounded-full bg-accent text-accent-foreground"><Check size={24} /></div>
       <p className="eyebrow mt-8 text-accent">Estimate ready</p>
       <h2 className="mt-3 break-words text-3xl font-bold">Thanks, {calculation.name}.</h2>
-      <p className="mt-3 max-w-lg text-sm leading-relaxed text-muted-foreground">Your estimate has been saved. Aaryon Energy can refine this number after a quick site assessment.</p>
+      <p className="mt-3 max-w-lg text-sm leading-relaxed text-muted-foreground">Your estimate has been saved. TrueBright Energy can refine this number after a quick site assessment.</p>
       <div className="mt-8 border-y border-border py-6"><p className="text-sm text-muted-foreground">Recommended starting capacity</p><p className="mt-2 font-display text-5xl font-bold text-accent">{calculation.capacity} <span className="text-2xl">kW</span></p><p className="mt-3 text-xs text-muted-foreground">{calculation.units.toLocaleString()} monthly units ÷ 120 · priced at the {pricing.capacityBand} kW band</p></div>
       <div className="mt-6 grid gap-3 sm:grid-cols-3"><div className="rounded-md bg-surface p-4"><p className="text-xs text-muted-foreground">Panel system</p><p className="mt-1 break-words font-display text-lg font-bold">{formatCurrency(pricing.total)}</p></div><div className="rounded-md bg-surface p-4"><p className="text-xs text-muted-foreground">Govt. subsidy</p><p className="mt-1 break-words font-display text-lg font-bold text-accent">-{formatCurrency(pricing.subsidy)}</p></div><div className="rounded-md bg-primary p-4 text-primary-foreground"><p className="text-xs text-primary-foreground/70">Approx. you pay</p><p className="mt-1 break-words font-display text-lg font-bold">{formatCurrency(pricing.afterSubsidy)}</p></div></div>
       <p className="mt-4 text-xs leading-relaxed text-muted-foreground">Estimate based on the supplied mono PERC price list. Final pricing can vary with roof structure, electrical work, installation and approvals.</p>

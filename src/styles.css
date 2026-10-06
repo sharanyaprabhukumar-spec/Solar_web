@@ -45,7 +45,7 @@
 :root {
   --radius: 0.5rem;
 
-  /* Brand palette from the Aaryon logo: navy, leaf green, solar gold */
+  /* Brand palette from the TrueBright logo: navy, leaf green, solar gold */
   --deep: oklch(0.26 0.075 262);
   --deep-foreground: oklch(0.97 0.008 240);
   --background: oklch(0.99 0.005 230);

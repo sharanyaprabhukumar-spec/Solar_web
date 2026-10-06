@@ -11,9 +11,9 @@ import {
   Footer,
 } from "@/components/site/Sections";
 
-const title = "Aaryon Energy | Rooftop Solar";
+const title = "TrueBright Energy | Rooftop Solar";
 const description =
-  "Aaryon Energy designs and installs residential, commercial and industrial rooftop solar systems across Tamil Nadu.";
+  "TrueBright Energy designs and installs residential, commercial and industrial rooftop solar systems across Tamil Nadu.";
 
 export const Route = createFileRoute("/")({
   head: () => ({

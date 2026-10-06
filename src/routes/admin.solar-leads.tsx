@@ -18,7 +18,7 @@ export const Route = createFileRoute("/admin/solar-leads")({
   },
   head: () => ({
     meta: [
-      { title: "Saved Calculations Admin | Aaryon Energy" },
+      { title: "Saved Calculations Admin | TrueBright Energy" },
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),

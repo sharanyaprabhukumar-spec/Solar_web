@@ -13,7 +13,7 @@ export const Route = createFileRoute("/admin/login")({
   },
   head: () => ({
     meta: [
-      { title: "Admin Login | Aaryon Energy" },
+      { title: "Admin Login | TrueBright Energy" },
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
@@ -39,7 +39,7 @@ function AdminLogin() {
   return (
     <main className="flex min-h-screen items-center justify-center bg-gradient-deep px-4 py-8 sm:px-5 sm:py-12">
       <div className="w-full max-w-md rounded-2xl border border-white/15 bg-card p-6 shadow-lift sm:p-8 md:p-10">
-        <div className="flex items-center gap-2 text-accent"><ShieldCheck size={18} /><p className="eyebrow">Aaryon internal access</p></div>
+        <div className="flex items-center gap-2 text-accent"><ShieldCheck size={18} /><p className="eyebrow">TrueBright internal access</p></div>
         <div className="mt-8 flex size-14 items-center justify-center rounded-xl bg-primary text-primary-foreground"><LockKeyhole size={25} /></div>
         <h1 className="mt-6 text-3xl font-bold text-primary">Admin login</h1>
         <p className="mt-3 text-sm leading-relaxed text-muted-foreground">Sign in to review saved solar capacity estimates and lead details.</p>
