@@ -1,0 +1,13 @@
+{
+  "settings": {
+    "createdAt": 1788753409984,
+    "framework": "tanstack-start-lovable",
+    "devCommand": null,
+    "installCommand": null,
+    "buildCommand": null,
+    "outputDirectory": ".vercel/output",
+    "rootDirectory": null,
+    "directoryListing": false,
+    "nodeVersion": "24.x"
+  }
+}
