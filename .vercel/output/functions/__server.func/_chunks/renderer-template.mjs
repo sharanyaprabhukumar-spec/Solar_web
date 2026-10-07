@@ -1,4 +1,4 @@
-import { i as HTTPResponse } from "../_libs/h3+rou3+srvx.mjs";
+import { s as HTTPResponse } from "../_libs/h3+rou3+srvx.mjs";
 //#region #nitro/virtual/renderer-template
 var rendererTemplate = () => new HTTPResponse("<!doctype html>\r\n<html lang=\"en\">\r\n  <head>\r\n    <meta charset=\"UTF-8\" />\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\r\n    <title>TrueBright Energy</title>\r\n  </head>\r\n  <body>\r\n    <div id=\"root\"></div>\r\n    <script type=\"module\" src=\"/src/entry-client.tsx\"><\/script>\r\n  </body>\r\n</html>\r\n", { headers: { "content-type": "text/html; charset=utf-8" } });
 //#endregion
