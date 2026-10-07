@@ -123,7 +123,49 @@ export function Contact() {
 }
 
 export function Footer() {
-  return <footer className="bg-primary text-white"><div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-[1.4fr_1fr_1fr] lg:py-16"><div><p className="max-w-xs text-sm leading-relaxed text-white/60">Clean energy solutions for homes, businesses and a more resilient Tamil Nadu.</p></div><FooterColumn title="Explore" links={["Why TrueBright", "FAQs", "Solar calculator"]} /><div><p className="text-sm font-semibold text-solar">Contact us</p><a href="tel:+919150864777" className="mt-4 block text-sm text-white/70 hover:text-white">+91 91508 64777</a><a href="mailto:info.aaryonenergies@gmail.com" className="mt-2 block break-all text-sm text-white/70 hover:text-white">info.aaryonenergies@gmail.com</a><p className="mt-3 text-sm leading-relaxed text-white/60">Trichy, Tamil Nadu, India</p></div></div><div className="border-t border-white/10"><div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-5 text-xs text-white/45 sm:flex-row sm:items-center sm:justify-between sm:px-6"><span>© {new Date().getFullYear()} TrueBright Energy Solutions.</span><span>Rooftop solar · O&amp;M</span></div></div></footer>;
+  return (
+    <footer className="bg-primary text-white">
+      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-[1.4fr_1fr_1fr] lg:py-16">
+        <div>
+          <p className="max-w-xs text-sm leading-relaxed text-white/60">
+            Clean energy solutions for homes, businesses and a more resilient Tamil Nadu.
+          </p>
+        </div>
+        <FooterColumn title="Explore" links={["Why TrueBright", "FAQs", "Solar calculator"]} />
+        <div>
+          <p className="text-sm font-semibold text-solar">Contact us</p>
+          <a href="tel:+919150864777" className="mt-4 block text-sm text-white/70 hover:text-white">
+            +91 91508 64777
+          </a>
+          <a
+            href="mailto:info@truebrightenergy.com"
+            className="mt-2 block break-all text-sm text-white/70 hover:text-white"
+          >
+            info@truebrightenergy.com
+          </a>
+          <address className="mt-3 text-sm leading-relaxed text-white/60 not-italic">
+            INNOV8 MILLENIA, 2ND FLOOR,
+            <br />
+            EAST WING, RMZ MILLENIA
+            <br />
+            BUSINESS PARK, CAMPUS 1A,
+            <br />
+            NO.143, DR.M.G.R. ROAD,
+            <br />
+            PERUNGUDI, SHOLINGANALLUR,
+            <br />
+            CHENNAI-600096
+          </address>
+        </div>
+      </div>
+      <div className="border-t border-white/10">
+        <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-5 text-xs text-white/45 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+          <span>© {new Date().getFullYear()} TrueBright Energy Solutions.</span>
+          <span>Rooftop solar · O&amp;M</span>
+        </div>
+      </div>
+    </footer>
+  );
 }
 
 function FooterColumn({ title, links }: { title: string; links: string[] }) { return <div><p className="text-sm font-semibold text-solar">{title}</p><div className="mt-4 space-y-3">{links.map((link) => <a key={link} href={link === "Why TrueBright" ? "#trust" : link === "FAQs" ? "#faqs" : "/solar-calculator"} className="block text-sm text-white/60 hover:text-white">{link}</a>)}</div></div>; }

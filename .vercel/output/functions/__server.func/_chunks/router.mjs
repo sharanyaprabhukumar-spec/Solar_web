@@ -7,7 +7,7 @@ import { t as QueryClient } from "../_libs/tanstack__query-core.mjs";
 var import_react = /* @__PURE__ */ __toESM(require_react(), 1);
 //#endregion
 //#region src/styles.css?url
-var styles_default = "/assets/styles-LTMFz0Ws.css";
+var styles_default = "/assets/styles-CNxuIK_3.css";
 //#endregion
 //#region src/lib/lovable-error-reporting.ts
 function reportLovableError(error, context = {}) {
@@ -934,13 +934,25 @@ function Footer() {
 						children: "+91 91508 64777"
 					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
-						href: "mailto:info.aaryonenergies@gmail.com",
+						href: "mailto:info@truebrightenergy.com",
 						className: "mt-2 block break-all text-sm text-white/70 hover:text-white",
-						children: "info.aaryonenergies@gmail.com"
+						children: "info@truebrightenergy.com"
 					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-						className: "mt-3 text-sm leading-relaxed text-white/60",
-						children: "Trichy, Tamil Nadu, India"
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("address", {
+						className: "mt-3 text-sm leading-relaxed text-white/60 not-italic",
+						children: [
+							"INNOV8 MILLENIA, 2ND FLOOR,",
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("br", {}),
+							"EAST WING, RMZ MILLENIA",
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("br", {}),
+							"BUSINESS PARK, CAMPUS 1A,",
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("br", {}),
+							"NO.143, DR.M.G.R. ROAD,",
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("br", {}),
+							"PERUNGUDI, SHOLINGANALLUR,",
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("br", {}),
+							"CHENNAI-600096"
+						]
 					})
 				] })
 			]

@@ -2,7 +2,7 @@ import { i as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
 import { h as ArrowRight, i as ShieldCheck, m as Check, n as Wrench, p as ChevronDown, r as Sun, u as IndianRupee } from "../_libs/lucide-react.mjs";
 import { i as formatCurrency, o as getSolarProjection, t as Nav } from "./solar-calculations-C6qVRab0.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/routes-DQJTICRu.js
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-BIP91_u8.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var hero_rooftop_solar_default = "/assets/hero-rooftop-solar-CIqKA7qp.jpg";
@@ -549,13 +549,25 @@ function Footer() {
 						children: "+91 91508 64777"
 					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
-						href: "mailto:info.aaryonenergies@gmail.com",
+						href: "mailto:info@truebrightenergy.com",
 						className: "mt-2 block break-all text-sm text-white/70 hover:text-white",
-						children: "info.aaryonenergies@gmail.com"
+						children: "info@truebrightenergy.com"
 					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-						className: "mt-3 text-sm leading-relaxed text-white/60",
-						children: "Trichy, Tamil Nadu, India"
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("address", {
+						className: "mt-3 text-sm leading-relaxed text-white/60 not-italic",
+						children: [
+							"INNOV8 MILLENIA, 2ND FLOOR,",
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("br", {}),
+							"EAST WING, RMZ MILLENIA",
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("br", {}),
+							"BUSINESS PARK, CAMPUS 1A,",
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("br", {}),
+							"NO.143, DR.M.G.R. ROAD,",
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("br", {}),
+							"PERUNGUDI, SHOLINGANALLUR,",
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("br", {}),
+							"CHENNAI-600096"
+						]
 					})
 				] })
 			]
