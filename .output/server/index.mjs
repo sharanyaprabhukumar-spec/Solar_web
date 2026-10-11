@@ -1,6 +1,6 @@
 globalThis.__nitro_main__ = import.meta.url;
-import { i as serve, r as NodeResponse } from "./_libs/h3-v2+rou3+srvx.mjs";
-import { a as HTTPError, i as toEventHandler, n as defineHandler, r as defineLazyEventHandler, t as H3Core } from "./_libs/h3+rou3+srvx.mjs";
+import { _ as NodeResponse, v as serve } from "./_libs/@tanstack/react-start+[...].mjs";
+import { a as callMiddleware, i as toEventHandler, n as defineHandler, o as toMiddleware, r as defineLazyEventHandler, s as HTTPError, t as H3Core } from "./_libs/h3+rou3+srvx.mjs";
 import { i as withoutTrailingSlash, n as joinURL, r as withLeadingSlash, t as decodePath } from "./_libs/ufo.mjs";
 import { promises } from "node:fs";
 import { fileURLToPath } from "node:url";
@@ -22,6 +22,139 @@ var headers = ((m) => function headersRouteRule(event) {
 	for (const [key, value] of Object.entries(m.options || {})) event.res.headers.set(key, value);
 });
 //#endregion
+//#region src/lib/error-capture.ts
+var lastCapturedError;
+var TTL_MS = 5e3;
+function record(error) {
+	lastCapturedError = {
+		error,
+		at: Date.now()
+	};
+}
+var CAUSE_DEPTH_LIMIT = 5;
+var DESCRIPTION_LENGTH_LIMIT = 8e3;
+function describeError(error) {
+	const parts = [];
+	let current = error;
+	for (let depth = 0; depth < CAUSE_DEPTH_LIMIT && current != null; depth++) {
+		if (!(current instanceof Error)) {
+			parts.push(typeof current === "string" ? current : safeStringify(current));
+			break;
+		}
+		const label = depth === 0 ? "" : "caused by: ";
+		const status = describeStatus(current);
+		parts.push(`${label}${current.stack ?? `${current.name}: ${current.message}`}${status}`);
+		current = current.cause;
+	}
+	return parts.join("\n").slice(0, DESCRIPTION_LENGTH_LIMIT);
+}
+function describeStatus(error) {
+	const { status, statusCode } = error;
+	const value = status ?? statusCode;
+	return typeof value === "number" ? ` (status ${value})` : "";
+}
+function safeStringify(value) {
+	try {
+		return JSON.stringify(value) ?? String(value);
+	} catch {
+		return String(value);
+	}
+}
+function isErrorLike(value) {
+	return value instanceof Error;
+}
+var originalConsoleError = console.error.bind(console);
+console.error = (...args) => {
+	originalConsoleError(...args.map((arg) => {
+		if (!isErrorLike(arg)) return arg;
+		record(arg);
+		return describeError(arg);
+	}));
+};
+if (typeof globalThis.addEventListener === "function") {
+	globalThis.addEventListener("error", (event) => record(event.error ?? event));
+	globalThis.addEventListener("unhandledrejection", (event) => record(event.reason));
+}
+function consumeLastCapturedError() {
+	if (!lastCapturedError) return void 0;
+	if (Date.now() - lastCapturedError.at > TTL_MS) {
+		lastCapturedError = void 0;
+		return;
+	}
+	const { error } = lastCapturedError;
+	lastCapturedError = void 0;
+	return error;
+}
+//#endregion
+//#region src/lib/error-page.ts
+function renderErrorPage() {
+	return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>This page didn't load</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      body { font: 15px/1.5 system-ui, -apple-system, sans-serif; background: #fafafa; color: #111; display: grid; place-items: center; min-height: 100vh; margin: 0; padding: 1.5rem; }
+      .card { max-width: 28rem; width: 100%; text-align: center; padding: 2rem; }
+      h1 { font-size: 1.25rem; margin: 0 0 0.5rem; }
+      p { color: #4b5563; margin: 0 0 1.5rem; }
+      .actions { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; }
+      a, button { padding: 0.5rem 1rem; border-radius: 0.375rem; font: inherit; cursor: pointer; text-decoration: none; border: 1px solid transparent; }
+      .primary { background: #111; color: #fff; }
+      .secondary { background: #fff; color: #111; border-color: #d1d5db; }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h1>This page didn't load</h1>
+      <p>Something went wrong on our end. You can try refreshing or head back home.</p>
+      <div class="actions">
+        <button class="primary" onclick="location.reload()">Try again</button>
+        <a class="secondary" href="/">Go home</a>
+      </div>
+    </div>
+  </body>
+</html>`;
+}
+//#endregion
+//#region src/server.ts
+var serverEntryPromise;
+async function getServerEntry() {
+	if (!serverEntryPromise) serverEntryPromise = import("./_libs/@tanstack/react-start+[...].mjs").then((n) => n.t).then((m) => m.default ?? m);
+	return serverEntryPromise;
+}
+async function normalizeCatastrophicSsrResponse(response) {
+	if (response.status < 500) return response;
+	if (!(response.headers.get("content-type") ?? "").includes("application/json")) return response;
+	const body = await response.clone().text();
+	if (!isH3SwallowedErrorBody(body)) return response;
+	console.error(consumeLastCapturedError() ?? /* @__PURE__ */ new Error(`h3 swallowed SSR error: ${body}`));
+	return new Response(renderErrorPage(), {
+		status: 500,
+		headers: { "content-type": "text/html; charset=utf-8" }
+	});
+}
+function isH3SwallowedErrorBody(body) {
+	try {
+		const payload = JSON.parse(body);
+		return payload.unhandled === true && payload.message === "HTTPError";
+	} catch {
+		return false;
+	}
+}
+var server_default = { async fetch(request, env, ctx) {
+	try {
+		return await normalizeCatastrophicSsrResponse(await (await getServerEntry()).fetch(request, env, ctx));
+	} catch (error) {
+		console.error(error);
+		return new Response(renderErrorPage(), {
+			status: 500,
+			headers: { "content-type": "text/html; charset=utf-8" }
+		});
+	}
+} };
+//#endregion
 //#region #nitro/virtual/public-assets-data
 var public_assets_data_default = {
 	"/robots.txt": {
@@ -38,159 +171,152 @@ var public_assets_data_default = {
 		"size": 4930,
 		"path": "../public/favicon.png"
 	},
-	"/assets/arrow-right-DtFA6Lsb.js": {
+	"/assets/arrow-right-DpMFzZUb.js": {
 		"type": "text/javascript; charset=utf-8",
-		"etag": "\"a5-eL3GB9SzULTWSze6wGkpXCRrcuU\"",
-		"mtime": "2026-10-06T21:15:49.541Z",
+		"etag": "\"a5-sq01TEX7WYhSR+nvQOFmUBxCppE\"",
+		"mtime": "2026-10-07T13:04:44.182Z",
 		"size": 165,
-		"path": "../public/assets/arrow-right-DtFA6Lsb.js"
-	},
-	"/assets/admin.solar-leads-DpOsWyDd.js": {
-		"type": "text/javascript; charset=utf-8",
-		"etag": "\"195a-Iz6vtg9ptiPGf9GqfLWtAplNRfw\"",
-		"mtime": "2026-10-06T21:15:49.541Z",
-		"size": 6490,
-		"path": "../public/assets/admin.solar-leads-DpOsWyDd.js"
-	},
-	"/assets/admin.login-BTCCHMql.js": {
-		"type": "text/javascript; charset=utf-8",
-		"etag": "\"b98-KXP7rFkBCS2D2Az9qVTAX/8/gqI\"",
-		"mtime": "2026-10-06T21:15:49.541Z",
-		"size": 2968,
-		"path": "../public/assets/admin.login-BTCCHMql.js"
+		"path": "../public/assets/arrow-right-DpMFzZUb.js"
 	},
 	"/assets/hero-rooftop-solar-CIqKA7qp.jpg": {
 		"type": "image/jpeg",
 		"etag": "\"328eb-Svri88a/ibtXaGbx0LVpT25D77M\"",
-		"mtime": "2026-10-06T21:15:49.548Z",
+		"mtime": "2026-10-07T13:04:44.190Z",
 		"size": 207083,
 		"path": "../public/assets/hero-rooftop-solar-CIqKA7qp.jpg"
 	},
-	"/assets/shield-check-CcQX54NC.js": {
+	"/assets/createLucideIcon-bOETfPoM.js": {
 		"type": "text/javascript; charset=utf-8",
-		"etag": "\"140-dsQhEHZcfoshnHSvP6L+kbRMPB4\"",
-		"mtime": "2026-10-06T21:15:49.541Z",
-		"size": 320,
-		"path": "../public/assets/shield-check-CcQX54NC.js"
-	},
-	"/assets/createLucideIcon-DsNdYd3H.js": {
-		"type": "text/javascript; charset=utf-8",
-		"etag": "\"4a5-aZb+FHIkp6fcFg2SswEsirptDGU\"",
-		"mtime": "2026-10-06T21:15:49.541Z",
+		"etag": "\"4a5-jg1yx2xsY2+vxOPxMky3P9s2FtE\"",
+		"mtime": "2026-10-07T13:04:44.183Z",
 		"size": 1189,
-		"path": "../public/assets/createLucideIcon-DsNdYd3H.js"
+		"path": "../public/assets/createLucideIcon-bOETfPoM.js"
 	},
-	"/assets/solar-calculations-C104ZoND.js": {
+	"/assets/admin.login-CUmn4i1y.js": {
 		"type": "text/javascript; charset=utf-8",
-		"etag": "\"f3f-nbrujWeL3M41LIOW0by99BAa9+8\"",
-		"mtime": "2026-10-06T21:15:49.541Z",
-		"size": 3903,
-		"path": "../public/assets/solar-calculations-C104ZoND.js"
+		"etag": "\"b98-9Qg4HEpivbGGJmp6h0J+4vRzx9E\"",
+		"mtime": "2026-10-07T13:04:44.180Z",
+		"size": 2968,
+		"path": "../public/assets/admin.login-CUmn4i1y.js"
 	},
-	"/assets/routes-CNdxMNs_.js": {
+	"/assets/admin.solar-leads-DnmpPcwK.js": {
 		"type": "text/javascript; charset=utf-8",
-		"etag": "\"44d9-BPKOuhL/jXcpEXGFd8DlisBOI3A\"",
-		"mtime": "2026-10-06T21:15:49.541Z",
-		"size": 17625,
-		"path": "../public/assets/routes-CNdxMNs_.js"
+		"etag": "\"195a-vivhorPjYej4/XhI3V2hGCogNLI\"",
+		"mtime": "2026-10-07T13:04:44.181Z",
+		"size": 6490,
+		"path": "../public/assets/admin.solar-leads-DnmpPcwK.js"
 	},
-	"/assets/sun-B3M1A_P5.js": {
+	"/assets/routes-DPenaOcK.js": {
 		"type": "text/javascript; charset=utf-8",
-		"etag": "\"21f-zEVTKvrELEuJZoMSDbGtXvxyIoA\"",
-		"mtime": "2026-10-06T21:15:49.541Z",
-		"size": 543,
-		"path": "../public/assets/sun-B3M1A_P5.js"
+		"etag": "\"4c5a-asgmZljq5Tdej5gg4RjbAfOepSg\"",
+		"mtime": "2026-10-07T13:04:44.184Z",
+		"size": 19546,
+		"path": "../public/assets/routes-DPenaOcK.js"
 	},
-	"/assets/solar-calculator-DjnaI-dT.js": {
+	"/assets/shield-check-Dmwz9d9_.js": {
 		"type": "text/javascript; charset=utf-8",
-		"etag": "\"1c24-XHG56ZI7cV+3VafhlprkZusUj1c\"",
-		"mtime": "2026-10-06T21:15:49.541Z",
+		"etag": "\"140-M+5ZtAJBMVUlurguk4UGx4Y1p1E\"",
+		"mtime": "2026-10-07T13:04:44.185Z",
+		"size": 320,
+		"path": "../public/assets/shield-check-Dmwz9d9_.js"
+	},
+	"/assets/solar-calculations-Cwz3nmSu.js": {
+		"type": "text/javascript; charset=utf-8",
+		"etag": "\"fc2-6leS9DRZLbnfdC0qoJcuAPFTB8E\"",
+		"mtime": "2026-10-07T13:04:44.185Z",
+		"size": 4034,
+		"path": "../public/assets/solar-calculations-Cwz3nmSu.js"
+	},
+	"/assets/solar-calculator-DMu-Nh5X.js": {
+		"type": "text/javascript; charset=utf-8",
+		"etag": "\"1c24-0rPlOwVpFr+ASvucivfbGtI14vA\"",
+		"mtime": "2026-10-07T13:04:44.186Z",
 		"size": 7204,
-		"path": "../public/assets/solar-calculator-DjnaI-dT.js"
-	},
-	"/assets/industrial-solar-Rf9MikOK.jpg": {
-		"type": "image/jpeg",
-		"etag": "\"40965-TDhDTmAcO1i7w7GtN2A4dojSzCM\"",
-		"mtime": "2026-10-06T21:15:49.548Z",
-		"size": 264549,
-		"path": "../public/assets/industrial-solar-Rf9MikOK.jpg"
+		"path": "../public/assets/solar-calculator-DMu-Nh5X.js"
 	},
 	"/assets/svc-consult-bqh-mHF7.jpg": {
 		"type": "image/jpeg",
 		"etag": "\"10419-93xQ+pFQ3M8h7nHvQzg9sFEolJ4\"",
-		"mtime": "2026-10-06T21:15:49.550Z",
+		"mtime": "2026-10-07T13:04:44.191Z",
 		"size": 66585,
 		"path": "../public/assets/svc-consult-bqh-mHF7.jpg"
 	},
 	"/assets/svc-groundmount-C3FV8lBu.jpg": {
 		"type": "image/jpeg",
 		"etag": "\"1c84c-2gPcq+gP6tXeoVtOKYjQ7G6jNEk\"",
-		"mtime": "2026-10-06T21:15:49.552Z",
+		"mtime": "2026-10-07T13:04:44.194Z",
 		"size": 116812,
 		"path": "../public/assets/svc-groundmount-C3FV8lBu.jpg"
 	},
 	"/assets/svc-om-CbfkFWdh.jpg": {
 		"type": "image/jpeg",
 		"etag": "\"1c820-g60QoQVnEvR/NnNLVJTmy7sa/5Y\"",
-		"mtime": "2026-10-06T21:15:49.552Z",
+		"mtime": "2026-10-07T13:04:44.195Z",
 		"size": 116768,
 		"path": "../public/assets/svc-om-CbfkFWdh.jpg"
+	},
+	"/assets/svc-pump-JhNHVJxO.jpg": {
+		"type": "image/jpeg",
+		"etag": "\"1d35b-XtBmTRO55PNVjB2XG78fTeSLE9M\"",
+		"mtime": "2026-10-07T13:04:44.196Z",
+		"size": 119643,
+		"path": "../public/assets/svc-pump-JhNHVJxO.jpg"
 	},
 	"/assets/svc-rooftop-CPdp4z4v.jpg": {
 		"type": "image/jpeg",
 		"etag": "\"ca5b-JGD/r68X3Q2zEb7Gu3+eSpPEOWQ\"",
-		"mtime": "2026-10-06T21:15:49.554Z",
+		"mtime": "2026-10-07T13:04:44.196Z",
 		"size": 51803,
 		"path": "../public/assets/svc-rooftop-CPdp4z4v.jpg"
 	},
 	"/assets/sys-hybrid-7y_SH-4T.jpg": {
 		"type": "image/jpeg",
 		"etag": "\"9c57-UtGRa7f8ninR2vltqALBjRHTkoE\"",
-		"mtime": "2026-10-06T21:15:49.554Z",
+		"mtime": "2026-10-07T13:04:44.198Z",
 		"size": 40023,
 		"path": "../public/assets/sys-hybrid-7y_SH-4T.jpg"
-	},
-	"/assets/svc-pump-JhNHVJxO.jpg": {
-		"type": "image/jpeg",
-		"etag": "\"1d35b-XtBmTRO55PNVjB2XG78fTeSLE9M\"",
-		"mtime": "2026-10-06T21:15:49.552Z",
-		"size": 119643,
-		"path": "../public/assets/svc-pump-JhNHVJxO.jpg"
 	},
 	"/assets/sys-offgrid-WUphgwLD.jpg": {
 		"type": "image/jpeg",
 		"etag": "\"18edf-HZ8MTjn3nxSN50dPgKUI473JxqY\"",
-		"mtime": "2026-10-06T21:15:49.554Z",
+		"mtime": "2026-10-07T13:04:44.199Z",
 		"size": 102111,
 		"path": "../public/assets/sys-offgrid-WUphgwLD.jpg"
 	},
 	"/assets/sys-ongrid-Cd_xkBQf.jpg": {
 		"type": "image/jpeg",
 		"etag": "\"100a3-OC7R+Z4l5Y29kV435nZnZ2eeeXA\"",
-		"mtime": "2026-10-06T21:15:49.554Z",
+		"mtime": "2026-10-07T13:04:44.200Z",
 		"size": 65699,
 		"path": "../public/assets/sys-ongrid-Cd_xkBQf.jpg"
-	},
-	"/assets/styles-LTMFz0Ws.css": {
-		"type": "text/css; charset=utf-8",
-		"etag": "\"14917-PEU5ypSS9ZG9EPuBG0XpYc6siRM\"",
-		"mtime": "2026-10-06T21:15:49.550Z",
-		"size": 84247,
-		"path": "../public/assets/styles-LTMFz0Ws.css"
 	},
 	"/assets/TrueBright Energy Solutions Logo-BbbfaLEJ.png": {
 		"type": "image/png",
 		"etag": "\"93efe-IWQu65PzyJ3mNl69gKqFXB5OFVw\"",
-		"mtime": "2026-10-06T21:15:49.541Z",
+		"mtime": "2026-10-07T13:04:44.189Z",
 		"size": 605950,
 		"path": "../public/assets/TrueBright Energy Solutions Logo-BbbfaLEJ.png"
 	},
-	"/assets/index-Dh45y9Kn.js": {
+	"/assets/sun-CUkdvva5.js": {
 		"type": "text/javascript; charset=utf-8",
-		"etag": "\"55d0a-MF8ZZSlPQmxzx8X8u/uVQ490YME\"",
-		"mtime": "2026-10-06T21:15:49.535Z",
+		"etag": "\"21f-ya45nLmZ3zoxd3ypm6FsOmAh++A\"",
+		"mtime": "2026-10-07T13:04:44.187Z",
+		"size": 543,
+		"path": "../public/assets/sun-CUkdvva5.js"
+	},
+	"/assets/styles-D_4Vb0Ng.css": {
+		"type": "text/css; charset=utf-8",
+		"etag": "\"1653b-HQ2GqvQZ0ZQZFwAVTLyJjv1dhsc\"",
+		"mtime": "2026-10-07T13:04:44.191Z",
+		"size": 91451,
+		"path": "../public/assets/styles-D_4Vb0Ng.css"
+	},
+	"/assets/index-Ei2t_K1X.js": {
+		"type": "text/javascript; charset=utf-8",
+		"etag": "\"55d0a-D+EEH1HizlitPDZspjkKhpCLjjk\"",
+		"mtime": "2026-10-07T13:04:44.179Z",
 		"size": 351498,
-		"path": "../public/assets/index-Dh45y9Kn.js"
+		"path": "../public/assets/index-Ei2t_K1X.js"
 	}
 };
 //#endregion
@@ -280,18 +406,26 @@ var findRouteRules = /* @__PURE__ */ (() => {
 		return r;
 	};
 })();
+var multiHandler = (...handlers) => {
+	const final = handlers.pop();
+	const middleware = handlers.filter(Boolean).map((h) => toMiddleware(h));
+	return (ev) => callMiddleware(ev, middleware, final);
+};
 var _lazy_08KqdJ = defineLazyEventHandler(() => import("./_chunks/renderer-template.mjs"));
 var findRoute = /* @__PURE__ */ (() => {
-	const data = {
+	const $0 = {
 		route: "/**",
-		handler: _lazy_08KqdJ
+		handler: multiHandler(toEventHandler(server_default), _lazy_08KqdJ)
 	};
-	return ((_m, p) => {
+	return (m, p) => {
+		if (p.charCodeAt(p.length - 1) === 47) p = p.slice(0, -1) || "/";
+		let s = p.split("/");
+		s.length;
 		return {
-			data,
-			params: { "_": p.slice(1) }
+			data: $0,
+			params: { "_": s.slice(1).join("/") }
 		};
-	});
+	};
 })();
 var globalMiddleware = [toEventHandler(static_default)].filter(Boolean);
 //#endregion
@@ -467,4 +601,4 @@ serve({
 trapUnhandledErrors();
 var node_server_default = {};
 //#endregion
-export { node_server_default as default };
+export { node_server_default as default, renderErrorPage as t };
