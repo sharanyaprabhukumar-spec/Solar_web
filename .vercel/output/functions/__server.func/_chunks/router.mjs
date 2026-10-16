@@ -243,9 +243,9 @@ function Nav() {
 					}, l.href))
 				}),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
-					href: "tel:+919150864777",
+					href: "tel:+919042640908",
 					className: "hidden shrink-0 rounded-md bg-primary px-3 py-2 text-xs font-medium text-primary-foreground transition-opacity hover:opacity-90 sm:inline-flex sm:px-4 sm:text-sm",
-					children: "+91 91508 64777"
+					children: "+91 90426 40908"
 				})
 			]
 		})
@@ -500,9 +500,9 @@ function Hero() {
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 						className: "mt-8 flex flex-wrap items-center gap-4",
 						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("a", {
-							href: "tel:+919150864777",
+							href: "tel:+919042640908",
 							className: "inline-flex items-center gap-2 rounded-md bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-lift transition hover:bg-primary/90",
-							children: ["Call +91 91508 64777 ", /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowRight, { size: 17 })]
+							children: ["Call +91 90426 40908 ", /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowRight, { size: 17 })]
 						})
 					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
@@ -897,7 +897,7 @@ function Contact() {
 					className: "inline-flex items-center gap-2 rounded-md bg-primary px-5 py-3.5 text-sm font-semibold text-white",
 					children: ["Calculate savings ", /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowRight, { size: 16 })]
 				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
-					href: "tel:+919150864777",
+					href: "tel:+919042640908",
 					className: "inline-flex items-center gap-2 rounded-md border border-primary/25 px-5 py-3.5 text-sm font-semibold text-primary",
 					children: "Call us"
 				})]
@@ -929,9 +929,9 @@ function Footer() {
 						children: "Contact us"
 					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
-						href: "tel:+919150864777",
+						href: "tel:+919042640908",
 						className: "mt-4 block text-sm text-white/70 hover:text-white",
-						children: "+91 91508 64777"
+						children: "+91 90426 40908"
 					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
 						href: "mailto:info@truebrightenergy.com",

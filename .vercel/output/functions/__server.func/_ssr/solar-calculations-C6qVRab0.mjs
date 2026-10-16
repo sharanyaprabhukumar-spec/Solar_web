@@ -62,9 +62,9 @@ function Nav() {
 					}, l.href))
 				}),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
-					href: "tel:+919150864777",
+					href: "tel:+919042640908",
 					className: "hidden shrink-0 rounded-md bg-primary px-3 py-2 text-xs font-medium text-primary-foreground transition-opacity hover:opacity-90 sm:inline-flex sm:px-4 sm:text-sm",
-					children: "+91 91508 64777"
+					children: "+91 90426 40908"
 				})
 			]
 		})
