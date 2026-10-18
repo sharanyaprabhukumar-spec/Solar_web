@@ -148,6 +148,39 @@ var ChevronDown = createLucideIcon("chevron-down", [["path", {
 * This source code is licensed under the ISC license.
 * See the LICENSE file in the root directory of this source tree.
 */
+var ClipboardCopy = createLucideIcon("clipboard-copy", [
+	["rect", {
+		width: "8",
+		height: "4",
+		x: "8",
+		y: "2",
+		rx: "1",
+		ry: "1",
+		key: "tgr4d6"
+	}],
+	["path", {
+		d: "M8 4H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2",
+		key: "4jdomd"
+	}],
+	["path", {
+		d: "M16 4h2a2 2 0 0 1 2 2v4",
+		key: "3hqy98"
+	}],
+	["path", {
+		d: "M21 14H11",
+		key: "1bme5i"
+	}],
+	["path", {
+		d: "m15 10-4 4 4 4",
+		key: "5dvupr"
+	}]
+]);
+/**
+* @license lucide-react v0.575.0 - ISC
+*
+* This source code is licensed under the ISC license.
+* See the LICENSE file in the root directory of this source tree.
+*/
 var Download = createLucideIcon("download", [
 	["path", {
 		d: "M12 15V3",
@@ -275,6 +308,30 @@ var Menu = createLucideIcon("menu", [
 * This source code is licensed under the ISC license.
 * See the LICENSE file in the root directory of this source tree.
 */
+var Printer = createLucideIcon("printer", [
+	["path", {
+		d: "M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2",
+		key: "143wyd"
+	}],
+	["path", {
+		d: "M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6",
+		key: "1itne7"
+	}],
+	["rect", {
+		x: "6",
+		y: "14",
+		width: "12",
+		height: "8",
+		rx: "1",
+		key: "1ue0tg"
+	}]
+]);
+/**
+* @license lucide-react v0.575.0 - ISC
+*
+* This source code is licensed under the ISC license.
+* See the LICENSE file in the root directory of this source tree.
+*/
 var RefreshCw = createLucideIcon("refresh-cw", [
 	["path", {
 		d: "M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8",
@@ -389,4 +446,4 @@ var X = createLucideIcon("x", [["path", {
 	key: "d8bk6v"
 }]]);
 //#endregion
-export { RotateCcw as a, LockKeyhole as c, ExternalLink as d, Download as f, ArrowRight as h, ShieldCheck as i, Leaf as l, Check as m, Wrench as n, RefreshCw as o, ChevronDown as p, Sun as r, Menu as s, X as t, IndianRupee as u };
+export { ArrowRight as _, RotateCcw as a, Menu as c, IndianRupee as d, ExternalLink as f, Check as g, ChevronDown as h, ShieldCheck as i, LockKeyhole as l, ClipboardCopy as m, Wrench as n, RefreshCw as o, Download as p, Sun as r, Printer as s, X as t, Leaf as u };

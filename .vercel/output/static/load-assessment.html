@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#087b68" />
+    <title>TrueBright Marriage Hall Load Calculator</title>
+    <link rel="manifest" href="manifest.webmanifest" />
+    <style>
+      body {
+        margin: 0;
+        font-family: system-ui, Arial;
+        background: #f3f7f5;
+        color: #18312b;
+      }
+      header {
+        background: #087b68;
+        color: white;
+        padding: 20px 16px;
+      }
+      main {
+        max-width: 700px;
+        margin: auto;
+        padding: 16px;
+      }
+      .card {
+        background: white;
+        padding: 16px;
+        border-radius: 15px;
+        margin: 12px 0;
+        box-shadow: 0 2px 10px #1232;
+      }
+      h1 {
+        font-size: 22px;
+        margin: 0;
+      }
+      h2 {
+        font-size: 17px;
+        margin: 0 0 12px;
+      }
+      .sub {
+        font-size: 13px;
+        opacity: 0.85;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+      label {
+        display: block;
+        font-size: 13px;
+        margin: 8px 0;
+      }
+      input {
+        box-sizing: border-box;
+        width: 100%;
+        padding: 11px;
+        border: 1px solid #b9cec5;
+        border-radius: 9px;
+        font-size: 16px;
+        margin-top: 5px;
+      }
+      button {
+        background: #087b68;
+        border: 0;
+        color: white;
+        padding: 13px 17px;
+        border-radius: 10px;
+        font-weight: 700;
+        margin: 6px 5px 6px 0;
+      }
+      .metric {
+        background: #eaf5ef;
+        padding: 13px;
+        border-radius: 10px;
+      }
+      .metric strong {
+        display: block;
+        font-size: 23px;
+        color: #086b59;
+      }
+      .note {
+        font-size: 12px;
+        color: #5c6c65;
+        line-height: 1.5;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      td,
+      th {
+        padding: 9px 3px;
+        text-align: left;
+        border-bottom: 1px solid #e1e9e5;
+        font-size: 14px;
+      }
+      td:last-child,
+      th:last-child {
+        text-align: right;
+      }
+      :root {
+        --deep: #1c2544;
+        --primary: #252f58;
+        --accent: #16804b;
+        --solar: #f2bd3f;
+        --surface: #f3f6f8;
+        --border: #dfe5ec;
+        --muted: #5d687e;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        min-width: 320px;
+        background: var(--surface);
+        color: var(--deep);
+        font-family: "DM Sans", "Segoe UI", sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      header {
+        padding: 42px 20px;
+        border-bottom: 4px solid var(--solar);
+        background: linear-gradient(135deg, #171f3b, #303d68);
+      }
+      h1,
+      h2 {
+        font-family: "Space Grotesk", "Segoe UI", sans-serif;
+      }
+      h1 {
+        max-width: 840px;
+        margin: auto;
+        font-size: clamp(30px, 5vw, 42px);
+        line-height: 1.1;
+      }
+      h2 {
+        margin-bottom: 16px;
+        color: var(--primary);
+        font-size: 20px;
+        line-height: 1.3;
+      }
+      .sub {
+        max-width: 840px;
+        margin: 10px auto 0;
+        color: #f6d879;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        line-height: 1.5;
+        text-transform: uppercase;
+      }
+      main {
+        max-width: 840px;
+        padding: 24px 20px 56px;
+      }
+      .card {
+        margin: 14px 0;
+        padding: 24px;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        box-shadow: 0 22px 48px -30px rgb(28 37 68 / 42%);
+      }
+      label {
+        color: var(--primary);
+        font-weight: 600;
+        line-height: 1.5;
+      }
+      input {
+        min-height: 48px;
+        padding: 11px 13px;
+        border: 1px solid #cbd4df;
+        border-radius: 6px;
+        background: white;
+        color: var(--deep);
+        font: inherit;
+        font-size: 16px;
+      }
+      input:focus {
+        border-color: var(--accent);
+        outline: none;
+        box-shadow: 0 0 0 3px rgb(22 128 75 / 14%);
+      }
+      button {
+        min-height: 46px;
+        padding: 12px 17px;
+        border-radius: 6px;
+        background: var(--primary);
+        font: inherit;
+        font-size: 14px;
+        cursor: pointer;
+      }
+      button:hover {
+        background: var(--accent);
+      }
+      button:focus-visible {
+        outline: 3px solid var(--solar);
+        outline-offset: 2px;
+      }
+      .metric {
+        border: 1px solid #dce9df;
+        border-radius: 8px;
+        background: #f0f6f1;
+        color: var(--muted);
+      }
+      .metric strong {
+        color: var(--accent);
+        font-family: "Space Grotesk", "Segoe UI", sans-serif;
+      }
+      .metric:has(#solar) {
+        border-color: #f1e5bd;
+        background: #fbf7e9;
+      }
+      .metric:has(#solar) strong {
+        color: #96700d;
+      }
+      .note {
+        color: var(--muted);
+        line-height: 1.6;
+      }
+      td,
+      th {
+        border-bottom-color: var(--border);
+        font-size: 13px;
+      }
+      th {
+        color: var(--primary);
+      }
+      @media (max-width: 520px) {
+        header {
+          padding: 34px 16px;
+        }
+        main {
+          padding: 16px 12px 40px;
+        }
+        .card {
+          padding: 18px 16px;
+        }
+        .grid {
+          gap: 8px;
+        }
+        td,
+        th {
+          padding: 8px 3px;
+          font-size: 11px;
+        }
+      }
+      @media print {
+        body {
+          background: white;
+        }
+        header {
+          background: var(--deep);
+          print-color-adjust: exact;
+        }
+        .card {
+          break-inside: avoid;
+          box-shadow: none;
+        }
+        button {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>TrueBright Energy Solutions</h1>
+      <div class="sub">Marriage Hall Load Assessment – AC, Fans, Lights & Solar</div>
+    </header>
+    <main>
+      <div class="card">
+        <h2>Function schedule</h2>
+        <div class="grid">
+          <label>Function days / month<input id="days" type="number" min="0" value="8" /></label
+          ><label
+            >Electricity tariff ₹/unit<input id="rate" type="number" min="0" step="0.1" value="8"
+          /></label>
+        </div>
+      </div>
+      <div class="card">
+        <h2>AC equipment</h2>
+        <div id="acs"></div>
+        <div class="grid">
+          <label
+            >Electrical input kW/TR<input
+              id="kwtr"
+              type="number"
+              step="0.1"
+              min="0"
+              value="1.4" /></label
+          ><label
+            >AC hours/function<input id="ach" type="number" min="0" max="24" value="8"
+          /></label>
+        </div>
+        <p class="note">
+          AC electrical input is an estimate. Use nameplate rated/actual input kW when available.
+        </p>
+      </div>
+      <div class="card">
+        <h2>Fans</h2>
+        <div class="grid">
+          <label>Quantity<input id="fans" type="number" value="30" /></label
+          ><label>Watts each<input id="fanw" type="number" value="75" /></label
+          ><label>Hours/function<input id="fanh" type="number" value="10" /></label>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Lights</h2>
+        <div class="grid">
+          <label>Quantity<input id="lights" type="number" value="100" /></label
+          ><label>Watts each<input id="lightw" type="number" value="20" /></label
+          ><label>Hours/function<input id="lighth" type="number" value="10" /></label>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Other loads</h2>
+        <div class="grid">
+          <label>Kitchen, pumps, lift etc. (kW)<input id="other" type="number" value="10" /></label
+          ><label>Hours/function<input id="otherh" type="number" value="8" /></label>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Solar assumptions</h2>
+        <div class="grid">
+          <label
+            >Target energy offset (%)<input
+              id="share"
+              type="number"
+              min="0"
+              max="100"
+              value="60" /></label
+          ><label
+            >Solar yield (kWh/kWp/day)<input
+              id="yield"
+              type="number"
+              step="0.1"
+              min="0.1"
+              value="4"
+          /></label>
+        </div>
+        <p class="note">
+          Solar sizing is an energy-based screening estimate only. Confirm daytime load,
+          non-function day usage, export policy, roof space and meter arrangement before proposing
+          capacity.
+        </p>
+      </div>
+      <div class="card">
+        <h2>Marriage Hall Load Assessment</h2>
+        <p class="note">
+          Detailed electrical load and consumption by equipment type, using your quantities and
+          operating hours.
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>Equipment</th>
+              <th>Load (kW)</th>
+              <th>Hours</th>
+              <th>Units/day</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>AC</td>
+              <td id="acload">—</td>
+              <td id="acrun">—</td>
+              <td id="acunits">—</td>
+            </tr>
+            <tr>
+              <td>Fans</td>
+              <td id="fanload">—</td>
+              <td id="fanrun">—</td>
+              <td id="fanunits">—</td>
+            </tr>
+            <tr>
+              <td>Lights</td>
+              <td id="lightload">—</td>
+              <td id="lightrun">—</td>
+              <td id="lightunits">—</td>
+            </tr>
+            <tr>
+              <td>Other</td>
+              <td id="otherload">—</td>
+              <td id="otherrun">—</td>
+              <td id="otherunits">—</td>
+            </tr>
+            <tr>
+              <th>Total</th>
+              <th id="sumload">—</th>
+              <th>—</th>
+              <th id="sumunits">—</th>
+            </tr>
+          </tbody>
+        </table>
+        <h2 style="margin-top: 18px">Calculation results</h2>
+        <div class="grid">
+          <div class="metric">Cooling capacity<strong id="tr">—</strong></div>
+          <div class="metric">Running load<strong id="kw">—</strong></div>
+          <div class="metric">Units / function<strong id="daily">—</strong></div>
+          <div class="metric">Monthly units<strong id="monthly">—</strong></div>
+          <div class="metric">Monthly energy cost<strong id="cost">—</strong></div>
+          <div class="metric">Indicative solar size<strong id="solar">—</strong></div>
+        </div>
+        <p class="note" id="caution"></p>
+        <button onclick="copyReport()">Copy report</button
+        ><button onclick="window.print()">Print / Save PDF</button
+        ><button onclick="resetApp()">Reset</button>
+      </div>
+      <p class="note">
+        All calculations run locally on your phone. Values are saved in this browser when possible.
+        No customer information is transmitted.
+      </p>
+    </main>
+    <script>
+      const acs = [
+        [4.5, 2],
+        [5.5, 4],
+        [17, 1],
+      ];
+      document.getElementById("acs").innerHTML = acs
+        .map(
+          (a, i) =>
+            `<div class="grid"><label>AC tonnage<input id="ton${i}" type="number" step="0.1" value="${a[0]}"></label><label>Quantity<input id="qty${i}" type="number" value="${a[1]}"></label></div>`,
+        )
+        .join("");
+      const ids = [
+        "days",
+        "rate",
+        "kwtr",
+        "ach",
+        "fans",
+        "fanw",
+        "fanh",
+        "lights",
+        "lightw",
+        "lighth",
+        "other",
+        "otherh",
+        "share",
+        "yield",
+        ...acs.flatMap((_, i) => ["ton" + i, "qty" + i]),
+      ];
+      try {
+        const saved = JSON.parse(localStorage.getItem("tb-hall") || "{}");
+        ids.forEach((id) => {
+          if (saved[id] !== undefined) document.getElementById(id).value = saved[id];
+        });
+      } catch (e) {}
+      let report = "";
+      function n(id) {
+        return Math.max(0, Number(document.getElementById(id).value) || 0);
+      }
+      function fmt(v, d = 0) {
+        return v.toLocaleString("en-IN", { maximumFractionDigits: d });
+      }
+      function calc() {
+        const tr = acs.reduce((s, _, i) => s + n("ton" + i) * n("qty" + i), 0),
+          ac = tr * n("kwtr"),
+          fan = (n("fans") * n("fanw")) / 1000,
+          light = (n("lights") * n("lightw")) / 1000,
+          other = n("other");
+        const kw = ac + fan + light + other,
+          daily = ac * n("ach") + fan * n("fanh") + light * n("lighth") + other * n("otherh"),
+          month = daily * n("days"),
+          cost = month * n("rate"),
+          solar = (month * Math.min(100, n("share"))) / 100 / (30 * Math.max(0.1, n("yield")));
+        const breakdown = [
+          ["ac", ac, n("ach")],
+          ["fan", fan, n("fanh")],
+          ["light", light, n("lighth")],
+          ["other", other, n("otherh")],
+        ];
+        breakdown.forEach(([id, load, hours]) => {
+          document.getElementById(id + "load").textContent = fmt(load, 2);
+          document.getElementById(id + "run").textContent = fmt(hours, 1);
+          document.getElementById(id + "units").textContent = fmt(load * hours, 1);
+        });
+        document.getElementById("sumload").textContent = fmt(kw, 2);
+        document.getElementById("sumunits").textContent = fmt(daily, 1);
+        const vals = {
+          tr: fmt(tr, 1) + " TR",
+          kw: fmt(kw, 1) + " kW",
+          daily: fmt(daily) + " kWh",
+          monthly: fmt(month) + " kWh",
+          cost: "₹" + fmt(cost),
+          solar: fmt(solar, 1) + " kWp",
+        };
+        Object.entries(vals).forEach(([k, v]) => (document.getElementById(k).textContent = v));
+        document.getElementById("caution").textContent =
+          "Solar sizing assumes 30 days of potential solar production, including non-function days, and that generation can be utilized or credited. Demand charges require separate kVA/maximum-demand assessment.";
+        report =
+          "TrueBright Marriage Hall Load Assessment\n" +
+          breakdown
+            .map(
+              ([id, load, hours]) =>
+                id.toUpperCase() +
+                ": " +
+                fmt(load, 2) +
+                " kW x " +
+                hours +
+                " hours = " +
+                fmt(load * hours, 1) +
+                " units/function",
+            )
+            .join("\n") +
+          "\n" +
+          Object.entries(vals)
+            .map(([k, v]) => k + ": " + v)
+            .join("\n") +
+          "\nFunction days: " +
+          n("days") +
+          "; AC hours: " +
+          n("ach");
+        try {
+          localStorage.setItem(
+            "tb-hall",
+            JSON.stringify(
+              Object.fromEntries(ids.map((id) => [id, document.getElementById(id).value])),
+            ),
+          );
+        } catch (e) {}
+      }
+      ids.forEach((id) => document.getElementById(id).addEventListener("input", calc));
+      function copyReport() {
+        if (navigator.clipboard && window.isSecureContext) {
+          navigator.clipboard
+            .writeText(report)
+            .then(() => alert("Report copied"))
+            .catch(() => prompt("Copy report:", report));
+        } else prompt("Copy report:", report);
+      }
+      function resetApp() {
+        localStorage.removeItem("tb-hall");
+        location.reload();
+      }
+      calc();
+    </script>
+  </body>
+</html>

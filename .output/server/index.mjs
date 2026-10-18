@@ -157,6 +157,20 @@ var server_default = { async fetch(request, env, ctx) {
 //#endregion
 //#region #nitro/virtual/public-assets-data
 var public_assets_data_default = {
+	"/assets/admin.login-C0b6LlVg.js": {
+		"type": "text/javascript; charset=utf-8",
+		"etag": "\"b98-nPv6XgjNxrreMV4Mnybn30UwHBQ\"",
+		"mtime": "2026-10-18T20:17:10.105Z",
+		"size": 2968,
+		"path": "../public/assets/admin.login-C0b6LlVg.js"
+	},
+	"/assets/admin.solar-leads-x6M_ubmO.js": {
+		"type": "text/javascript; charset=utf-8",
+		"etag": "\"195a-l4uLcrJQ7nDwhL1y9Hxk7p3dgdc\"",
+		"mtime": "2026-10-18T20:17:10.106Z",
+		"size": 6490,
+		"path": "../public/assets/admin.solar-leads-x6M_ubmO.js"
+	},
 	"/robots.txt": {
 		"type": "text/plain; charset=utf-8",
 		"etag": "\"ae-hLVBrSrDdpIw3Xl0dJPRkupPepQ\"",
@@ -164,12 +178,19 @@ var public_assets_data_default = {
 		"size": 174,
 		"path": "../public/robots.txt"
 	},
-	"/assets/arrow-right-DZk5Ed57.js": {
+	"/assets/arrow-right-DdBNSmQz.js": {
 		"type": "text/javascript; charset=utf-8",
-		"etag": "\"a5-ARVyPEW0BK+dWAoXg14ozfPjALo\"",
-		"mtime": "2026-10-15T07:37:20.123Z",
+		"etag": "\"a5-d8F2lv+rgG/f9Do6jvt/bm9L2Rc\"",
+		"mtime": "2026-10-18T20:17:10.106Z",
 		"size": 165,
-		"path": "../public/assets/arrow-right-DZk5Ed57.js"
+		"path": "../public/assets/arrow-right-DdBNSmQz.js"
+	},
+	"/assets/createLucideIcon-lk96b5T7.js": {
+		"type": "text/javascript; charset=utf-8",
+		"etag": "\"4a5-NzV2r+Vw4nZspqEx/m+Gisd23RQ\"",
+		"mtime": "2026-10-18T20:17:10.107Z",
+		"size": 1189,
+		"path": "../public/assets/createLucideIcon-lk96b5T7.js"
 	},
 	"/favicon.png": {
 		"type": "image/png",
@@ -178,152 +199,138 @@ var public_assets_data_default = {
 		"size": 49674,
 		"path": "../public/favicon.png"
 	},
-	"/assets/admin.login-CG2IU8jh.js": {
-		"type": "text/javascript; charset=utf-8",
-		"etag": "\"b98-pNsCF6kTs8BqN9GvCG1I09c4tmo\"",
-		"mtime": "2026-10-15T07:37:19.922Z",
-		"size": 2968,
-		"path": "../public/assets/admin.login-CG2IU8jh.js"
+	"/load-assessment.html": {
+		"type": "text/html; charset=utf-8",
+		"etag": "\"3d95-C08p0Czq8iKYJxmABxzJXlXyVaw\"",
+		"mtime": "2026-10-18T20:11:24.413Z",
+		"size": 15765,
+		"path": "../public/load-assessment.html"
 	},
-	"/assets/admin.solar-leads-CvhmfyWS.js": {
+	"/assets/shield-check-DwbF8zGe.js": {
 		"type": "text/javascript; charset=utf-8",
-		"etag": "\"195a-irHRiMxfHm1doD2+VVhdEnMy1m8\"",
-		"mtime": "2026-10-15T07:37:19.922Z",
-		"size": 6490,
-		"path": "../public/assets/admin.solar-leads-CvhmfyWS.js"
+		"etag": "\"140-+DwdP1ZSUtBhiake8egs7zSxl3E\"",
+		"mtime": "2026-10-18T20:17:10.107Z",
+		"size": 320,
+		"path": "../public/assets/shield-check-DwbF8zGe.js"
+	},
+	"/assets/solar-calculations-EQSQJ3QS.js": {
+		"type": "text/javascript; charset=utf-8",
+		"etag": "\"f3f-2FQZON9GLDjeD/e38CQU6EYuIWE\"",
+		"mtime": "2026-10-18T20:17:10.107Z",
+		"size": 3903,
+		"path": "../public/assets/solar-calculations-EQSQJ3QS.js"
 	},
 	"/assets/hero-rooftop-solar-CIqKA7qp.jpg": {
 		"type": "image/jpeg",
 		"etag": "\"328eb-Svri88a/ibtXaGbx0LVpT25D77M\"",
-		"mtime": "2026-10-15T07:37:20.488Z",
+		"mtime": "2026-10-18T20:17:10.111Z",
 		"size": 207083,
 		"path": "../public/assets/hero-rooftop-solar-CIqKA7qp.jpg"
 	},
-	"/assets/createLucideIcon-Nr6TkR7o.js": {
+	"/assets/routes-C1lEB9tb.js": {
 		"type": "text/javascript; charset=utf-8",
-		"etag": "\"4a5-uczKbZbDpPocF8Pmhon/PAfH30Q\"",
-		"mtime": "2026-10-15T07:37:20.123Z",
-		"size": 1189,
-		"path": "../public/assets/createLucideIcon-Nr6TkR7o.js"
+		"etag": "\"4610-BjTnGGk1UmFcvj4/VQdgyhVrDAA\"",
+		"mtime": "2026-10-18T20:17:10.107Z",
+		"size": 17936,
+		"path": "../public/assets/routes-C1lEB9tb.js"
 	},
-	"/assets/industrial-solar-Rf9MikOK.jpg": {
-		"type": "image/jpeg",
-		"etag": "\"40965-TDhDTmAcO1i7w7GtN2A4dojSzCM\"",
-		"mtime": "2026-10-15T07:37:20.490Z",
-		"size": 264549,
-		"path": "../public/assets/industrial-solar-Rf9MikOK.jpg"
-	},
-	"/assets/routes-D7GPS27B.js": {
+	"/assets/solar-calculator-8Tc30nrS.js": {
 		"type": "text/javascript; charset=utf-8",
-		"etag": "\"45c4-U0P1VSCpNPYfIpPbev5XE9vwZDs\"",
-		"mtime": "2026-10-15T07:37:20.481Z",
-		"size": 17860,
-		"path": "../public/assets/routes-D7GPS27B.js"
+		"etag": "\"49db-51Bu/jCT2fgs0NNvDrV/h+xB9HE\"",
+		"mtime": "2026-10-18T20:17:10.110Z",
+		"size": 18907,
+		"path": "../public/assets/solar-calculator-8Tc30nrS.js"
 	},
-	"/assets/shield-check-C2CoFmW2.js": {
+	"/assets/sun-BGDyeMSX.js": {
 		"type": "text/javascript; charset=utf-8",
-		"etag": "\"140-X7/vUKYTCGwaKUZYHwjO4YMb7fA\"",
-		"mtime": "2026-10-15T07:37:20.483Z",
-		"size": 320,
-		"path": "../public/assets/shield-check-C2CoFmW2.js"
-	},
-	"/assets/solar-calculations-CYh5fay1.js": {
-		"type": "text/javascript; charset=utf-8",
-		"etag": "\"f3f-HUd7hLxTZ52nmXMKgbPON8MHn60\"",
-		"mtime": "2026-10-15T07:37:20.485Z",
-		"size": 3903,
-		"path": "../public/assets/solar-calculations-CYh5fay1.js"
-	},
-	"/assets/solar-calculator-VviVyt6w.js": {
-		"type": "text/javascript; charset=utf-8",
-		"etag": "\"1c24-CeT1YuYXrjNfIRmGnEjn+VJOpLw\"",
-		"mtime": "2026-10-15T07:37:20.485Z",
-		"size": 7204,
-		"path": "../public/assets/solar-calculator-VviVyt6w.js"
+		"etag": "\"21f-/B6ChmHYBJhI2qIW6ZlH6D1QbGY\"",
+		"mtime": "2026-10-18T20:17:10.110Z",
+		"size": 543,
+		"path": "../public/assets/sun-BGDyeMSX.js"
 	},
 	"/assets/svc-consult-bqh-mHF7.jpg": {
 		"type": "image/jpeg",
 		"etag": "\"10419-93xQ+pFQ3M8h7nHvQzg9sFEolJ4\"",
-		"mtime": "2026-10-15T07:37:20.490Z",
+		"mtime": "2026-10-18T20:17:10.111Z",
 		"size": 66585,
 		"path": "../public/assets/svc-consult-bqh-mHF7.jpg"
 	},
-	"/assets/svc-groundmount-C3FV8lBu.jpg": {
+	"/assets/industrial-solar-Rf9MikOK.jpg": {
 		"type": "image/jpeg",
-		"etag": "\"1c84c-2gPcq+gP6tXeoVtOKYjQ7G6jNEk\"",
-		"mtime": "2026-10-15T07:37:20.493Z",
-		"size": 116812,
-		"path": "../public/assets/svc-groundmount-C3FV8lBu.jpg"
+		"etag": "\"40965-TDhDTmAcO1i7w7GtN2A4dojSzCM\"",
+		"mtime": "2026-10-18T20:17:10.111Z",
+		"size": 264549,
+		"path": "../public/assets/industrial-solar-Rf9MikOK.jpg"
 	},
 	"/assets/svc-om-CbfkFWdh.jpg": {
 		"type": "image/jpeg",
 		"etag": "\"1c820-g60QoQVnEvR/NnNLVJTmy7sa/5Y\"",
-		"mtime": "2026-10-15T07:37:20.499Z",
+		"mtime": "2026-10-18T20:17:10.111Z",
 		"size": 116768,
 		"path": "../public/assets/svc-om-CbfkFWdh.jpg"
 	},
-	"/assets/svc-pump-JhNHVJxO.jpg": {
+	"/assets/svc-groundmount-C3FV8lBu.jpg": {
 		"type": "image/jpeg",
-		"etag": "\"1d35b-XtBmTRO55PNVjB2XG78fTeSLE9M\"",
-		"mtime": "2026-10-15T07:37:20.500Z",
-		"size": 119643,
-		"path": "../public/assets/svc-pump-JhNHVJxO.jpg"
+		"etag": "\"1c84c-2gPcq+gP6tXeoVtOKYjQ7G6jNEk\"",
+		"mtime": "2026-10-18T20:17:10.111Z",
+		"size": 116812,
+		"path": "../public/assets/svc-groundmount-C3FV8lBu.jpg"
 	},
 	"/assets/svc-rooftop-CPdp4z4v.jpg": {
 		"type": "image/jpeg",
 		"etag": "\"ca5b-JGD/r68X3Q2zEb7Gu3+eSpPEOWQ\"",
-		"mtime": "2026-10-15T07:37:20.500Z",
+		"mtime": "2026-10-18T20:17:10.111Z",
 		"size": 51803,
 		"path": "../public/assets/svc-rooftop-CPdp4z4v.jpg"
 	},
 	"/assets/sys-hybrid-7y_SH-4T.jpg": {
 		"type": "image/jpeg",
 		"etag": "\"9c57-UtGRa7f8ninR2vltqALBjRHTkoE\"",
-		"mtime": "2026-10-15T07:37:20.502Z",
+		"mtime": "2026-10-18T20:17:10.111Z",
 		"size": 40023,
 		"path": "../public/assets/sys-hybrid-7y_SH-4T.jpg"
+	},
+	"/assets/svc-pump-JhNHVJxO.jpg": {
+		"type": "image/jpeg",
+		"etag": "\"1d35b-XtBmTRO55PNVjB2XG78fTeSLE9M\"",
+		"mtime": "2026-10-18T20:17:10.111Z",
+		"size": 119643,
+		"path": "../public/assets/svc-pump-JhNHVJxO.jpg"
 	},
 	"/assets/sys-offgrid-WUphgwLD.jpg": {
 		"type": "image/jpeg",
 		"etag": "\"18edf-HZ8MTjn3nxSN50dPgKUI473JxqY\"",
-		"mtime": "2026-10-15T07:37:20.502Z",
+		"mtime": "2026-10-18T20:17:10.117Z",
 		"size": 102111,
 		"path": "../public/assets/sys-offgrid-WUphgwLD.jpg"
 	},
 	"/assets/sys-ongrid-Cd_xkBQf.jpg": {
 		"type": "image/jpeg",
 		"etag": "\"100a3-OC7R+Z4l5Y29kV435nZnZ2eeeXA\"",
-		"mtime": "2026-10-15T07:37:20.504Z",
+		"mtime": "2026-10-18T20:17:10.117Z",
 		"size": 65699,
 		"path": "../public/assets/sys-ongrid-Cd_xkBQf.jpg"
 	},
-	"/assets/sun-DKaB3z3j.js": {
-		"type": "text/javascript; charset=utf-8",
-		"etag": "\"21f-Eau6PpNiBL+Z2i6u6icVi6iSmdo\"",
-		"mtime": "2026-10-15T07:37:20.485Z",
-		"size": 543,
-		"path": "../public/assets/sun-DKaB3z3j.js"
-	},
-	"/assets/index-ChANbeml.js": {
-		"type": "text/javascript; charset=utf-8",
-		"etag": "\"55d0a-82PLBdMoxHc45y5jMExzr5sI7P8\"",
-		"mtime": "2026-10-15T07:37:19.921Z",
-		"size": 351498,
-		"path": "../public/assets/index-ChANbeml.js"
-	},
-	"/assets/styles-CNxuIK_3.css": {
+	"/assets/styles-DEvFpd9k.css": {
 		"type": "text/css; charset=utf-8",
-		"etag": "\"14935-L9y52Pd5UB/24PVljuhsRRFkVBg\"",
-		"mtime": "2026-10-15T07:37:20.490Z",
-		"size": 84277,
-		"path": "../public/assets/styles-CNxuIK_3.css"
+		"etag": "\"14d8d-tmLJLFTxlOFVz6wW/nvA+tA44/w\"",
+		"mtime": "2026-10-18T20:17:10.111Z",
+		"size": 85389,
+		"path": "../public/assets/styles-DEvFpd9k.css"
 	},
 	"/assets/TrueBright Energy Solutions Logo-BbbfaLEJ.png": {
 		"type": "image/png",
 		"etag": "\"93efe-IWQu65PzyJ3mNl69gKqFXB5OFVw\"",
-		"mtime": "2026-10-15T07:37:20.487Z",
+		"mtime": "2026-10-18T20:17:10.111Z",
 		"size": 605950,
 		"path": "../public/assets/TrueBright Energy Solutions Logo-BbbfaLEJ.png"
+	},
+	"/assets/index-DI7QsOKf.js": {
+		"type": "text/javascript; charset=utf-8",
+		"etag": "\"55d0a-pM85nEK622zNxWRkxJLLyEzw9HE\"",
+		"mtime": "2026-10-18T20:17:10.105Z",
+		"size": 351498,
+		"path": "../public/assets/index-DI7QsOKf.js"
 	}
 };
 //#endregion

@@ -2,10 +2,10 @@ import { i as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react, t as QueryClientProvider } from "../_libs/react+tanstack__react-query.mjs";
 import { _ as useRouter, c as HeadContent, d as Outlet, f as lazyRouteComponent, h as Link, k as redirect, m as createRootRouteWithContext, p as createFileRoute, s as Scripts, u as createRouter } from "../_libs/@tanstack/react-router+[...].mjs";
 import { t as QueryClient } from "../_libs/tanstack__query-core.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/router-DDJDUnLD.js
+//#region node_modules/.nitro/vite/services/ssr/assets/router-CyUh7mQ_.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
-var styles_default = "/assets/styles-CNxuIK_3.css";
+var styles_default = "/assets/styles-DEvFpd9k.css";
 function reportLovableError(error, context = {}) {
 	if (typeof window === "undefined") return;
 	window.__lovableEvents?.captureException?.(error, {
@@ -174,7 +174,7 @@ function RootComponent() {
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Outlet, {})
 	});
 }
-var $$splitComponentImporter$3 = () => import("./routes-BIP91_u8.mjs");
+var $$splitComponentImporter$3 = () => import("./routes-D3OIFJp1.mjs");
 var title = "TrueBright Energy | Rooftop Solar";
 var description = "TrueBright Energy designs and installs residential, commercial and industrial rooftop solar systems across Tamil Nadu.";
 var Route$3 = createFileRoute("/")({
@@ -203,7 +203,7 @@ var Route$3 = createFileRoute("/")({
 	] }),
 	component: lazyRouteComponent($$splitComponentImporter$3, "component")
 });
-var $$splitComponentImporter$2 = () => import("./solar-calculator-DUMDm7aK.mjs");
+var $$splitComponentImporter$2 = () => import("./solar-calculator-fplD0jho.mjs");
 var Route$2 = createFileRoute("/solar-calculator")({
 	head: () => ({ meta: [{ title: "Solar Capacity Calculator | TrueBright Energy" }, {
 		name: "description",
@@ -222,7 +222,7 @@ var Route$1 = createFileRoute("/admin/login")({
 	}] }),
 	component: lazyRouteComponent($$splitComponentImporter$1, "component")
 });
-var $$splitComponentImporter = () => import("./admin.solar-leads-CVvRRK58.mjs");
+var $$splitComponentImporter = () => import("./admin.solar-leads-BTa0uQWv.mjs");
 var Route = createFileRoute("/admin/solar-leads")({
 	beforeLoad: () => {
 		if (typeof window !== "undefined" && window.sessionStorage.getItem("aaryon-admin-auth") !== "true") throw redirect({ to: "/admin/login" });

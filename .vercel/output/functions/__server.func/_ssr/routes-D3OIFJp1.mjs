@@ -1,8 +1,8 @@
 import { i as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
-import { h as ArrowRight, i as ShieldCheck, m as Check, n as Wrench, p as ChevronDown, r as Sun, u as IndianRupee } from "../_libs/lucide-react.mjs";
-import { i as formatCurrency, o as getSolarProjection, t as Nav } from "./solar-calculations-C6qVRab0.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/routes-BIP91_u8.js
+import { _ as ArrowRight, d as IndianRupee, g as Check, h as ChevronDown, i as ShieldCheck, n as Wrench, r as Sun } from "../_libs/lucide-react.mjs";
+import { i as formatCurrency, o as getSolarProjection, t as Nav } from "./solar-calculations-BbTuN_-2.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-D3OIFJp1.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var hero_rooftop_solar_default = "/assets/hero-rooftop-solar-CIqKA7qp.jpg";
@@ -535,7 +535,8 @@ function Footer() {
 					links: [
 						"Why TrueBright",
 						"FAQs",
-						"Solar calculator"
+						"Solar calculator",
+						"Load assessment"
 					]
 				}),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
@@ -591,7 +592,7 @@ function FooterColumn({ title, links }) {
 	}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 		className: "mt-4 space-y-3",
 		children: links.map((link) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
-			href: link === "Why TrueBright" ? "#trust" : link === "FAQs" ? "#faqs" : "/solar-calculator",
+			href: link === "Why TrueBright" ? "#trust" : link === "FAQs" ? "#faqs" : link === "Load assessment" ? "/solar-calculator#load-assessment" : "/solar-calculator",
 			className: "block text-sm text-white/60 hover:text-white",
 			children: link
 		}, link))
