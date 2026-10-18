@@ -7,8 +7,6 @@ const __dirname = dirname(__filename);
 const viteBin = resolve(__dirname, '../node_modules/vite/bin/vite.js');
 const args = process.argv.slice(2);
 
-delete process.env.VERCEL;
-
 const child = spawn(process.execPath, [viteBin, ...args], {
   stdio: 'inherit',
   shell: false,

@@ -273,7 +273,7 @@ function HallLoadAssessment() {
 
   function copyReport() {
     const report =
-      "TrueBright Marriage Hall Load Assessment\n" +
+      "TrueBright Electricityl Load Assessment\n" +
       breakdown
         .map(([name, load, hours]) => `${name}: ${formatNumber(load, 2)} kW x ${hours} hours = ${formatNumber(load * hours, 1)} units/function`)
         .join("\n") +
@@ -289,7 +289,7 @@ function HallLoadAssessment() {
     <section className="mx-auto max-w-6xl px-4 py-10 sm:px-5 sm:py-12 md:py-16">
       <div className="rounded-xl border border-border bg-card p-4 shadow-lift sm:p-6 md:p-9">
         <div>
-          <p className="eyebrow text-accent">Marriage hall load assessment</p>
+          <p className="eyebrow text-accent">Electricityl load assessment</p>
           <h2 className="mt-3 text-2xl font-bold md:text-3xl">Build an energy profile for your venue</h2>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground">Adjust your equipment quantities and operating hours to estimate demand, monthly energy use and a preliminary solar size.</p>
         </div>
@@ -299,7 +299,7 @@ function HallLoadAssessment() {
             <fieldset className="border-t border-border pt-5">
               <legend className="text-base font-semibold text-primary">Function schedule</legend>
               <div className="mt-2 grid grid-cols-2 gap-4">
-                <AssessmentField label="Function days / month" value={inputs.days} onChange={(value) => updateField("days", value)} />
+                <AssessmentField label="Usage days / month" value={inputs.days} onChange={(value) => updateField("days", value)} />
                 <AssessmentField label="Electricity tariff ₹/unit" value={inputs.rate} step={0.1} onChange={(value) => updateField("rate", value)} />
               </div>
             </fieldset>

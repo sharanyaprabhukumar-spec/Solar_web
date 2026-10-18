@@ -985,7 +985,7 @@ function FooterColumn({ title, links }) {
 }
 //#endregion
 //#region src/routes/index.tsx
-var title = "TrueBright Energy | Rooftop Solar";
+var title = "TrueBright Energy | The Best Energy Solutions";
 var description = "TrueBright Energy designs and installs residential, commercial and industrial rooftop solar systems across Tamil Nadu.";
 var Route$3 = createFileRoute("/")({
 	head: () => ({ meta: [
@@ -1340,7 +1340,7 @@ function HallLoadAssessment() {
 		setInputs(initialHallInputs);
 	}
 	function copyReport() {
-		const report = "TrueBright Marriage Hall Load Assessment\n" + breakdown.map(([name, load, hours]) => `${name}: ${formatNumber(load, 2)} kW x ${hours} hours = ${formatNumber(load * hours, 1)} units/function`).join("\n") + `\nCooling capacity: ${formatNumber(coolingTR, 1)} TR\nRunning load: ${formatNumber(acLoad + fanLoad + lightLoad + inputs.otherLoad, 1)} kW\nUnits/function: ${formatNumber(dailyUnits)} kWh\nMonthly units: ${formatNumber(monthlyUnits)} kWh\nMonthly energy cost: ₹${formatNumber(monthlyCost)}\nIndicative solar size: ${formatNumber(solarSize, 1)} kWp`;
+		const report = "TrueBright Electricityl Load Assessment\n" + breakdown.map(([name, load, hours]) => `${name}: ${formatNumber(load, 2)} kW x ${hours} hours = ${formatNumber(load * hours, 1)} units/function`).join("\n") + `\nCooling capacity: ${formatNumber(coolingTR, 1)} TR\nRunning load: ${formatNumber(acLoad + fanLoad + lightLoad + inputs.otherLoad, 1)} kW\nUnits/function: ${formatNumber(dailyUnits)} kWh\nMonthly units: ${formatNumber(monthlyUnits)} kWh\nMonthly energy cost: ₹${formatNumber(monthlyCost)}\nIndicative solar size: ${formatNumber(solarSize, 1)} kWp`;
 		if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(report).then(() => window.alert("Report copied")).catch(() => window.prompt("Copy report:", report));
 		else window.prompt("Copy report:", report);
 	}
@@ -1352,7 +1352,7 @@ function HallLoadAssessment() {
 				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
 						className: "eyebrow text-accent",
-						children: "Marriage hall load assessment"
+						children: "Electricityl load assessment"
 					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
 						className: "mt-3 text-2xl font-bold md:text-3xl",
@@ -1376,7 +1376,7 @@ function HallLoadAssessment() {
 								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 									className: "mt-2 grid grid-cols-2 gap-4",
 									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(AssessmentField, {
-										label: "Function days / month",
+										label: "Usage days / month",
 										value: inputs.days,
 										onChange: (value) => updateField("days", value)
 									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AssessmentField, {

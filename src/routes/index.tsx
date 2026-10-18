@@ -11,7 +11,7 @@ import {
   Footer,
 } from "@/components/site/Sections";
 
-const title = "TrueBright Energy | Rooftop Solar";
+const title = "TrueBright Energy | The Best Energy Solutions";
 const description =
   "TrueBright Energy designs and installs residential, commercial and industrial rooftop solar systems across Tamil Nadu.";
 
