@@ -131,7 +131,7 @@ export function Footer() {
             Clean energy solutions for homes, businesses and a more resilient Tamil Nadu.
           </p>
         </div>
-        <FooterColumn title="Explore" links={["Why TrueBright", "FAQs", "Solar calculator"]} />
+        <FooterColumn title="Explore" links={["Why TrueBright", "FAQs", "Solar calculator", "Load assessment"]} />
         <div>
           <p className="text-sm font-semibold text-solar">Contact us</p>
           <a href="tel:+919042640908" className="mt-4 block text-sm text-white/70 hover:text-white">
@@ -168,4 +168,4 @@ export function Footer() {
   );
 }
 
-function FooterColumn({ title, links }: { title: string; links: string[] }) { return <div><p className="text-sm font-semibold text-solar">{title}</p><div className="mt-4 space-y-3">{links.map((link) => <a key={link} href={link === "Why TrueBright" ? "#trust" : link === "FAQs" ? "#faqs" : "/solar-calculator"} className="block text-sm text-white/60 hover:text-white">{link}</a>)}</div></div>; }
+function FooterColumn({ title, links }: { title: string; links: string[] }) { return <div><p className="text-sm font-semibold text-solar">{title}</p><div className="mt-4 space-y-3">{links.map((link) => <a key={link} href={link === "Why TrueBright" ? "#trust" : link === "FAQs" ? "#faqs" : link === "Load assessment" ? "/solar-calculator#load-assessment" : "/solar-calculator"} className="block text-sm text-white/60 hover:text-white">{link}</a>)}</div></div>; }
