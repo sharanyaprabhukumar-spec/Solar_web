@@ -168,4 +168,4 @@ export function Footer() {
   );
 }
 
-function FooterColumn({ title, links }: { title: string; links: string[] }) { return <div><p className="text-sm font-semibold text-solar">{title}</p><div className="mt-4 space-y-3">{links.map((link) => <a key={link} href={link === "Why TrueBright" ? "#trust" : link === "FAQs" ? "#faqs" : link === "Load assessment" ? "/load-assessment.html" : "/solar-calculator"} className="block text-sm text-white/60 hover:text-white">{link}</a>)}</div></div>; }
+function FooterColumn({ title, links }: { title: string; links: string[] }) { return <div><p className="text-sm font-semibold text-solar">{title}</p><div className="mt-4 space-y-3">{links.map((link) => <a key={link} href={link === "Why TrueBright" ? "#trust" : link === "FAQs" ? "#faqs" : link === "Load assessment" ? "/solar-calculator#load-assessment" : "/solar-calculator"} className="block text-sm text-white/60 hover:text-white">{link}</a>)}</div></div>; }

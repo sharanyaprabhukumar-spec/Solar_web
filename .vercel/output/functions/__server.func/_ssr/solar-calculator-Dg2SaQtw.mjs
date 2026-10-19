@@ -2,7 +2,7 @@ import { i as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
 import { _ as ArrowRight, a as RotateCcw, g as Check, m as ClipboardCopy, r as Sun, s as Printer, u as Leaf } from "../_libs/lucide-react.mjs";
 import { a as getPricing, i as formatCurrency, n as STORAGE_KEY, t as Nav } from "./solar-calculations-BbTuN_-2.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/solar-calculator-C2VlujQ3.js
+//#region node_modules/.nitro/vite/services/ssr/assets/solar-calculator-Dg2SaQtw.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function SolarCalculator() {
@@ -167,7 +167,7 @@ function SolarCalculator() {
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
 				hidden: activeTool !== "load",
-				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(HallLoadAssessment, {})
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(HallLoadAssessment, { active: activeTool === "load" })
 			})
 		] })]
 	});
@@ -202,7 +202,7 @@ var initialHallInputs = {
 	solarOffset: 60,
 	solarYield: 4
 };
-function HallLoadAssessment() {
+function HallLoadAssessment({ active }) {
 	const [inputs, setInputs] = (0, import_react.useState)(initialHallInputs);
 	(0, import_react.useEffect)(() => {
 		try {
@@ -309,6 +309,54 @@ function HallLoadAssessment() {
 		if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(report).then(() => window.alert("Report copied")).catch(() => window.prompt("Copy report:", report));
 		else window.prompt("Copy report:", report);
 	}
+	if (active) return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("iframe", {
+		title: "TrueBright commercial solar load assessment",
+		src: "/load-assessment.html",
+		className: "block w-full border-0",
+		style: { minHeight: "100vh" },
+		onLoad: (event) => {
+			const frame = event.currentTarget;
+			const frameDocument = frame.contentDocument;
+			if (!frameDocument) return;
+			document.querySelectorAll("link[rel=\"stylesheet\"]").forEach((stylesheet) => {
+				const frameStylesheet = frameDocument.createElement("link");
+				frameStylesheet.rel = "stylesheet";
+				frameStylesheet.href = stylesheet.href;
+				frameDocument.head.append(frameStylesheet);
+			});
+			const theme = frameDocument.createElement("style");
+			theme.textContent = `
+            html, body { background: var(--surface); color: var(--deep); font-family: var(--font-sans); }
+            body { overflow-x: hidden; }
+            header { display: none; }
+            main { max-width: 1152px; padding: 24px 20px 56px; }
+            h1, h2, h3, h4 { color: var(--primary); font-family: var(--font-display); letter-spacing: -0.02em; }
+            .card { border-color: var(--border); border-radius: 12px; box-shadow: var(--shadow-lift); }
+            label, input, select { color: var(--foreground); }
+            input, select { border-color: var(--input); border-radius: 6px; }
+            input:focus, select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent) 18%, transparent); }
+            button { border-radius: 6px; background: var(--primary); }
+            button:hover { background: var(--accent); }
+            button.secondary { background: var(--secondary); color: var(--secondary-foreground); }
+            .note, .hint, .budget-foot { color: var(--muted-foreground); }
+            .metric { border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--muted-foreground); }
+            .metric strong, .recommend .type, .budget-option .option-big { color: var(--accent); }
+            .recommend, .budget-head, .hybrid-plan { border-color: var(--border); border-radius: 8px; background: var(--secondary); }
+            .budget-option, .ac-entry, .field-row { border-color: var(--border); border-radius: 8px; }
+            .budget-option.best { border-color: var(--accent); background: var(--surface); }
+            .tag, .pill { background: var(--secondary); color: var(--secondary-foreground); }
+            .warning { border-radius: 6px; }
+            a { color: var(--accent); }
+            @media (max-width: 560px) { main { padding: 12px 8px 36px; } .card { padding: 16px 14px; } }
+          `;
+			frameDocument.head.append(theme);
+			const resizeFrame = () => {
+				frame.style.height = `${frameDocument.documentElement.scrollHeight}px`;
+			};
+			resizeFrame();
+			new ResizeObserver(resizeFrame).observe(frameDocument.documentElement);
+		}
+	});
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
 		className: "mx-auto max-w-6xl px-4 py-10 sm:px-5 sm:py-12 md:py-16",
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
