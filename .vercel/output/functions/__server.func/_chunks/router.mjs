@@ -977,7 +977,7 @@ function FooterColumn({ title, links }) {
 	}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 		className: "mt-4 space-y-3",
 		children: links.map((link) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
-			href: link === "Why TrueBright" ? "#trust" : link === "FAQs" ? "#faqs" : link === "Load assessment" ? "/solar-calculator#load-assessment" : "/solar-calculator",
+			href: link === "Why TrueBright" ? "#trust" : link === "FAQs" ? "#faqs" : link === "Load assessment" ? "/load-assessment.html" : "/solar-calculator",
 			className: "block text-sm text-white/60 hover:text-white",
 			children: link
 		}, link))

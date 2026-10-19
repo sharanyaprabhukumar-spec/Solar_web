@@ -1,539 +1,938 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta name="theme-color" content="#087b68" />
-    <title>TrueBright Electricityl Load Assessment</title>
-    <link rel="manifest" href="manifest.webmanifest" />
-    <style>
-      body {
-        margin: 0;
-        font-family: system-ui, Arial;
-        background: #f3f7f5;
-        color: #18312b;
-      }
-      header {
-        background: #087b68;
-        color: white;
-        padding: 20px 16px;
-      }
-      main {
-        max-width: 700px;
-        margin: auto;
-        padding: 16px;
-      }
-      .card {
-        background: white;
-        padding: 16px;
-        border-radius: 15px;
-        margin: 12px 0;
-        box-shadow: 0 2px 10px #1232;
-      }
-      h1 {
-        font-size: 22px;
-        margin: 0;
-      }
-      h2 {
-        font-size: 17px;
-        margin: 0 0 12px;
-      }
-      .sub {
-        font-size: 13px;
-        opacity: 0.85;
-      }
-      .grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-      }
-      label {
-        display: block;
-        font-size: 13px;
-        margin: 8px 0;
-      }
-      input {
-        box-sizing: border-box;
-        width: 100%;
-        padding: 11px;
-        border: 1px solid #b9cec5;
-        border-radius: 9px;
-        font-size: 16px;
-        margin-top: 5px;
-      }
-      button {
-        background: #087b68;
-        border: 0;
-        color: white;
-        padding: 13px 17px;
-        border-radius: 10px;
-        font-weight: 700;
-        margin: 6px 5px 6px 0;
-      }
-      .metric {
-        background: #eaf5ef;
-        padding: 13px;
-        border-radius: 10px;
-      }
-      .metric strong {
-        display: block;
-        font-size: 23px;
-        color: #086b59;
-      }
-      .note {
-        font-size: 12px;
-        color: #5c6c65;
-        line-height: 1.5;
-      }
-      table {
-        width: 100%;
-        border-collapse: collapse;
-      }
-      td,
-      th {
-        padding: 9px 3px;
-        text-align: left;
-        border-bottom: 1px solid #e1e9e5;
-        font-size: 14px;
-      }
-      td:last-child,
-      th:last-child {
-        text-align: right;
-      }
-      :root {
-        --deep: #1c2544;
-        --primary: #252f58;
-        --accent: #16804b;
-        --solar: #f2bd3f;
-        --surface: #f3f6f8;
-        --border: #dfe5ec;
-        --muted: #5d687e;
-      }
-      * {
-        box-sizing: border-box;
-      }
-      body {
-        min-width: 320px;
-        background: var(--surface);
-        color: var(--deep);
-        font-family: "DM Sans", "Segoe UI", sans-serif;
-        -webkit-font-smoothing: antialiased;
-      }
-      header {
-        padding: 42px 20px;
-        border-bottom: 4px solid var(--solar);
-        background: linear-gradient(135deg, #171f3b, #303d68);
-      }
-      h1,
-      h2 {
-        font-family: "Space Grotesk", "Segoe UI", sans-serif;
-      }
-      h1 {
-        max-width: 840px;
-        margin: auto;
-        font-size: clamp(30px, 5vw, 42px);
-        line-height: 1.1;
-      }
-      h2 {
-        margin-bottom: 16px;
-        color: var(--primary);
-        font-size: 20px;
-        line-height: 1.3;
-      }
-      .sub {
-        max-width: 840px;
-        margin: 10px auto 0;
-        color: #f6d879;
-        font-weight: 600;
-        letter-spacing: 0.12em;
-        line-height: 1.5;
-        text-transform: uppercase;
-      }
-      main {
-        max-width: 840px;
-        padding: 24px 20px 56px;
-      }
-      .card {
-        margin: 14px 0;
-        padding: 24px;
-        border: 1px solid var(--border);
-        border-radius: 10px;
-        box-shadow: 0 22px 48px -30px rgb(28 37 68 / 42%);
-      }
-      label {
-        color: var(--primary);
-        font-weight: 600;
-        line-height: 1.5;
-      }
-      input {
-        min-height: 48px;
-        padding: 11px 13px;
-        border: 1px solid #cbd4df;
-        border-radius: 6px;
-        background: white;
-        color: var(--deep);
-        font: inherit;
-        font-size: 16px;
-      }
-      input:focus {
-        border-color: var(--accent);
-        outline: none;
-        box-shadow: 0 0 0 3px rgb(22 128 75 / 14%);
-      }
-      button {
-        min-height: 46px;
-        padding: 12px 17px;
-        border-radius: 6px;
-        background: var(--primary);
-        font: inherit;
-        font-size: 14px;
-        cursor: pointer;
-      }
-      button:hover {
-        background: var(--accent);
-      }
-      button:focus-visible {
-        outline: 3px solid var(--solar);
-        outline-offset: 2px;
-      }
-      .metric {
-        border: 1px solid #dce9df;
-        border-radius: 8px;
-        background: #f0f6f1;
-        color: var(--muted);
-      }
-      .metric strong {
-        color: var(--accent);
-        font-family: "Space Grotesk", "Segoe UI", sans-serif;
-      }
-      .metric:has(#solar) {
-        border-color: #f1e5bd;
-        background: #fbf7e9;
-      }
-      .metric:has(#solar) strong {
-        color: #96700d;
-      }
-      .note {
-        color: var(--muted);
-        line-height: 1.6;
-      }
-      td,
-      th {
-        border-bottom-color: var(--border);
-        font-size: 13px;
-      }
-      th {
-        color: var(--primary);
-      }
-      @media (max-width: 520px) {
-        header {
-          padding: 34px 16px;
-        }
-        main {
-          padding: 16px 12px 40px;
-        }
-        .card {
-          padding: 18px 16px;
-        }
-        .grid {
-          gap: 8px;
-        }
-        td,
-        th {
-          padding: 8px 3px;
-          font-size: 11px;
-        }
-      }
-      @media print {
-        body {
-          background: white;
-        }
-        header {
-          background: var(--deep);
-          print-color-adjust: exact;
-        }
-        .card {
-          break-inside: avoid;
-          box-shadow: none;
-        }
-        button {
-          display: none;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <header>
-      <h1>TrueBright Energy Solutions</h1>
-      <div class="sub">Electricityl Load Assessment – AC, Fans, Lights & Solar</div>
-    </header>
-    <main>
-      <div class="card">
-        <h2>Function schedule</h2>
-        <div class="grid">
-          <label>Usage days / month<input id="days" type="number" min="0" value="8" /></label
-          ><label
-            >Electricity tariff ₹/unit<input id="rate" type="number" min="0" step="0.1" value="8"
-          /></label>
-        </div>
-      </div>
-      <div class="card">
-        <h2>AC equipment</h2>
-        <div id="acs"></div>
-        <div class="grid">
-          <label
-            >Electrical input kW/TR<input
-              id="kwtr"
-              type="number"
-              step="0.1"
-              min="0"
-              value="1.4" /></label
-          ><label
-            >AC hours/function<input id="ach" type="number" min="0" max="24" value="8"
-          /></label>
-        </div>
-        <p class="note">
-          AC electrical input is an estimate. Use nameplate rated/actual input kW when available.
-        </p>
-      </div>
-      <div class="card">
-        <h2>Fans</h2>
-        <div class="grid">
-          <label>Quantity<input id="fans" type="number" value="30" /></label
-          ><label>Watts each<input id="fanw" type="number" value="75" /></label
-          ><label>Hours/function<input id="fanh" type="number" value="10" /></label>
-        </div>
-      </div>
-      <div class="card">
-        <h2>Lights</h2>
-        <div class="grid">
-          <label>Quantity<input id="lights" type="number" value="100" /></label
-          ><label>Watts each<input id="lightw" type="number" value="20" /></label
-          ><label>Hours/function<input id="lighth" type="number" value="10" /></label>
-        </div>
-      </div>
-      <div class="card">
-        <h2>Other loads</h2>
-        <div class="grid">
-          <label>Kitchen, pumps, lift etc. (kW)<input id="other" type="number" value="10" /></label
-          ><label>Hours/function<input id="otherh" type="number" value="8" /></label>
-        </div>
-      </div>
-      <div class="card">
-        <h2>Solar assumptions</h2>
-        <div class="grid">
-          <label
-            >Target energy offset (%)<input
-              id="share"
-              type="number"
-              min="0"
-              max="100"
-              value="60" /></label
-          ><label
-            >Solar yield (kWh/kWp/day)<input
-              id="yield"
-              type="number"
-              step="0.1"
-              min="0.1"
-              value="4"
-          /></label>
-        </div>
-        <p class="note">
-          Solar sizing is an energy-based screening estimate only. Confirm daytime load,
-          non-function day usage, export policy, roof space and meter arrangement before proposing
-          capacity.
-        </p>
-      </div>
-      <div class="card">
-        <h2>Electricityl Load Assessment</h2>
-        <p class="note">
-          Detailed electrical load and consumption by equipment type, using your quantities and
-          operating hours.
-        </p>
-        <table>
-          <thead>
-            <tr>
-              <th>Equipment</th>
-              <th>Load (kW)</th>
-              <th>Hours</th>
-              <th>Units/day</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>AC</td>
-              <td id="acload">—</td>
-              <td id="acrun">—</td>
-              <td id="acunits">—</td>
-            </tr>
-            <tr>
-              <td>Fans</td>
-              <td id="fanload">—</td>
-              <td id="fanrun">—</td>
-              <td id="fanunits">—</td>
-            </tr>
-            <tr>
-              <td>Lights</td>
-              <td id="lightload">—</td>
-              <td id="lightrun">—</td>
-              <td id="lightunits">—</td>
-            </tr>
-            <tr>
-              <td>Other</td>
-              <td id="otherload">—</td>
-              <td id="otherrun">—</td>
-              <td id="otherunits">—</td>
-            </tr>
-            <tr>
-              <th>Total</th>
-              <th id="sumload">—</th>
-              <th>—</th>
-              <th id="sumunits">—</th>
-            </tr>
-          </tbody>
-        </table>
-        <h2 style="margin-top: 18px">Calculation results</h2>
-        <div class="grid">
-          <div class="metric">Cooling capacity<strong id="tr">—</strong></div>
-          <div class="metric">Running load<strong id="kw">—</strong></div>
-          <div class="metric">Units / function<strong id="daily">—</strong></div>
-          <div class="metric">Monthly units<strong id="monthly">—</strong></div>
-          <div class="metric">Monthly energy cost<strong id="cost">—</strong></div>
-          <div class="metric">Indicative solar size<strong id="solar">—</strong></div>
-        </div>
-        <p class="note" id="caution"></p>
-        <button onclick="copyReport()">Copy report</button
-        ><button onclick="window.print()">Print / Save PDF</button
-        ><button onclick="resetApp()">Reset</button>
-      </div>
-      <p class="note">
-        All calculations run locally on your phone. Values are saved in this browser when possible.
-        No customer information is transmitted.
-      </p>
-    </main>
-    <script>
-      const acs = [
-        [4.5, 2],
-        [5.5, 4],
-        [17, 1],
-      ];
-      document.getElementById("acs").innerHTML = acs
-        .map(
-          (a, i) =>
-            `<div class="grid"><label>AC tonnage<input id="ton${i}" type="number" step="0.1" value="${a[0]}"></label><label>Quantity<input id="qty${i}" type="number" value="${a[1]}"></label></div>`,
-        )
-        .join("");
-      const ids = [
-        "days",
-        "rate",
-        "kwtr",
-        "ach",
-        "fans",
-        "fanw",
-        "fanh",
-        "lights",
-        "lightw",
-        "lighth",
-        "other",
-        "otherh",
-        "share",
-        "yield",
-        ...acs.flatMap((_, i) => ["ton" + i, "qty" + i]),
-      ];
-      try {
-        const saved = JSON.parse(localStorage.getItem("tb-hall") || "{}");
-        ids.forEach((id) => {
-          if (saved[id] !== undefined) document.getElementById(id).value = saved[id];
-        });
-      } catch (e) {}
-      let report = "";
-      function n(id) {
-        return Math.max(0, Number(document.getElementById(id).value) || 0);
-      }
-      function fmt(v, d = 0) {
-        return v.toLocaleString("en-IN", { maximumFractionDigits: d });
-      }
-      function calc() {
-        const tr = acs.reduce((s, _, i) => s + n("ton" + i) * n("qty" + i), 0),
-          ac = tr * n("kwtr"),
-          fan = (n("fans") * n("fanw")) / 1000,
-          light = (n("lights") * n("lightw")) / 1000,
-          other = n("other");
-        const kw = ac + fan + light + other,
-          daily = ac * n("ach") + fan * n("fanh") + light * n("lighth") + other * n("otherh"),
-          month = daily * n("days"),
-          cost = month * n("rate"),
-          solar = (month * Math.min(100, n("share"))) / 100 / (30 * Math.max(0.1, n("yield")));
-        const breakdown = [
-          ["ac", ac, n("ach")],
-          ["fan", fan, n("fanh")],
-          ["light", light, n("lighth")],
-          ["other", other, n("otherh")],
-        ];
-        breakdown.forEach(([id, load, hours]) => {
-          document.getElementById(id + "load").textContent = fmt(load, 2);
-          document.getElementById(id + "run").textContent = fmt(hours, 1);
-          document.getElementById(id + "units").textContent = fmt(load * hours, 1);
-        });
-        document.getElementById("sumload").textContent = fmt(kw, 2);
-        document.getElementById("sumunits").textContent = fmt(daily, 1);
-        const vals = {
-          tr: fmt(tr, 1) + " TR",
-          kw: fmt(kw, 1) + " kW",
-          daily: fmt(daily) + " kWh",
-          monthly: fmt(month) + " kWh",
-          cost: "₹" + fmt(cost),
-          solar: fmt(solar, 1) + " kWp",
-        };
-        Object.entries(vals).forEach(([k, v]) => (document.getElementById(k).textContent = v));
-        document.getElementById("caution").textContent =
-          "Solar sizing assumes 30 days of potential solar production, including non-function days, and that generation can be utilized or credited. Demand charges require separate kVA/maximum-demand assessment.";
-        report =
-          "TrueBright Electricityl Load Assessment\n" +
-          breakdown
-            .map(
-              ([id, load, hours]) =>
-                id.toUpperCase() +
-                ": " +
-                fmt(load, 2) +
-                " kW x " +
-                hours +
-                " hours = " +
-                fmt(load * hours, 1) +
-                " units/function",
-            )
-            .join("\n") +
-          "\n" +
-          Object.entries(vals)
-            .map(([k, v]) => k + ": " + v)
-            .join("\n") +
-          "\nFunction days: " +
-          n("days") +
-          "; AC hours: " +
-          n("ach");
-        try {
-          localStorage.setItem(
-            "tb-hall",
-            JSON.stringify(
-              Object.fromEntries(ids.map((id) => [id, document.getElementById(id).value])),
-            ),
-          );
-        } catch (e) {}
-      }
-      ids.forEach((id) => document.getElementById(id).addEventListener("input", calc));
-      function copyReport() {
-        if (navigator.clipboard && window.isSecureContext) {
-          navigator.clipboard
-            .writeText(report)
-            .then(() => alert("Report copied"))
-            .catch(() => prompt("Copy report:", report));
-        } else prompt("Copy report:", report);
-      }
-      function resetApp() {
-        localStorage.removeItem("tb-hall");
-        location.reload();
-      }
-      calc();
-    </script>
-  </body>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#087b68">
+  <title>TrueBright | Commercial Load & Solar Advisor v10</title>
+  
+  <style>
+    :root{color-scheme:light;--green:#087b68;--deep:#18312b;--bg:#f3f7f5;--line:#dce8e2;--muted:#586d64}
+    *{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--deep);line-height:1.45}
+    header{background:linear-gradient(130deg,#075f54,#07987b);padding:21px 16px;color:#fff}
+    header h1{font-size:23px;margin:0 0 3px}header p{margin:0;color:#e0f7ef;font-size:13px}
+    main{max-width:1180px;margin:auto;padding:16px 24px 48px}.card{background:white;border:1px solid var(--line);padding:16px;border-radius:15px;margin:12px 0;box-shadow:0 2px 8px #16352a0b}
+    h2{font-size:18px;margin:0 0 11px}h3{font-size:15px;margin:14px 0 8px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+    label{display:block;font-size:13px;font-weight:550}input,select{display:block;margin-top:6px;width:100%;padding:10px 11px;border:1px solid #b9cec5;border-radius:9px;background:white;color:var(--deep);font:inherit;font-size:16px;min-height:43px}
+    select{appearance:auto}.hint{font-size:12px;font-weight:400;color:var(--muted);margin-top:5px}.note{font-size:12px;color:var(--muted);line-height:1.6}.wide{grid-column:1/-1}
+    .metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.metric{padding:12px;background:#eaf5ef;border-radius:11px;font-size:12px;color:#456158}
+    .metric strong{display:block;color:#076b5a;font-size:21px;font-weight:750;overflow-wrap:anywhere}.metric small{display:block;color:#587367;margin-top:2px}
+    .recommend{background:#edf8f3;border:1px solid #bde4d2;border-radius:13px;padding:14px}
+    .recommend .type{font-weight:780;font-size:21px;color:#065e50}.recommend p{font-size:13px;margin:6px 0 0}
+    .split{display:flex;justify-content:space-between;gap:9px;margin:6px 0;font-size:12px;color:#075f54;font-weight:700}.split span:last-child{color:#4b665d}.warning{padding:10px 12px;background:#fff8e8;border-left:4px solid #c8870d;border-radius:6px;font-size:12px;margin:10px 0}
+    .good{border-left-color:#087b68;background:#eaf6f0}.row{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+    table{border-collapse:collapse;width:100%;font-size:13px}th,td{text-align:right;padding:8px 5px;border-bottom:1px solid var(--line)}th:first-child,td:first-child{text-align:left}th{background:#f4f9f7}
+    button{background:var(--green);border:0;color:#fff;padding:12px 15px;border-radius:10px;cursor:pointer;font-weight:750;font-size:14px}
+    button.secondary{background:#e1f2eb;color:#095e51}a{color:#076956}footer{text-align:center;font-size:12px;color:var(--muted)}
+    .ac-entry{border:1px solid var(--line);border-radius:12px;padding:12px;margin:12px 0;background:#f9fcfa}
+    .ac-entry-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px;font-weight:700;font-size:14px}
+    .ac-entry-head button{font-size:12px;padding:7px 10px;background:#fff0ed;color:#993b2d;border:1px solid #efc5bd}
+    .ac-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+    .ac-detail{font-size:12px;color:#3e5c50;margin:10px 0 0}
+    .field-row{border:1px solid var(--line);border-radius:12px;padding:12px;margin:12px 0;background:#f9fcfa}
+    .field-row-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;font-size:14px;font-weight:700}
+    .field-row-head button{font-size:12px;padding:7px 10px;background:#fff0ed;color:#993b2d;border:1px solid #efc5bd}
+    .field-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+    .field-grid label:nth-child(1){grid-column:1/-1}
+    .field-detail{font-size:12px;color:#3e5c50;margin:10px 0 0}
+    @media(max-width:650px){.ac-grid,.field-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    .tag{font-weight:700;font-size:11px;color:#046b57;background:#dbf2e7;padding:3px 7px;border-radius:16px}
+    @media(max-width:480px){.grid3{grid-template-columns:repeat(2,minmax(0,1fr))}main{padding:8px}.card{padding:13px}.metric strong{font-size:19px}}
+    @media print{body{background:white}header{color:#111;background:none;border-bottom:2px solid #087b68}header p{color:#333}.card{box-shadow:none;break-inside:avoid}button,.no-print{display:none!important}input,select{border:0;border-bottom:1px solid #bbb;border-radius:0;padding:4px 0;min-height:0;appearance:none}.warning{background:#fff;border:1px solid #ddd}}
+
+    /* v10: responsive customer assessment, budget and hybrid budget optimization */
+    :focus-visible{outline:3px solid #1b9e8a;outline-offset:2px}
+    .cost-controls{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+    .budget-lead{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:14px 0}
+    .budget-lead .metric{padding:15px}
+    .budget-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:14px}
+    .budget-option{border:1px solid var(--line);background:#fff;border-radius:14px;padding:15px;min-width:0;display:flex;flex-direction:column;gap:8px}
+    .budget-option.best{border:2px solid #0a9073;background:#f0faf4}
+    .budget-option .option-name{font-size:18px;font-weight:800;margin:0}
+    .budget-option .option-state{font-size:12px;font-weight:700;color:#437166;min-height:30px}
+    .budget-option .option-big{font-size:24px;font-weight:800;color:#056b56;line-height:1.2}
+    .budget-option .option-price{font-size:19px;font-weight:800;color:#223e33}
+    .budget-option dl{margin:2px 0 0;display:grid;gap:6px;font-size:13px}
+    .budget-option dl>div{display:flex;gap:12px;justify-content:space-between;align-items:start;border-top:1px solid #e0eae5;padding-top:6px}
+    .budget-option dt{color:#527062;flex:1}.budget-option dd{margin:0;font-weight:700;text-align:right;overflow-wrap:anywhere}
+    .budget-option p{margin:4px 0 0;font-size:12px;color:#52695f}
+    .pill{display:inline-block;font-size:11px;border-radius:12px;padding:4px 8px;background:#dff1e8;color:#086956;font-weight:750;align-self:flex-start}
+    .pill.warn{background:#fff0d9;color:#835400}.pill.bad{background:#fce5e1;color:#8b372b}
+    .budget-head{background:#edf9f4;border:1px solid #b6e4d1;border-radius:12px;padding:16px}
+    .budget-head b{font-size:20px;color:#076e59}.budget-head p{margin:7px 0 0;color:#3f6758;font-size:13px}
+    .budget-foot{font-size:12px;color:var(--muted);line-height:1.65;margin:12px 0 0}
+    .table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+    .table-scroll table{min-width:680px}
+    .metric strong{font-size:clamp(17px,1.8vw,23px)}
+    .hybrid-plan{margin:12px 0;padding:16px;border:1px solid #b6dfcf;background:#f5fcf8;border-radius:13px}
+    .hybrid-summary{font-size:20px;font-weight:800;color:#006b54;margin-bottom:12px}
+    .hybrid-results{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin:10px 0}
+    .hybrid-result{padding:10px 11px;background:#e7f4ed;border-radius:9px;min-width:0}
+    .hybrid-label{font-size:12px;color:#4c655c}
+    .hybrid-value{font-size:16px;color:#065e50;font-weight:800;overflow-wrap:anywhere;margin-top:4px}
+    .budget-plain{font-size:13px;margin-top:12px;color:#395c4e}
+    @media(max-width:900px){.hybrid-results{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:560px){.hybrid-results{grid-template-columns:repeat(2,minmax(0,1fr))}.hybrid-summary{font-size:17px}.hybrid-plan{padding:11px}}
+    @media(max-width:360px){.hybrid-results{grid-template-columns:1fr}}
+    @media (max-width:900px){main{max-width:760px;padding:12px 14px 42px}.cost-controls{grid-template-columns:repeat(2,minmax(0,1fr))}.budget-options{grid-template-columns:1fr}.budget-option dl{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 18px}}
+    @media (max-width:560px){header{padding:19px 14px}header h1{font-size:21px}main{padding:7px 8px 35px}.card{padding:13px;margin:9px 0}.grid,.grid3,.cost-controls,.budget-lead,.metrics{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.budget-option{padding:13px}.budget-option dl{grid-template-columns:1fr}.ac-grid,.field-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.metric{padding:10px}.metric strong{font-size:18px}button{min-height:43px}.row button{flex:1 1 auto}}
+    @media (max-width:360px){.grid,.grid3,.cost-controls,.budget-lead,.metrics,.ac-grid,.field-grid{grid-template-columns:1fr}.metric strong{font-size:19px}}
+    @media print{main{max-width:none;padding:0}.budget-options{grid-template-columns:repeat(3,minmax(0,1fr))}.budget-option{break-inside:avoid}.budget-head{break-inside:avoid}.table-scroll{overflow:visible}.table-scroll table{min-width:0}.cost-controls{grid-template-columns:repeat(3,minmax(0,1fr))}}
+  </style>
+</head>
+<body>
+<header><h1>TrueBright Energy Solutions</h1><p>AC • Fans • Lights • Day/Night Consumption • On-grid / Hybrid / Off-grid</p></header>
+<main>
+  <section class="card"><h2>1. Customer & monthly usage schedule</h2><div class="grid">
+    <label>Customer<input type="text" id="site" placeholder="Enter customer or site name"></label>
+    <label>Usage days per month<input id="days" type="number" min="0" max="30" step="1" value="30"><span class="hint">Total days with planned operation, including normal and heavy days</span></label>
+    <label>Heavy usage days per month<input id="heavyDays" type="number" min="0" max="30" step="1" value="8"><span class="hint">Normal usage days = usage days minus heavy days</span></label>
+    <label>EB energy tariff (₹/unit)<input id="rate" type="number" min="0" step="0.1" value="8"></label>
+    <label>Power factor for estimate<input id="pf" type="number" min="0.5" max="1" step="0.01" value="0.90"><span class="hint">For approximate kVA; use measured PF for final study</span></label>
+  </div><div id="usageSummary" class="note" style="margin-top:10px"></div></section>
+  <section class="card"><h2>2. AC equipment <span class="tag">Add / remove AC types</span></h2>
+    <p class="note">Add one row per AC type or operating group. Enter its tonnage, number of units and separate heavy-day / normal-day running hours. The 48 TR example is prefilled, and all values are editable.</p>
+    <div id="acs"></div>
+    <div class="row no-print"><button type="button" id="addAc">+ Add AC</button></div>
+    <div class="grid" style="margin-top:14px">
+      <label>Estimated electrical input (kW per TR)<input id="kwtr" type="number" step="0.1" min="0.1" value="1.4"></label>
+    </div>
+    <div id="acSummary" class="note" style="margin-top:10px"></div>
+    <p class="note">TR is cooling capacity, not electrical power. This editable common kW/TR estimate is for early assessment; final design should use actual rated or measured electrical input for each AC system.</p>
+  </section>
+  <section class="card"><h2>3. Fans <span class="tag">Add / remove fan groups</span></h2>
+    <p class="note">Add each fan type separately (ceiling, exhaust, pedestal, etc.). Enter number of fans, watts per fan and running hours on heavy and normal days. Days/month are taken automatically from Section 1.</p>
+    <div id="fansList"></div>
+    <div class="row no-print"><button type="button" id="addFan">+ Add fan type</button></div>
+    <p id="fanSummary" class="note" aria-live="polite"></p>
+  </section>
+  <section class="card"><h2>4. Lights <span class="tag">Add / remove lighting groups</span></h2>
+    <p class="note">Enter each type of lighting separately (LED, flood light, chandelier, etc.), with quantity, wattage and normal/heavy running hours.</p>
+    <div id="lightsList"></div>
+    <div class="row no-print"><button type="button" id="addLight">+ Add light type</button></div>
+    <p id="lightSummary" class="note" aria-live="polite"></p>
+  </section>
+  <section class="card"><h2>5. Other electrical loads <span class="tag">Add / remove loads</span></h2>
+    <p class="note">Add kitchen equipment, pumps, lifts, refrigeration and other loads individually. Enter each item's electrical input in kW (not HP unless converted), quantity and heavy/normal running hours.</p>
+    <div id="othersList"></div>
+    <div class="row no-print"><button type="button" id="addOther">+ Add equipment</button></div>
+    <p id="otherSummary" class="note" aria-live="polite"></p>
+  </section>
+  <section class="card"><h2>6. Daytime and nighttime electricity usage</h2>
+    <p class="note">Enter the percentage of electricity used during solar-producing hours for each type of day. The day and night values for each type always total 100%. These percentages split calculated kWh; they do not increase the electrical load.</p>
+    <h3>Normal usage days</h3><div class="grid">
+      <label>Daytime electricity usage (%)<input id="normalDayShare" type="number" min="0" max="100" step="1" value="80"></label>
+      <label>Nighttime electricity usage (%)<input id="normalNightShare" type="number" min="0" max="100" step="1" value="20"></label>
+    </div><div class="split"><span>☀ Day: <b id="showNormalDay">80%</b></span><span>☾ Night: <b id="showNormalNight">20%</b></span></div>
+    <h3>Heavy usage days</h3><div class="grid">
+      <label>Daytime electricity usage (%)<input id="heavyDayShare" type="number" min="0" max="100" step="1" value="60"></label>
+      <label>Nighttime electricity usage (%)<input id="heavyNightShare" type="number" min="0" max="100" step="1" value="40"></label>
+    </div><div class="split"><span>☀ Day: <b id="showHeavyDay">60%</b></span><span>☾ Night: <b id="showHeavyNight">40%</b></span></div>
+    <h3>Calculated daily usage</h3>
+    <div style="overflow-x:auto"><table><thead><tr><th>Usage type</th><th>Days/month</th><th>Units/day</th><th>Day units/day</th><th>Night units/day</th></tr></thead>
+      <tbody><tr><td>Normal</td><td id="normalDayCount">—</td><td id="normalDayKwh">—</td><td id="normalDaylightKwh">—</td><td id="normalNightKwh">—</td></tr>
+      <tr><td>Heavy</td><td id="heavyDayCount">—</td><td id="heavyDayKwh">—</td><td id="heavyDaylightKwh">—</td><td id="heavyNightKwh">—</td></tr></tbody></table></div>
+    <p class="note">The days outside “Usage days per month” are assumed to consume 0 kWh. Set usage days to 30 if the site runs equipment every day. If standby consumption exists on otherwise unused days, include those days in normal usage and adjust their appliance hours.</p>
+  </section>
+  <section class="card"><h2>7. Solar type selection questions <span class="tag">New</span></h2><div class="grid">
+    <label>Is an EB/grid electricity connection available?<select id="gridAvailable"><option value="yes">Yes — grid is available</option><option value="no">No — grid is unavailable</option></select></label>
+    <label>Do you require complete independence from the grid?<select id="independence"><option value="no">No</option><option value="yes">Yes — assess off-grid</option></select></label>
+    <label>Should essential circuits have power during outages?<select id="backup"><option value="no">No, existing grid / DG is acceptable</option><option value="yes">Yes — need emergency backup</option></select></label>
+    <label>Should stored daytime solar power be used at night?<select id="nightShift"><option value="no">No — grid / DG can supply at night</option><option value="yes">Yes — evaluate hybrid night storage</option></select></label>
+  </div>
+    <div id="shiftFields" style="display:none"><h3>Night-time solar coverage</h3><div class="grid">
+      <label>Night energy to cover from battery (%)<input id="nightShiftPct" type="number" min="0" max="100" value="50"><span class="hint">Of the night-time kWh for a normal or heavy usage day</span></label>
+      <label>Expected discharge hours per night<input id="nightDeliveryHours" type="number" min="1" max="24" value="4"></label>
+    </div></div>
+    <div id="backupFields" style="display:none"><h3>Critical loads during grid outages</h3><div class="grid">
+      <label>Essential running load (kW)<input id="criticalKw" type="number" min="0" step="0.5" value="8"></label>
+      <label>Backup duration (hours)<input id="backupHours" type="number" min="0" max="24" step="0.5" value="4"></label>
+    </div><p class="note">Battery capacity for outage support and night shifting are evaluated separately. The larger battery estimate is shown; simultaneous requirements may need a larger bank.</p></div>
+    <div id="offgridFields" style="display:none"><h3>Full off-grid autonomy</h3><div class="grid">
+      <label>Battery autonomy days (heavy-day equivalent)<input id="autonomyDays" type="number" min="0.5" max="5" step="0.5" value="1"><span class="hint">Preliminary battery reserve for cloudy periods</span></label>
+    </div><p class="note">Off-grid systems must serve the maximum heavy-usage-day energy and instantaneous AC load, not merely monthly average demand. A detailed hourly simulation and generator strategy are mandatory.</p></div>
+  </section>
+  <section class="card"><h2>8. Solar assessment & grid-export inputs</h2>
+    <div class="grid">
+      <label>Target monthly energy offset (%)<input id="share" type="number" min="0" max="100" value="100"><span class="hint">100% targets generation equivalent to all assessed monthly units. Lower this only if the customer wants partial coverage.</span></label>
+      <label>Average solar yield (kWh/kWp/day)<input id="yield" type="number" min="0.1" step="0.1" value="4"><span class="hint">Site-specific estimate needed for final proposal</span></label>
+      <label>Export credit / adjustment eligibility<select id="exportMode"><option value="unverified">Unknown or not permitted: assume no credit</option><option value="verified">Confirmed eligible: energy-credit screening</option></select><span class="hint">Verify service type, utility approval and export settlement</span></label>
+      <label>Usable self-consumption threshold (%)<input id="minSelf" type="number" min="20" max="100" value="70"><span class="hint">For no-export preliminary sizing; conservative default</span></label>
+    </div>
+  </section>
+  <section class="card"><h2>9. Rooftop space assessment</h2><div class="grid">
+    <label>Gross available roof area (sq ft)<input id="roof" type="number" min="0" step="10" placeholder="Enter measured roof area"><span class="hint">Leave blank if not yet measured</span></label>
+    <label>Usable roof after setbacks / shadows (%)<input id="usable" type="number" min="1" max="100" value="70"></label>
+    <label>Space required per kWp (sq ft)<input id="areaPerKw" type="number" min="30" max="250" value="100"><span class="hint">Editable planning assumption; layout varies</span></label>
+  </div><p class="note">Roof space is an early planning estimate including row spacing and access. A layout/structural survey must confirm feasibility. Battery/inverter room space is additional.</p></section>
+
+  <section class="card" id="budgetSection"><h2>10. Customer budget, solar price per kWp & commercial BESS <span class="tag">BESS</span></h2>
+    <p class="note">Enter the customer's maximum investment. The app compares a full monthly-unit solar target against budget- and roof-limited alternatives. All prices are <strong>editable indicative turnkey installed prices, including assumed taxes</strong>; confirm GST treatment and vendor quotations before issuing a proposal.</p>
+    <div class="cost-controls">
+      <label>Preferred system for customer recommendation<select id="preferredSystem"><option value="hybrid" selected>Hybrid — fit panels + LFP battery inside budget</option><option value="auto">Automatic — based on electricity/backup needs</option><option value="ongrid">On-grid — no battery</option><option value="offgrid">Off-grid — independent supply (engineering review)</option></select></label>
+      <label>Minimum commercial BESS storage (kWh)<input id="hybridMinBattery" type="number" min="20" max="2000" step="5" value="50"><span class="hint">Commercial BESS cabinet screening starts at 20 kWh; default 50 kWh. No automatic household 5 kWh fallback.</span></label>
+      <label>Nighttime consumption targeted for hybrid battery (%)<input id="hybridNightPct" type="number" min="0" max="100" value="30"><span class="hint">When night-storage is selected above, that setting takes priority</span></label>
+      <label>Hybrid budget allocation goal<select id="hybridPriority"><option value="balanced" selected>Maximize usable units + sensible system size</option><option value="generation">Prioritize gross solar units generated</option><option value="night">Prioritize nighttime solar delivery</option></select></label>
+      <label>Customer maximum budget (₹ lakh)<input id="maxBudgetLakhs" type="number" inputmode="decimal" min="0" step="0.5" placeholder="e.g. 35 (leave blank if unknown)"><span class="hint">₹35 lakh = ₹35,00,000; zero means zero budget</span></label>
+      <label>On-grid solar installed price (₹/kWp)<input id="priceOnGrid" type="number" min="1" step="1000" value="45000"><span class="hint">PV + grid inverter + rooftop EPC; example ₹45,000 per kWp (₹45/Wp).</span></label>
+      <label>Hybrid solar PV installed price (₹/kWp) — EXCLUDES BESS<input id="priceHybrid" type="number" min="1" step="1000" value="50000"><span class="hint">Base solar PV, wiring and integration before BESS; example ₹50,000 per kWp. Combined hybrid ₹/kWp is calculated separately.</span></label>
+      <label>Off-grid installed PV price (₹/kWp)<input id="priceOffGrid" type="number" min="1" step="1000" value="55000"></label>
+      <label>Commercial BESS pricing method<select id="bessPriceMode"><option value="auto" selected>Automatic installed BESS price by storage size</option><option value="custom">Custom supplier installed BESS price</option></select><span class="hint">Industrial LFP cabinets/container BESS with BMS, EMS, thermal management, fire protection, PCS allowance and commissioning.</span></label>
+      <label>Custom commercial BESS installed price (₹/kWh)<input id="priceBattery" type="number" min="1000" step="1000" value="35000"><span class="hint" id="bessRateHint">Used only in Custom mode. BESS energy is kWh, NOT kW. Price assumes PCS included; set PCS extra rate to zero unless excluded in supplier quote.</span></label>
+      <label>Extra hybrid PCS / inverter cost (₹/kW)<input id="priceHybridInv" type="number" min="0" step="1000" value="0"><span class="hint">Default zero because turnkey BESS pricing assumes PCS is included. Enter only additional inverter / PCS supply not already included.</span></label>
+      <label>Off-grid inverter/PCS add-on (₹/kW)<input id="priceOffgridInv" type="number" min="0" step="1000" value="0"><span class="hint">Only additional cost not included in turnkey BESS / PV prices.</span></label>
+      <label>Other project charges (₹)<input id="extraProjectCost" type="number" min="0" step="10000" value="0"><span class="hint">Approvals, roof strengthening, cable route etc. if not included in prices</span></label>
+      <label>Export settlement value (₹/unit)<input id="exportValue" type="number" min="0" step="0.1" value="3.5"><span class="hint">Only counted when export eligibility is confirmed above</span></label>
+    </div>
+    <p class="note">Reference price guide (illustrative 2026 India C&amp;I): on-grid solar ₹38k–48k/kWp for larger rooftops; installed BESS commonly ₹25k–40k+/kWh depending on scale and scope. Automatic small-cabinet rates are conservative assumptions. No GST should be added again if your input prices already include it. Solar power is rated kWp; BESS storage is rated kWh, while BESS PCS power is rated kW. The extra PCS rate defaults to zero to avoid double counting. Obtain a written supplier scope before quotation. No subsidy, loan interest, O&amp;M, degradation or inflation is included in simple payback estimates.</p>
+  </section>
+  <section class="card"><h2>11. Electrical load assessment</h2>
+    <p class="note">Heavy-day and normal-day kWh below are calculated from the hours entered for each individual AC, fan, light and other load. Monthly units = (heavy-day units × heavy usage days) + (normal-day units × normal usage days).</p><div style="overflow-x:auto"><table><thead><tr><th>Equipment</th><th>Load (kW)</th><th>Heavy h</th><th>Normal h</th><th>Heavy units</th><th>Normal units</th><th>Monthly units</th></tr></thead><tbody>
+    <tr><td>AC (all rows)</td><td id="acload">—</td><td id="acrun">—</td><td id="acnormalrun">—</td><td id="acunits">—</td><td id="acnormalunits">—</td><td id="acmonthlyunits">—</td></tr>
+    <tr><td>Fans (all rows)</td><td id="fanload">—</td><td id="fanrun">—</td><td id="fannormalrun">—</td><td id="fanunits">—</td><td id="fannormalunits">—</td><td id="fanmonthlyunits">—</td></tr>
+    <tr><td>Lights (all rows)</td><td id="lightload">—</td><td id="lightrun">—</td><td id="lightnormalrun">—</td><td id="lightunits">—</td><td id="lightnormalunits">—</td><td id="lightmonthlyunits">—</td></tr>
+    <tr><td>Other loads (all rows)</td><td id="otherload">—</td><td id="otherrun">—</td><td id="othernormalrun">—</td><td id="otherunits">—</td><td id="othernormalunits">—</td><td id="othermonthlyunits">—</td></tr>
+    <tr><th>Total</th><th id="sumload">—</th><th>—</th><th>—</th><th id="sumunits">—</th><th id="normalSumUnits">—</th><th id="monthlySumUnits">—</th></tr>
+  </tbody></table></div><div class="metrics" style="margin-top:14px">
+    <div class="metric">Total cooling capacity<strong id="tr">—</strong></div>
+    <div class="metric">Estimated running load<strong id="kw">—</strong></div>
+    <div class="metric">Estimated apparent power<strong id="kva">—</strong><small>If listed loads coincide</small></div>
+    <div class="metric">Units per heavy usage day<strong id="daily">—</strong></div>
+    <div class="metric">Units per normal usage day<strong id="normalDaily">—</strong></div>
+    <div class="metric">Monthly site consumption<strong id="monthly">—</strong><small>Normal + heavy usage days</small></div>
+    <div class="metric">Monthly energy cost<strong id="cost">—</strong><small>Excludes demand/fixed charges, GST</small></div>
+  </div></section>
+  <section class="card" id="recommendations"><h2>12. Monthly-unit solar sizing & recommendation</h2>
+    <div class="recommend"><div class="hint">SCREENING RESULT</div><div id="recType" class="type">—</div><p id="recReason">—</p></div>
+    <h3>Step 1 — Capacity required to generate the chosen monthly units</h3>
+    <div class="metrics" style="margin-top:12px">
+      <div class="metric">Monthly customer demand<strong id="monthlyDemandSolar">—</strong><small>Assessed load, kWh/month</small></div>
+      <div class="metric">Desired solar energy generation<strong id="solarTargetUnits">—</strong><small>Energy target including estimated battery loss, if selected</small></div>
+      <div class="metric">Solar capacity for unit target<strong id="targetSolar">—</strong><small>kWp DC, before any rooftop restriction</small></div>
+      <div class="metric">Roof area to reach unit target<strong id="neededArea">—</strong></div>
+      <div class="metric">Usable measured roof<strong id="usableArea">—</strong></div>
+      <div class="metric">Estimated roof-supported PV<strong id="roofCap">—</strong></div>
+      <div class="metric">Solar capacity fitting entered roof<strong id="solar">—</strong><small>kWp DC; show target separately above</small></div>
+      <div class="metric">Solar generation at fitted capacity<strong id="production">—</strong><small>kWh/month, gross generation</small></div>
+      <div class="metric">Generation gap against energy target<strong id="solarShortfall">—</strong><small>kWh/month, before use/export limitations</small></div>
+      <div class="metric">Solar capacity gap due to roof<strong id="solarCapacityGap">—</strong><small>Additional kWp to reach the unit target</small></div>
+      <div class="metric">Estimated usable energy with full target PV<strong id="targetSelfUse">—</strong><small>kWh/month; direct + modeled battery, excludes export</small></div>
+      <div class="metric">On-site solar energy use<strong id="selfUse">—</strong><small>Daytime direct plus modeled battery energy; excludes export</small></div>
+      <div class="metric">Potential unconsumed / exported<strong id="excess">—</strong></div>
+      <div class="metric">Possible onsite energy offset<strong id="offset">—</strong><small>Direct daylight + estimated battery use; excludes export credit</small></div>
+      <div class="metric">Monthly daytime usage<strong id="monthlyDay">—</strong><small>kWh</small></div>
+      <div class="metric">Monthly nighttime usage<strong id="monthlyNight">—</strong><small>kWh</small></div>
+      <div class="metric">Daytime solar directly used<strong id="directUsed">—</strong><small>kWh/month</small></div>
+      <div class="metric">Stored solar delivered at night<strong id="nightUsed">—</strong><small>kWh/month; preliminary</small></div>
+      <div class="metric" id="nightGoalBox" style="display:none">Heavy-day night load met<strong id="nightGoal">—</strong><small>Percent of heavy usage day nighttime kWh</small></div>
+      <div class="metric" id="shiftPvBox" style="display:none">PV to meet chosen nighttime goal<strong id="shiftPv">—</strong><small>kWp, preliminary alternative (check roof & economics)</small></div>
+    </div>
+    <div id="batteryResult" style="display:none"><h3>Battery and inverter screening</h3><div class="metrics">
+      <div class="metric">Battery nameplate estimate<strong id="batteryKwh">—</strong><small>kWh lithium battery</small></div>
+      <div class="metric">Backup / off-grid inverter minimum<strong id="invKw">—</strong><small>kW continuous, before surge study</small></div>
+    </div></div>
+    <div id="messages"></div>
+    <p class="note"><strong>Revised method:</strong> First compute required solar energy from monthly usage × target share (default 100%). For hybrid night storage, add approximate energy losses (81% PV-to-night efficiency). Convert kWh/month to kWp using the entered daily yield × 30 days. Show the required PV capacity and rooftop space even when they exceed the roof; separately show what physically fits. Estimated direct/battery use and exports are separate from gross solar generation. Off-grid uses additional worst-heavy-day checks. This is not an hourly simulation, bill-credit guarantee or approved engineering design.</p>
+    <p class="note">For improved local production estimates, use <a href="https://pvwatts.nrel.gov/" target="_blank" rel="noopener noreferrer">PVWatts</a>. This app uses adjustable assumptions, not a live solar irradiance model.</p>
+    <div class="row no-print"><button id="copy">Copy full assessment</button><button class="secondary" id="print">Print / Save PDF</button><button class="secondary" id="reset">Reset</button></div>
+  </section>
+
+  <section class="card" id="budgetComparison"><h2>13. Budget-based on-grid, hybrid & off-grid comparison</h2>
+    <div id="budgetHeading" class="budget-head" aria-live="polite"><b>Calculating options…</b></div>
+    <div class="budget-lead">
+      <div class="metric">Customer budget<strong id="budgetAmount">—</strong><small>Maximum investment</small></div>
+      <div class="metric">Monthly unit target PV<strong id="budgetTargetPv">—</strong><small>On-grid energy target; before roof/budget cap</small></div>
+      <div class="metric">Target on-grid installed cost<strong id="budgetTargetCost">—</strong><small>Before roof/budget cap</small></div>
+    </div>
+    <p class="note">Each option shows the <strong>full-target cost</strong> and the <strong>maximum solar size affordable within the customer's budget and available measured roof</strong>. Battery and inverter requirements are reserved in the price before determining affordable PV capacity. Where backup/storage was requested, a budget-fit system may still fail to meet those requirements; any such gap is marked.</p>
+    <div id="budgetOptions" class="budget-options" aria-live="polite"></div>
+    <div id="budgetWarnings"></div>
+    <h3 id="hybridTitle">Hybrid + commercial BESS package specifically designed for the chosen budget</h3>
+    <p class="note">This package jointly selects PV panels and commercial LFP BESS capacity within the customer budget, measured rooftop and editable installed prices. The full-target capacity and unserved electricity are shown separately. A BESS package should include battery racks, BMS, EMS, PCS, fire protection, cooling and commissioning, or any exclusions must be priced separately. Inverter power (kW) and storage duration (kWh) must be engineered. If grid power is unavailable, this hybrid package is comparison-only; assess off-grid engineering instead.</p>
+    <div id="hybridPlan" class="hybrid-plan" aria-live="polite"></div>
+    <p class="budget-foot">Monthly generation uses entered average yield × 30 days. Estimated self-use uses an early day/night energy balance (not hourly dispatch); export credit is included only when marked verified. Savings and payback exclude demand charges, taxes, equipment replacements, financing, and recurring O&amp;M. Off-grid output must be validated through hourly/weather simulation, worst-day energy and starting-surge engineering. A small feasible PV size is not proof of full backup coverage.</p>
+  </section>
+  <footer>TrueBright Energy Solutions • Commercial Load & Solar Advisor v10 • Preliminary assessment • Data stored locally on this browser where available</footer>
+</main>
+<script>
+/* TrueBright v7 — monthly-unit-first solar sizing with separate roof and use checks. */
+(function(root,factory){const api=factory();if(typeof module==='object'&&module.exports)module.exports=api;root.TrueBrightLogic=api;})(typeof globalThis!=='undefined'?globalThis:this,function(){
+'use strict';
+const clamp=(x,lo,hi)=>Math.min(hi,Math.max(lo,Number.isFinite(+x)?+x:lo));
+const ceilHalf=x=>x>0?Math.ceil((x-1e-9)*2)/2:0;
+const floorHalf=x=>x>=0.5?Math.floor((x+1e-9)*2)/2:Math.floor(Math.max(x,0)*10+1e-9)/10;
+function evaluate(p){
+ const usageDays=clamp(p.days,0,30),heavyDays=clamp(p.heavyDays,0,usageDays),normalDays=usageDays-heavyDays,unusedDays=30-usageDays;
+ const perTonKw=clamp(p.kwtr,0,20), acs=Array.isArray(p.acs)?p.acs:[];
+ const acRows=acs.map(c=>{const tons=clamp(c.tons,0,10000),qty=clamp(c.qty,0,10000),heavyHours=clamp(c.heavyHours??p.ach??0,0,24),normalHours=clamp(c.normalHours??p.normalAch??0,0,24),loadKw=tons*qty*perTonKw;
+ return{tons,qty,heavyHours,normalHours,loadKw,heavyKwh:loadKw*heavyHours,normalKwh:loadKw*normalHours};});
+ const tr=acRows.reduce((s,c)=>s+c.tons*c.qty,0),ac=acRows.reduce((s,c)=>s+c.loadKw,0),acHeavyKwh=acRows.reduce((s,c)=>s+c.heavyKwh,0),acNormalKwh=acRows.reduce((s,c)=>s+c.normalKwh,0);
+ // Category rows use separate hours and quantities; the day counts are applied only once below.
+ // Keep support for legacy single-value inputs when running the calculation module directly.
+ const allFans=Array.isArray(p.fanItems)?p.fanItems:[{name:'Fans',qty:p.fans,watts:p.fanw,heavyHours:p.fanh,normalHours:p.normalFanh}];
+ const allLights=Array.isArray(p.lightItems)?p.lightItems:[{name:'Lights',qty:p.lights,watts:p.lightw,heavyHours:p.lighth,normalHours:p.normalLighth}];
+ const allOthers=Array.isArray(p.otherItems)?p.otherItems:[{name:'Other loads',qty:1,kw:p.other,heavyHours:p.otherh,normalHours:p.normalOtherh}];
+ const createRows=(items,kind)=>items.map((x,i)=>{
+   const name=String(x.name??(kind+' '+(i+1))).slice(0,120);
+   const qty=Math.floor(clamp(x.qty,0,100000)),heavyHours=clamp(x.heavyHours,0,24),normalHours=clamp(x.normalHours,0,24);
+   const watts=kind==='other'?null:clamp(x.watts,0,1000000);
+   const kw=kind==='other'?clamp(x.kw,0,100000):watts/1000;
+   const loadKw=qty*kw;
+   return{name,qty,watts,kw,heavyHours,normalHours,loadKw,heavyKwh:loadKw*heavyHours,normalKwh:loadKw*normalHours};
+ });
+ const fanRows=createRows(allFans,'fan'),lightRows=createRows(allLights,'light'),otherRows=createRows(allOthers,'other');
+ const sum=(rows,key)=>rows.reduce((v,r)=>v+r[key],0);
+ const fan=sum(fanRows,'loadKw'),light=sum(lightRows,'loadKw'),other=sum(otherRows,'loadKw');
+ const groups=[
+  ['ac',ac,null,null,acHeavyKwh,acNormalKwh],
+  ['fan',fan,null,null,sum(fanRows,'heavyKwh'),sum(fanRows,'normalKwh')],
+  ['light',light,null,null,sum(lightRows,'heavyKwh'),sum(lightRows,'normalKwh')],
+  ['other',other,null,null,sum(otherRows,'heavyKwh'),sum(otherRows,'normalKwh')]
+ ];
+ const totalKw=ac+fan+light+other;
+ const heavyEnergy=groups.reduce((s,g)=>s+g[4],0),normalEnergy=groups.reduce((s,g)=>s+g[5],0);
+ const monthlyLoad=heavyEnergy*heavyDays+normalEnergy*normalDays,monthlyCost=monthlyLoad*clamp(p.rate,0,10000);
+ const hdPct=clamp(p.heavyDayShare,0,100),hnPct=100-hdPct,ndPct=clamp(p.normalDayShare,0,100),nnPct=100-ndPct;
+ const heavyDaylight=heavyEnergy*hdPct/100,heavyNight=heavyEnergy*hnPct/100,normalDaylight=normalEnergy*ndPct/100,normalNight=normalEnergy*nnPct/100;
+ const monthlyDaylight=heavyDaylight*heavyDays+normalDaylight*normalDays,monthlyNight=heavyNight*heavyDays+normalNight*normalDays;
+ const solarYield=clamp(p.yield,0.1,12),monthlyYield=30*solarYield,targetFraction=clamp(p.share,0,100)/100;
+ const grossRoof=(p.roof===''||p.roof===null||p.roof===undefined)?null:clamp(p.roof,0,1e10);
+ const usableRoof=grossRoof===null?null:grossRoof*clamp(p.usable,0,100)/100,areaPerKw=clamp(p.areaPerKw,30,250),roofCap=usableRoof===null?null:usableRoof/areaPerKw;
+ const verified=p.exportMode==='verified',backup=p.backup==='yes',nightShift=p.nightShift==='yes',shiftFraction=nightShift?clamp(p.nightShiftPct,0,100)/100:0;
+ const hasGrid=p.gridAvailable!=='no',gridIndependence=p.independence==='yes',offgrid=!hasGrid||gridIndependence,storageUse=offgrid||nightShift;
+ const batteryEfficiency=0.81;
+ const heavyNightTarget=offgrid?heavyNight:heavyNight*shiftFraction,normalNightTarget=offgrid?normalNight:normalNight*shiftFraction;
+ const desiredNightEnergy=Math.max(heavyNightTarget,normalNightTarget);
+ const backupLoad=backup?clamp(p.criticalKw,0,100000):0,backupHours=backup?clamp(p.backupHours,0,24):0;
+ const backupBattery=backupLoad*backupHours/batteryEfficiency,nightBattery=desiredNightEnergy/batteryEfficiency;
+ const autonomyDays=clamp(p.autonomyDays??1,0.5,5),largestDaily=Math.max(heavyDays>0?heavyEnergy:0,normalDays>0?normalEnergy:0),peakNight=Math.max(heavyDays>0?heavyNight:0,normalDays>0?normalNight:0);
+ const offgridBattery=Math.max(peakNight,largestDaily*autonomyDays)/batteryEfficiency;
+ const battery=offgrid?offgridBattery:(backup||nightShift?Math.max(backupBattery,nightBattery):0);
+ const backupInverter=offgrid?totalKw*1.25:backup?backupLoad*1.25:nightShift?Math.min(totalKw,desiredNightEnergy/Math.max(1,clamp(p.nightDeliveryHours??4,1,24)))*1.25:0;
+ const targetKwh=monthlyLoad*targetFraction;
+ // Requested battery discharge has unavoidable PV-to-night round trip losses. This gross generation
+ // uplift is for the configured storage objective, not proof that solar is available at charging hours.
+ const nightlySolarDelivered=offgrid?monthlyNight:(heavyNightTarget*heavyDays+normalNightTarget*normalDays);
+ const storageLossKwh=storageUse?nightlySolarDelivered*(1/batteryEfficiency-1):0;
+ const generationTarget=targetKwh+storageLossKwh;
+ const baselineCapacity=targetKwh/monthlyYield;
+ const grossCapacity=generationTarget/monthlyYield;
+ const heavyDayPv=heavyDays>0?(heavyDaylight+heavyNight/batteryEfficiency)/solarYield:0;
+ const normalDayPv=normalDays>0?(normalDaylight+normalNight/batteryEfficiency)/solarYield:0;
+ const offgridRequired=offgrid?Math.max(grossCapacity,largestDaily/(solarYield*.8),heavyDayPv,normalDayPv):0;
+ const idealCapacity=offgrid?offgridRequired:grossCapacity;
+ const targetCapacity=ceilHalf(idealCapacity),requiredSqft=targetCapacity*areaPerKw;
+ const constrainedByRoof=roofCap!==null&&targetCapacity>roofCap+1e-9;
+ const roofFeasibleSize=roofCap===null?targetCapacity:floorHalf(Math.min(targetCapacity,roofCap));
+ const size=roofFeasibleSize;
+ const feasibleArea=size*areaPerKw;
+ const generationAtTarget=targetCapacity*monthlyYield;
+ const generationShortfall=Math.max(0,(offgrid?targetCapacity*monthlyYield:generationTarget)-size*monthlyYield);
+ const capacityShortfall=Math.max(0,targetCapacity-size);
+ const constrainedByCapture=false,insufficientData=monthlyLoad<=0||targetKwh<=0,efficiencyCap=null;
+ function performance(kWp){
+   const pvDaily=Math.max(0,kWp)*solarYield;
+   function calc(daytime,night){
+     const direct=Math.min(pvDaily,daytime),surplus=Math.max(0,pvDaily-direct);
+     const nightGoal=offgrid?night:night*shiftFraction;
+     const charged=storageUse?Math.min(surplus,nightGoal/batteryEfficiency,battery):0;
+     const nightServed=Math.min(night,charged*batteryEfficiency);
+     return{direct,nightServed,unused:Math.max(0,surplus-charged),charge:charged};
+   }
+   const heavy=calc(heavyDaylight,heavyNight),normal=calc(normalDaylight,normalNight);
+   const selfUse=heavyDays*(heavy.direct+heavy.nightServed)+normalDays*(normal.direct+normal.nightServed);
+   const directUse=heavyDays*heavy.direct+normalDays*normal.direct;
+   const nightUse=heavyDays*heavy.nightServed+normalDays*normal.nightServed;
+   const consumedPV=heavyDays*(heavy.direct+heavy.charge)+normalDays*(normal.direct+normal.charge);
+   const production=pvDaily*30;
+   return{production,selfUse,directUse,nightUse,heavyNightServed:heavy.nightServed,normalNightServed:normal.nightServed,
+     excess:Math.max(0,production-consumedPV),utilization:production>0?consumedPV/production:0};
+ }
+ const perf=performance(size),targetPerf=performance(targetCapacity);
+ // The 'target' is a gross energy target. The app separately shows actual estimated usable energy.
+ const pvForShift=nightShift&&!offgrid?Math.max(heavyDays>0?(heavyDaylight+heavyNightTarget/batteryEfficiency):0,normalDays>0?(normalDaylight+normalNightTarget/batteryEfficiency):0)/solarYield:0;
+ const focusNight=heavyDays>0?heavyNight:normalNight,focusNightDelivered=heavyDays>0?perf.heavyNightServed:perf.normalNightServed;
+ const actualNightHeavyFraction=focusNight>0?focusNightDelivered/focusNight:0,requestedNightHeavyFraction=nightShift?shiftFraction:0;
+ const shortfallNightHeavy=nightShift&&!offgrid&&focusNight>0&&actualNightHeavyFraction+0.02<requestedNightHeavyFraction;
+ let type,reason;
+ if(insufficientData){type='INSUFFICIENT USAGE DATA';reason='Enter equipment usage and a positive target percentage.';}
+ else if(offgrid){type='OFF-GRID — feasibility study';reason='Grid unavailable or grid independence requested. PV target also checks the highest-use day; battery, weather and generator studies are mandatory.';}
+ else if(backup||nightShift){type='HYBRID — preliminary';reason=nightShift?'Battery requested for nighttime solar use. PV is based on monthly units plus estimated storage losses; verify charging opportunity and battery economics.':'Backup requested. Solar energy target is based on monthly units; backup battery is a separate requirement.';}
+ else{type='ON-GRID — preliminary';reason='PV is sized first for the requested monthly generation. Verify daytime use and the value of permitted exports before ordering.';}
+ if(constrainedByRoof){reason+=' Usable rooftop is below the generation-based PV target.';}
+ return {days:usageDays,usageDays,heavyDays,normalDays,unusedDays,tr,acRows,acHeavyKwh,acNormalKwh,fanRows,lightRows,otherRows,groups,totalKw,kva:totalKw/clamp(p.pf,.5,1),dayEnergy:heavyEnergy,heavyEnergy,normalEnergy,monthlyLoad,monthlyCost,
+ heavyDaylight,heavyNight,normalDaylight,normalNight,monthlyDaylight,monthlyNight,hdPct,hnPct,ndPct,nnPct,
+ targetFraction,targetKwh,solarYield,monthlyYield,storageLossKwh,generationTarget,baselineCapacity,grossCapacity,idealCapacity,targetCapacity,requiredSqft,
+ size,roofFeasibleSize,feasibleArea,generationAtTarget,generationShortfall,capacityShortfall,usableRoof,roofCap,usableAreaPerKw:areaPerKw,
+ produced:perf.production,selfUse:perf.selfUse,directUse:perf.directUse,nightUse:perf.nightUse,excess:perf.excess,utilization:perf.utilization,
+ targetPerf,targetOnsiteOffset:monthlyLoad>0?targetPerf.selfUse/monthlyLoad:0,
+ directOffset:monthlyLoad>0?perf.selfUse/monthlyLoad:0,nightHeavyDelivered:perf.heavyNightServed,requestedNightHeavyFraction,actualNightHeavyFraction,shortfallNightHeavy,pvForShift,
+ verified,backup,nightShift,shiftFraction,hasGrid,gridIndependence,offgrid,battery,backupInverter,backupBattery,nightBattery,offgridBattery,offgridRequired,autonomyDays,
+ constrainedByRoof,constrainedByCapture,insufficientData,efficiencyCap,type,reason};
+}
+return {evaluate};
+});
+</script><script>
+/* TrueBright v10 commercial BESS pricing — illustrative Indian installed benchmarks. */
+(function(root,factory){const api=factory();if(typeof module==='object'&&module.exports)module.exports=api;root.TrueBrightBESS=api;})(typeof globalThis!=='undefined'?globalThis:this,function(){
+'use strict';
+const n=(v,d=0)=>v===''||v===undefined||v===null||!Number.isFinite(+v)?d:Math.max(0,+v);
+function autoRate(kwh){if(kwh<20)return 55000;if(kwh<50)return 48000;if(kwh<100)return 40000;if(kwh<500)return 32000;return 26000;}
+function rate(p,kwh){const custom=n(p.priceBattery,35000);return p.bessPriceMode==='custom'?Math.max(1,custom):autoRate(n(kwh));}
+function cost(p,kwh){const energy=n(kwh);return energy*rate(p,energy);}
+function installedPriceSummary(p){return p.bessPriceMode==='custom'?'Custom BESS tariff ₹'+Math.round(n(p.priceBattery,35000)).toLocaleString('en-IN')+'/kWh':'Auto scale tariffs: <20 kWh ₹55k; 20–49 ₹48k; 50–99 ₹40k; 100–499 ₹32k; ≥500 ₹26k per kWh';}
+return {rate,cost,autoRate,installedPriceSummary};
+});
+</script><script>
+/* TrueBright v10: budget-first hybrid PV/commercial BESS screening; deterministic, local and offline. */
+(function(root,factory){const api=factory();if(typeof module==='object'&&module.exports)module.exports=api;root.TrueBrightHybrid=api;})(typeof globalThis!=='undefined'?globalThis:this,function(){
+'use strict';
+const n=(x,d=0)=>x===''||x===null||x===undefined||!Number.isFinite(+x)?d:Math.max(0,+x);
+const fmt=(x,d=0)=>Number(x).toLocaleString('en-IN',{maximumFractionDigits:d});
+const money=x=>'₹'+Math.round(x).toLocaleString('en-IN');
+const isYes=x=>x==='yes';
+function compute(p){
+ const base=TrueBrightLogic.evaluate({...p,gridAvailable:'yes',independence:'no',backup:'no',nightShift:'no'});
+ const knows=p.maxBudgetLakhs!==''&&p.maxBudgetLakhs!==null&&p.maxBudgetLakhs!==undefined;
+ const budget=knows?n(p.maxBudgetLakhs)*1e5:null;
+ const pvRate=Math.max(1,n(p.priceHybrid,50000)),bessRate=kwh=>TrueBrightBESS.rate(p,kwh),bessCost=kwh=>TrueBrightBESS.cost(p,kwh);
+ const inverterRate=n(p.priceHybridInv,4000),extra=n(p.extraProjectCost);
+ const minBattery=Math.max(20,n(p.hybridMinBattery,50));
+ const nightPct=Math.min(100,n(isYes(p.nightShift)?p.nightShiftPct:p.hybridNightPct,30))/100;
+ const hours=Math.max(1,n(p.nightDeliveryHours,4));
+ const backup=isYes(p.backup),backupKw=backup?n(p.criticalKw):0;
+ const backupKwh=backup?backupKw*n(p.backupHours)/.81:0;
+ const targetNightH=base.heavyNight*nightPct,targetNightN=base.normalNight*nightPct;
+ const peakNightTarget=Math.max(base.heavyDays>0?targetNightH:0,base.normalDays>0?targetNightN:0);
+ const neededBattery=Math.ceil(Math.max(minBattery,backupKwh,peakNightTarget/.81)*2)/2;
+ const targetPvMonthly=Math.ceil((base.targetKwh+(targetNightH*base.heavyDays+targetNightN*base.normalDays)*(1/.81-1))/base.monthlyYield*2)/2;
+ const heavyPv=base.heavyDays>0?(base.heavyDaylight+targetNightH/.81)/base.solarYield:0;
+ const normalPv=base.normalDays>0?(base.normalDaylight+targetNightN/.81)/base.solarYield:0;
+ const fullPv=Math.ceil(Math.max(targetPvMonthly,heavyPv,normalPv)*2)/2;
+ const roofLimit=base.roofCap===null?Infinity:base.roofCap;
+ const pvMax=Math.max(0,Math.min(fullPv,roofLimit));
+ const priority=['balanced','generation','night'].includes(p.hybridPriority)?p.hybridPriority:'balanced';
+ const fullInverter=Math.max(5,Math.ceil(Math.max(backupKw*1.25,neededBattery*.81/hours)/5)*5);
+ const fullCost=fullPv*pvRate+bessCost(neededBattery)+fullInverter*inverterRate+extra;
+ function simulate(pv,battery){
+  const pvDay=pv*base.solarYield;
+  const daily=(daylight,night,goal)=>{
+    const direct=Math.min(pvDay,daylight);
+    const surplus=Math.max(0,pvDay-direct);
+    const solarToBattery=Math.min(surplus,battery,goal/.81);
+    const delivered=Math.min(night,solarToBattery*.81);
+    return{direct,delivered,solarToBattery};
+  };
+  const h=daily(base.heavyDaylight,base.heavyNight,targetNightH),d=daily(base.normalDaylight,base.normalNight,targetNightN);
+  const direct=h.direct*base.heavyDays+d.direct*base.normalDays;
+  const night=h.delivered*base.heavyDays+d.delivered*base.normalDays;
+  const used=Math.min(base.monthlyLoad,direct+night);
+  const generated=pv*base.monthlyYield;
+  const charged=h.solarToBattery*base.heavyDays+d.solarToBattery*base.normalDays;
+  const surplus=Math.max(0,generated-direct-charged);
+  const requested=targetNightH*base.heavyDays+targetNightN*base.normalDays;
+  return{direct,night,used,generated,surplus,requested,coverage:requested>0?night/requested:1,nightShare:base.monthlyNight>0?night/base.monthlyNight:0};
+ }
+ function inverterFor(battery){return Math.max(5,Math.ceil(Math.max(backupKw*1.25,battery*.81/hours)/5)*5);}
+ function option(pv,battery){
+  const inverter=inverterFor(battery),pvCost=pv*pvRate,batteryCost=bessCost(battery),inverterCost=inverter*inverterRate;
+  const total=pvCost+batteryCost+inverterCost+extra;
+  return{pv,battery,inverter,pvRate,bessRate:bessRate(battery),effectiveHybridRate:pv>0?total/pv:0,pvCost,batteryCost,inverterCost,extra,total,area:pv*base.usableAreaPerKw,...simulate(pv,battery)};
+ }
+ let best=null;
+ if(knows&&budget>0&&base.monthlyLoad>0&&base.targetKwh>0&&pvMax>=2){
+  const pvStep=Math.max(.5,Math.ceil(pvMax/200*2)/2);
+  const maxBattery=Math.min(neededBattery,Math.max(minBattery,2000));
+  const mins=[minBattery]; // Commercial BESS: do not silently fall back to small household batteries.
+  for(const floorB of mins){
+   let bestAtThisFloor=null;
+   if(maxBattery+1e-6<floorB)continue;
+   const bs=[floorB];for(let b=Math.ceil(floorB/2.5)*2.5;b<=maxBattery+1e-6;b+=2.5)if(b>floorB+1e-6)bs.push(b);
+   if(maxBattery>bs[bs.length-1]+.5)bs.push(Math.floor(maxBattery*2)/2);
+   for(const b of bs){
+    const inv=inverterFor(b),available=(budget-extra-bessCost(b)-inv*inverterRate)/pvRate;
+    const pvLimit=Math.floor(Math.min(pvMax,available)*2+1e-8)/2;
+    if(pvLimit<2)continue;
+    const pvs=[];for(let pv=2;pv<=pvLimit+1e-8;pv+=pvStep)pvs.push(pv);
+    if(Math.abs(pvs[pvs.length-1]-pvLimit)>1e-8)pvs.push(pvLimit);
+    for(const pv of pvs){
+     const x=option(pv,b);if(x.total>budget+1e-6)continue;
+     const exportEquivalent=base.verified?x.surplus*Math.min(1,n(p.exportValue,3.5)/Math.max(0.1,n(p.rate,8))):0;
+     const scores={balanced:x.used+exportEquivalent+0.01*x.generated-x.total/Math.max(1,15*12*Math.max(2,n(p.rate,8))),
+       generation:x.used*.45+exportEquivalent+.60*x.generated-0.000004*x.total,
+       night:x.used+1.35*x.night+exportEquivalent*.4+.015*x.generated-0.00001*x.total};
+     x.score=scores[priority];
+     if(!bestAtThisFloor||x.score>bestAtThisFloor.score+1e-5||(Math.abs(x.score-bestAtThisFloor.score)<1e-5&&x.total<bestAtThisFloor.total))bestAtThisFloor=x;
+    }
+   }
+   if(bestAtThisFloor){best=bestAtThisFloor;break;}
+  }
+ }
+ const minPackage=option(2,minBattery).total;
+ const fallbackMinPackage=null;
+ const usable=best?best.used:0;
+ const grid=p.gridAvailable!=='no'&&!isYes(p.independence);
+ const backupMet=!backup||(best&&best.battery+.00001>=backupKwh&&best.inverter+.00001>=backupKw*1.25);
+ const nightMet=best&&best.coverage>=.98;
+ const grossMet=best&&best.generated+1e-5>=base.targetKwh;
+ const warning=[];
+ if(!knows)warning.push('Enter the customer maximum budget to generate a budget-fit hybrid system.');
+ else if(!best)warning.push(`No minimum hybrid package fits ₹${fmt(budget)} and the entered rooftop. A 2 kWp PV + ${fmt(minBattery,1)} kWh commercial BESS starter costs about ${money(minPackage)} at entered rates. This is an illustrative starter, not a final C&I solution.`);
+ if(best){
+
+  if(!grossMet)warning.push(`Proposed PV generates ${fmt(best.generated)} of ${fmt(base.targetKwh)} requested monthly units (gross shortfall ${fmt(Math.max(0,base.targetKwh-best.generated))}).`);
+  if(best.used<base.targetKwh*.8)warning.push(`Only ${fmt(best.used)} of ${fmt(base.targetKwh)} targeted monthly units are modeled as used on-site; gross generation is NOT bill offset.`);
+  if(!nightMet&&best.requested>0)warning.push(`Modeled storage delivers ${fmt(best.night)} of ${fmt(best.requested)} requested nighttime units/month. This is not full night-load coverage.`);
+  if(!backupMet)warning.push('Battery/inverter budget does not meet the entered outage-backup requirement. Do not promise backup duration.');
+  if(best.surplus>100&&!base.verified)warning.push(`${fmt(best.surplus)} units/month may be unused or exported without verified credit; check economic viability.`);
+  if(roofLimit<fullPv)warning.push(`Full night/day energy target could require ~${fmt(fullPv,1)} kWp (${fmt(fullPv*base.usableAreaPerKw)} sq ft), above roof capacity ${fmt(roofLimit,1)} kWp.`);
+ }
+ if(!grid)warning.push('A hybrid system requires grid or generator integration appropriate to the design. For full grid independence, evaluate off-grid, not this hybrid plan.');
+ warning.push('Commercial BESS price assumes energy storage racks, BMS, EMS, thermal/fire safety, PCS allowance and commissioning. Extra inverter/PCS cost must reflect only excluded equipment. Monthly-average energy allocation only: final design needs hourly load/irradiance, battery charge limits, inverter surge ratings, site roof and utility approvals.');
+ const savings=best?Math.min(base.monthlyCost,best.used*n(p.rate))+(base.verified?best.surplus*n(p.exportValue):0):0;
+ return{base,knows,budget,grid,backup,backupKw,backupKwh,nightPct,neededBattery,fullPv,targetPvMonthly,fullInverter,fullCost,pvRate,minPackage,fallbackMinPackage,priority,best,warning,backupMet,nightMet,grossMet,savings,payback:best&&savings>0?best.total/(savings*12):null};
+}
+function render(r){const $=id=>document.getElementById(id),root=$('hybridPlan');if(!root)return;root.replaceChildren();
+ const div=(c,text)=>{const d=document.createElement('div');d.className=c;d.textContent=text;return d;};
+ const heading=div('hybrid-summary',r.best?`Budget-based hybrid: ${fmt(r.best.pv,1)} kWp solar + ${fmt(r.best.battery,1)} kWh commercial BESS (LFP)`:'Hybrid budget design needs attention');root.appendChild(heading);
+ if(r.best){const wrap=div('hybrid-results','');const rows=[['Total installed estimate',money(r.best.total)],['Hybrid solar PV rate',money(r.best.pvRate)+'/kWp'],['Commercial BESS rate',money(r.best.bessRate)+'/kWh'],['Full hybrid effective price',money(r.best.effectiveHybridRate)+'/kWp (incl. BESS)'],['Budget remaining',money(Math.max(0,r.budget-r.best.total))],['Indicative PV inverter AC size',fmt(Math.max(5,Math.ceil(r.best.pv/1.2/5)*5),1)+' kW'],['BESS PCS/inverter power screening',fmt(r.best.inverter,1)+' kW'],['Solar PV cost',money(r.best.pvCost)],['Commercial BESS installed cost',money(r.best.batteryCost)],['Inverter add-on + other',money(r.best.inverterCost+r.best.extra)],['Panel rooftop space',fmt(r.best.area)+' sq ft'],['Solar generation / month',fmt(r.best.generated)+' units'],['Solar directly used / month',fmt(r.best.direct)+' units'],['Solar battery delivered at night / month',fmt(r.best.night)+' units'],['Monthly usable solar energy',fmt(r.best.used)+' units'],['Solar share of total demand',fmt(100*r.best.used/Math.max(1,r.base.monthlyLoad),1)+'%'],['Unused / exported PV energy',fmt(r.best.surplus)+' units'],['Gross unit target reached',r.grossMet?'Yes':'No — partial'],['Requested night goal met',r.nightMet?'Yes':'No — partial'],['Estimated energy-only savings',money(r.savings)+'/month'],['Illustrative simple payback',r.payback!==null?fmt(r.payback,1)+' years':'Not calculable']];
+ for(const [name,value] of rows){const item=div('hybrid-result','');item.append(div('hybrid-label',name),div('hybrid-value',value));wrap.append(item);}root.append(wrap);
+ root.append(div('budget-plain',`Full-target comparison (not budget constrained): ${fmt(r.fullPv,1)} kWp PV + ${fmt(r.neededBattery,1)} kWh BESS, approximately ${money(r.fullCost)} before measured-site verification. Monthly energy-based PV alone: ${fmt(r.targetPvMonthly,1)} kWp.`));
+ } else root.append(div('budget-plain','Enter a higher customer budget and measured rooftop area, or reduce battery minimum. A hybrid plan needs both panels and storage.'));
+ for(const note of r.warning)root.append(div('warning',note));
+}
+function report(r){return ['HYBRID DESIGN WITH CUSTOMER BUDGET',r.knows?'Maximum budget '+money(r.budget):'Maximum budget not entered',r.best?`Recommended budget-fit hybrid: ${fmt(r.best.pv,1)} kWp PV + ${fmt(r.best.battery,1)} kWh commercial BESS; PCS/inverter ${fmt(r.best.inverter,1)} kW; estimated price ${money(r.best.total)}; PV rate ${money(r.best.pvRate)}/kWp; full hybrid effective ${money(r.best.effectiveHybridRate)}/kWp; rooftop ${fmt(r.best.area)} sq ft; generation ${fmt(r.best.generated)} units/month; onsite solar ${fmt(r.best.used)} units/month; battery night delivery ${fmt(r.best.night)} units/month; surplus ${fmt(r.best.surplus)} units/month; gross unit target ${r.grossMet?'met':'NOT met'}; requested night goal ${r.nightMet?'met':'NOT met'}.`:'No affordable hybrid PV+battery package calculated.',`Unconstrained full goal: ${fmt(r.fullPv,1)} kWp PV + ${fmt(r.neededBattery,1)} kWh BESS; ${money(r.fullCost)}.`,...r.warning].join('\n');}
+return{evaluate:compute,render,report};
+});
+
+</script><script>
+/* TrueBright v10 budget and C&I BESS-based PV comparison, no binding commercial quotation. */
+(function(root,factory){const api=factory();if(typeof module==='object'&&module.exports)module.exports=api;root.TrueBrightBudget=api;})(typeof globalThis!=='undefined'?globalThis:this,function(){
+'use strict';
+const n=(v,d=0)=>{const x=Number(v);return v===''||v==null||!Number.isFinite(x)?d:Math.max(0,x)};
+const halfUp=x=>x>0?Math.ceil((x-1e-8)*2)/2:0;
+const halfDown=x=>x>=.5?Math.floor((x+1e-8)*2)/2:0;
+const fmt=(x,d=0)=>Number(x).toLocaleString('en-IN',{maximumFractionDigits:d});
+const money=x=>'₹'+Math.round(x).toLocaleString('en-IN');
+const displayMoney=x=>x>=1e7?'₹'+fmt(x/1e7,2)+' Cr':x>=1e5?'₹'+fmt(x/1e5,2)+' lakh':money(x);
+function evaluate(p){
+ const grid=p.gridAvailable!=='no',independent=p.independence==='yes',backup=p.backup==='yes',shift=p.nightShift==='yes';
+ const budgetKnown=p.maxBudgetLakhs!==''&&p.maxBudgetLakhs!=null,budget=budgetKnown?n(p.maxBudgetLakhs)*1e5:null;
+ const on=TrueBrightLogic.evaluate({...p,gridAvailable:'yes',independence:'no',backup:'no',nightShift:'no'});
+ const hy=TrueBrightLogic.evaluate({...p,gridAvailable:'yes',independence:'no'});
+ const off=TrueBrightLogic.evaluate({...p,gridAvailable:'no',independence:'yes'});
+ const exportUnit=on.verified?n(p.exportValue):0,rate=n(p.rate),extra=n(p.extraProjectCost);
+ function make(key,name,base,pvRate,inverterUnit,needsStorage){
+   pvRate=Math.max(1,pvRate);
+   const battery=needsStorage?Math.ceil(base.battery*10)/10:0;
+   const inverter=needsStorage?Math.ceil(base.backupInverter*10)/10:0;
+   const hybridHeavyNight=key==='hybrid'&&shift?halfUp(base.pvForShift):0;
+   const target=key==='hybrid'?Math.max(base.targetCapacity,hybridHeavyNight):base.targetCapacity;
+   const batteryCost=needsStorage?TrueBrightBESS.cost(p,battery):0,inverterCost=inverter*inverterUnit;
+   const fixed=batteryCost+inverterCost+extra,fullCost=target*pvRate+fixed;
+   const roofLimit=base.roofCap===null?Infinity:base.roofCap;
+   const budgetLimit=budgetKnown?(budget-fixed)/pvRate:Infinity;
+   const size=halfDown(Math.min(target,roofLimit,budgetLimit));
+   const finalCost=size>0?size*pvRate+fixed:0;
+   const roofArea=size*base.usableAreaPerKw,fullArea=target*base.usableAreaPerKw;
+   const roofEnough=base.roofCap===null||base.roofCap+1e-8>=target,budgetEnough=!budgetKnown||fullCost<=budget+1e-7;
+   const energyTargetMet=size>=target-1e-8;
+   const storageRequired=(key==='hybrid'&&(backup||shift))||key==='offgrid',outageNotServed=key==='ongrid'&&(backup||shift);
+   const pvDay=size*base.solarYield;
+   function day(dayUse,nightUse){
+     const direct=Math.min(pvDay,dayUse),surplus=Math.max(0,pvDay-direct);
+     const nightGoal=key==='ongrid'?0:key==='hybrid'?(shift?nightUse*hy.shiftFraction:0):nightUse;
+     const solarBatteryInput=Math.min(surplus,battery,nightGoal/.81);
+     const shifted=Math.min(nightGoal,solarBatteryInput*.81);
+     return{direct,shifted,solarBatteryInput};
+   }
+   const h=day(base.heavyDaylight,base.heavyNight),d=day(base.normalDaylight,base.normalNight);
+   const direct=h.direct*base.heavyDays+d.direct*base.normalDays;
+   const stored=h.shifted*base.heavyDays+d.shifted*base.normalDays;
+   const generation=size*base.monthlyYield;
+   const absorbed=(h.direct+h.solarBatteryInput)*base.heavyDays+(d.direct+d.solarBatteryInput)*base.normalDays;
+   const exported=Math.max(0,generation-absorbed);
+   const used=Math.min(base.monthlyLoad,direct+stored);
+   const savings=Math.min(base.monthlyCost,used*rate)+exported*exportUnit;
+   const yearly=savings*12,payback=yearly>0&&size>0?finalCost/yearly:null;
+   const nighttimeRequested=key==='offgrid'?base.monthlyNight:shift?base.monthlyNight*hy.shiftFraction:0;
+   const nighttimeOk=nighttimeRequested<1e-7||stored+1e-7>=nighttimeRequested*.98;
+   const dailyEnergyOk=key!=='offgrid'||((base.heavyDays===0||h.direct+h.shifted>=base.heavyEnergy*.98)&&(base.normalDays===0||d.direct+d.shifted>=base.normalEnergy*.98));
+   const eligible=key==='ongrid'?grid&&!independent&&!outageNotServed:key==='hybrid'?grid&&!independent&&(backup||shift):!grid||independent;
+   const fits=energyTargetMet&&nighttimeOk&&dailyEnergyOk&&budgetEnough&&roofEnough;
+   return {key,name,target,size,pvRate,bessRate:battery>0?TrueBrightBESS.rate(p,battery):0,battery,inverter,batteryCost,inverterCost,extra,fixed,fullCost,finalCost,roofArea,fullArea,roofEnough,budgetEnough,energyTargetMet,nighttimeOk,dailyEnergyOk,outageNotServed,eligible,fits,budgetKnown,budget,used,direct,stored,exported,generation,savings,payback,nighttimeRequested,storageRequired,grid};
+ }
+ const ongrid=make('ongrid','On-grid',on,n(p.priceOnGrid,45000),0,false);
+ const hybrid=make('hybrid','Hybrid',hy,n(p.priceHybrid,50000),n(p.priceHybridInv,4000),true);
+ const offgrid=make('offgrid','Off-grid',off,n(p.priceOffGrid,55000),n(p.priceOffgridInv,6000),true);
+ const budgetHybrid=TrueBrightHybrid.evaluate(p);
+ {
+  const hb=budgetHybrid.best;
+  Object.assign(hybrid,{
+   target:budgetHybrid.fullPv,fullCost:budgetHybrid.fullCost,fullArea:budgetHybrid.fullPv*hy.usableAreaPerKw,
+   size:hb?hb.pv:0,battery:hb?hb.battery:0,inverter:hb?hb.inverter:0,
+   bessRate:hb?hb.bessRate:0, pvRate:n(p.priceHybrid,50000),batteryCost:hb?hb.batteryCost:0,inverterCost:hb?hb.inverterCost:0,
+   fixed:hb?hb.batteryCost+hb.inverterCost+n(p.extraProjectCost):0,
+   finalCost:hb?hb.total:0,roofArea:hb?hb.area:0,
+   roofEnough:hy.roofCap===null||hy.roofCap+1e-7>=budgetHybrid.fullPv,
+   budgetEnough:budgetHybrid.fullCost<=(budgetHybrid.budget||0)+1e-7,
+   energyTargetMet:!!budgetHybrid.grossMet,nighttimeOk:!!budgetHybrid.nightMet,
+   dailyEnergyOk:!!budgetHybrid.backupMet,
+   fits:!!hb&&budgetHybrid.grossMet&&budgetHybrid.nightMet&&budgetHybrid.backupMet,
+   direct:hb?hb.direct:0,stored:hb?hb.night:0,used:hb?hb.used:0,
+   generation:hb?hb.generated:0,exported:hb?hb.surplus:0,
+   savings:budgetHybrid.savings,payback:budgetHybrid.payback,
+   nighttimeRequested:hb?hb.requested:0,eligible:grid&&!independent,
+  });
+ }
+
+ const options=[ongrid,hybrid,offgrid];
+ const prefer=p.preferredSystem||'hybrid';
+ const preferred=(!grid||independent)?offgrid:prefer==='hybrid'?hybrid:prefer==='ongrid'?ongrid:prefer==='offgrid'?offgrid:(backup||shift)?hybrid:ongrid;
+ let recommendation='',remarks=[];
+ const budgetLabel=budgetKnown?displayMoney(budget):'Not specified';
+ if(on.monthlyLoad===0||on.targetKwh===0){recommendation='Add equipment usage and monthly solar target to calculate options.';}
+ else if(!grid||independent){recommendation=offgrid.fits?'OFF-GRID — preliminary budget/roof fit; detailed autonomy and surge validation required.':'OFF-GRID REQUEST NOT FULLY FEASIBLE — budget, roof or heavy-day usage prevents the requested full supply. Review redesign or grid/generator options.';}
+ else if(preferred.key==='hybrid'){
+   if(!budgetKnown)recommendation='HYBRID — enter the customer maximum budget to calculate the panel and commercial BESS package.';
+   else if(hybrid.size===0)recommendation='HYBRID NOT AFFORDABLE — minimum PV, commercial BESS and inverter exceed the entered budget or roof. Review budget or battery minimum.';
+   else if(hybrid.fits)recommendation='HYBRID — budget-fit solar + commercial BESS preliminary plan. Check verified direct/night dispatch before quotation.';
+   else recommendation='HYBRID — BUDGET-FIT PARTIAL COVERAGE. Proposed panels and commercial BESS fit the entered budget, but gross monthly units, night delivery or backup requirements may remain unmet.';
+ }else if(preferred.key==='offgrid'){recommendation=offgrid.fits?'OFF-GRID — preliminary budget fit only; full engineering validation required.':'OFF-GRID — partial or insufficient design under budget/roof; engineering review required.';
+ }else if(ongrid.size>0){recommendation=ongrid.fits?'ON-GRID — gross monthly generation target fits the entered constraints (verify site feasibility).':'ON-GRID — BUDGET/ROOF-LIMITED. Smaller PV size, partial generation; compare daytime use and export credits.';
+   if(!on.verified&&ongrid.generation>0&&ongrid.used/ongrid.generation<0.70)recommendation+=' IMPORTANT: low modeled on-site use and no verified export credit; economic capacity may need to be smaller.';}
+ else recommendation='NO PV CAPACITY FITS — enter a larger budget or revise site assumptions.';
+ if(!budgetKnown)remarks.push('Customer budget not entered: pricing is shown but PV is not capped by affordability. Enter maximum budget for budget-constrained sizing.');
+ if(on.roofCap===null)remarks.push('Rooftop not measured: no physical space constraint has been applied. A full-target fit cannot be confirmed until usable roof is measured.');
+ if(preferred.size>0&&preferred.size<preferred.target-1e-8)remarks.push(`Full-target ${fmt(preferred.target,1)} kWp ${preferred.name.toLowerCase()} system is limited to ${fmt(preferred.size,1)} kWp by roof and/or budget. Full monthly units cannot be generated by the smaller plant.`);
+ if(preferred.storageRequired&&preferred.size>0&&!preferred.nighttimeOk)remarks.push('Modeled solar charging cannot meet the chosen nighttime storage target; larger PV or lower storage target needed.');
+ if(preferred.key==='offgrid'&&!preferred.dailyEnergyOk)remarks.push('Off-grid daily-energy check failed. No promise of 24-hour independent supply without hourly weather and surge engineering.');
+ if(shift&&grid&&hybrid.size>0&&!hybrid.nighttimeOk)remarks.push('Hybrid nighttime delivery is short of target. Check surplus energy on heavy usage days, not just monthly generation.');
+ if(backup)remarks.push('Backup duration is not guaranteed: battery state of charge, starting currents, circuit segregation, inverter ratings and generator coordination require an engineer.');
+ if(preferred.size>0&&preferred.generation>0&&preferred.used/preferred.generation<.7&&!on.verified)remarks.push('Less than 70% of generated energy is modeled as useful on-site, and export credit is unverified. Re-evaluate an economically optimized smaller plant before offering payback or a proposal.');
+ if(on.monthlyNight>on.monthlyDaylight)remarks.push('Nighttime usage exceeds daytime usage; on-grid energy produced in daytime cannot directly power nighttime loads. Export settlement must be verified.');
+ if(!grid)remarks.push('On-grid is comparison-only when no grid supply exists.');
+ if(budgetKnown&&budget===0)remarks.push('Customer budget is zero; no paid system is affordable.');
+ return {options,preferred,recommendation,remarks,budgetHybrid,budgetKnown,budget,budgetLabel,base:on,onGridTarget:on.targetCapacity,onGridTargetCost:ongrid.fullCost,grid,independent,backup,shift};
+}
+function render(r){
+ const $=id=>document.getElementById(id),cell=(id,s)=>{if($(id))$(id).textContent=s};
+ cell('budgetAmount',r.budgetLabel);cell('budgetTargetPv',fmt(r.onGridTarget,1)+' kWp');cell('budgetTargetCost',displayMoney(r.onGridTargetCost));
+ const head=$('budgetHeading');head.replaceChildren();const h=document.createElement('b');h.textContent=r.recommendation;head.appendChild(h);
+ const note=document.createElement('p');note.textContent='Comparison based on '+(r.budgetKnown?'customer maximum investment '+r.budgetLabel:'no specified customer budget')+'.';head.appendChild(note);
+ const options=$('budgetOptions');options.replaceChildren();
+ r.options.forEach(x=>{
+   const card=document.createElement('article');card.className='budget-option'+(x.key===r.preferred.key?' best':'');
+   const title=document.createElement('h3');title.className='option-name';title.textContent=x.name;card.appendChild(title);
+   const pill=document.createElement('span');pill.className='pill'+(x.fits?'':x.size===0?' bad':' warn');
+   pill.textContent=x.size===0?'No plant within limits':x.fits?'Gross target passes screen':x.energyTargetMet?'Storage / daily use review':'Partial energy target';card.appendChild(pill);
+   const desc=document.createElement('div');desc.className='option-state';desc.textContent=x.key===r.preferred.key?'Chosen customer preference (verify backup and grid conditions)':x.outageNotServed?'Does not deliver requested backup/storage':!x.eligible?'Alternative — not aligned with selected supply preference':'Alternative system';card.appendChild(desc);
+   const big=document.createElement('div');big.className='option-big';big.textContent=fmt(x.size,1)+' kWp';card.appendChild(big);
+   const price=document.createElement('div');price.className='option-price';price.textContent=x.size>0?displayMoney(x.finalCost):'Not affordable';card.appendChild(price);
+   const dl=document.createElement('dl');
+   const specs=[['Solar PV price per kWp',money(x.pvRate)+'/kWp'],['Total installed per solar kWp',x.size>0?money(x.finalCost/x.size)+'/kWp':'n/a'],['BESS installed price per kWh',x.battery>0?money(x.bessRate)+'/kWh':'Not applicable'],['Full-target solar capacity',fmt(x.target,1)+' kWp'],['Full-target installed cost',displayMoney(x.fullCost)],['Full-target roof area',fmt(x.fullArea)+' sq ft'],['Proposed PV area',fmt(x.roofArea)+' sq ft'],['BESS storage capacity',x.battery>0?fmt(x.battery,1)+' kWh':'None'],['BESS installed cost',x.battery>0?displayMoney(x.batteryCost):'₹0'],['Extra PCS/inverter add-on',x.inverter>0?displayMoney(x.inverterCost):'₹0'],['Monthly solar generation',fmt(x.generation)+' units'],['Monthly onsite solar use',fmt(x.used)+' units'],['Export / unused PV energy',fmt(x.exported)+' units'],['Potential bill saving',money(x.savings)+'/month'],['Simple payback',x.payback!==null?fmt(x.payback,1)+' years':'Not calculable']];
+   for(const [k,v] of specs){const pair=document.createElement('div'),dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=k;dd.textContent=v;pair.append(dt,dd);dl.appendChild(pair);}card.appendChild(dl);
+   const p=document.createElement('p');p.textContent=x.size===0?'The budget cannot cover this option with the proposed minimum PV and its fixed costs.':x.fits?'Gross unit-generation target fits the entered constraints, but actual on-site utilization and export credits need verification.':'Smaller sizing or inadequate nighttime charging may prevent full requested coverage.';card.appendChild(p);
+   options.appendChild(card);
+ });
+ const warnings=$('budgetWarnings');warnings.replaceChildren();r.remarks.forEach(t=>{const d=document.createElement('div');d.className='warning';d.textContent=t;warnings.appendChild(d)});
+ TrueBrightHybrid.render(r.budgetHybrid);
+}
+function report(r){return ['BUDGET & SYSTEM COMPARISON','Customer maximum budget: '+r.budgetLabel,'RECOMMENDATION: '+r.recommendation,...r.options.flatMap(x=>[
+ x.name.toUpperCase()+': full target '+fmt(x.target,1)+' kWp, full cost '+money(x.fullCost)+', roof '+fmt(x.fullArea)+' sq ft',
+ '  Budget/roof-size '+fmt(x.size,1)+' kWp, installed cost '+money(x.finalCost)+', PV rate '+money(x.pvRate)+'/kWp, all-in '+(x.size>0?money(x.finalCost/x.size)+'/kWp':'n/a')+', BESS '+fmt(x.battery,1)+' kWh at '+money(x.bessRate)+'/kWh, BESS cost '+money(x.batteryCost)+', extra PCS add-on '+money(x.inverterCost),
+ '  Monthly generation '+fmt(x.generation)+' units, direct and battery usage '+fmt(x.used)+' units, export/unused '+fmt(x.exported)+' units, potential saving '+money(x.savings)+'/month, simple payback '+(x.payback===null?'n/a':fmt(x.payback,1)+' years')
+ ]),...r.remarks,'Screening only: verify installation pricing/taxes, actual EB export credit, load measurements, roof, solar yield, hourly storage and grid demand.',TrueBrightHybrid.report(r.budgetHybrid)].join('\n');}
+return {evaluate,render,report};
+});
+
+</script><script>
+(function(){'use strict';
+ const $=id=>document.getElementById(id);
+ const defaultAcs=[{tons:4.5,qty:2,heavyHours:8,normalHours:0},{tons:5.5,qty:4,heavyHours:8,normalHours:0},{tons:17,qty:1,heavyHours:8,normalHours:0}];
+ const ids=['site','days','heavyDays','rate','pf','kwtr','heavyDayShare','heavyNightShare','normalDayShare','normalNightShare','share','yield','exportMode','backup','minSelf','criticalKw','backupHours','gridAvailable','independence','nightShift','nightShiftPct','nightDeliveryHours','autonomyDays','roof','usable','areaPerKw','maxBudgetLakhs','priceOnGrid','priceHybrid','priceOffGrid','priceBattery','priceHybridInv','priceOffgridInv','extraProjectCost','exportValue','preferredSystem','hybridMinBattery','hybridNightPct','hybridPriority','bessPriceMode'];
+ let acList=defaultAcs.map(a=>({...a}));
+ let acKey=0;
+ const esc=v=>String(v).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+ function renderAcs(){
+   $('acs').innerHTML=acList.length?acList.map((a,i)=>`<div class="ac-entry" data-index="${i}">
+    <div class="ac-entry-head"><span>AC type ${i+1}</span><button type="button" data-remove="${i}" aria-label="Remove AC type ${i+1}">Remove</button></div>
+    <div class="ac-grid">
+      <label>AC tonnage (TR)<input type="number" min="0" step="0.1" inputmode="decimal" data-ac="tons" value="${esc(a.tons)}"></label>
+      <label>Quantity<input type="number" min="0" step="1" inputmode="numeric" data-ac="qty" value="${esc(a.qty)}"></label>
+      <label>Heavy usage day (hours)<input type="number" min="0" max="24" step="0.5" inputmode="decimal" data-ac="heavyHours" value="${esc(a.heavyHours)}"></label>
+      <label>Normal usage day (hours)<input type="number" min="0" max="24" step="0.5" inputmode="decimal" data-ac="normalHours" value="${esc(a.normalHours)}"></label>
+    </div><div class="ac-detail" id="acDetail${i}"></div></div>`).join(''):'<p class="note">No AC entries. Select “+ Add AC” to enter one.</p>';
+ }
+ function validAc(a){
+   const x=(k,max)=>Math.max(0,Math.min(max,Number.isFinite(+a[k])?+a[k]:0));
+   return {tons:x('tons',10000),qty:Math.floor(x('qty',10000)),heavyHours:x('heavyHours',24),normalHours:x('normalHours',24)};
+ }
+ const defaultFanItems=[{name:'Ceiling fans',qty:30,watts:75,heavyHours:10,normalHours:4}];
+ const defaultLightItems=[{name:'LED lights',qty:100,watts:20,heavyHours:10,normalHours:5}];
+ const defaultOtherItems=[{name:'Kitchen / pumps / lift',qty:1,kw:10,heavyHours:8,normalHours:2}];
+ let fanItems=defaultFanItems.map(x=>({...x})), lightItems=defaultLightItems.map(x=>({...x})), otherItems=defaultOtherItems.map(x=>({...x}));
+ const categoryConfig={
+   fan:{list:'fansList',items:()=>fanItems,label:'Fan type',unitLabel:'Watts per fan',measure:'watts',button:'addFan',summary:'fanSummary',result:'fanRows'},
+   light:{list:'lightsList',items:()=>lightItems,label:'Light type',unitLabel:'Watts per light',measure:'watts',button:'addLight',summary:'lightSummary',result:'lightRows'},
+   other:{list:'othersList',items:()=>otherItems,label:'Equipment / load',unitLabel:'Electrical input per unit (kW)',measure:'kw',button:'addOther',summary:'otherSummary',result:'otherRows'}
+ };
+ function cleanItem(item,kind){
+   const max=key=>key==='qty'?100000:key==='kw'?100000:key==='watts'?1000000:24;
+   const num=key=>Math.max(0,Math.min(max(key),Number.isFinite(+item[key])?+item[key]:0));
+   return {name:String(item.name??'').slice(0,120),qty:Math.floor(num('qty')),
+     [kind==='other'?'kw':'watts']:num(kind==='other'?'kw':'watts'),heavyHours:num('heavyHours'),normalHours:num('normalHours')};
+ }
+ function renderCategory(kind){
+   const cfg=categoryConfig[kind],entries=cfg.items();
+   $(cfg.list).innerHTML=entries.length?entries.map((entry,i)=>`<div class="field-row" data-kind="${kind}" data-index="${i}">
+     <div class="field-row-head"><span>${esc(cfg.label)} ${i+1}</span><button type="button" data-remove-row="${kind}" data-remove-index="${i}" aria-label="Remove ${esc(cfg.label)} ${i+1}">Remove</button></div>
+     <div class="field-grid">
+       <label>${esc(cfg.label)} name<input type="text" data-field="name" value="${esc(entry.name)}" maxlength="120" placeholder="Type / appliance name"></label>
+       <label>Quantity<input type="number" min="0" step="1" inputmode="numeric" data-field="qty" value="${esc(entry.qty)}"></label>
+       <label>${esc(cfg.unitLabel)}<input type="number" min="0" step="0.01" inputmode="decimal" data-field="${cfg.measure}" value="${esc(entry[cfg.measure])}"></label>
+       <label>Heavy day hours<input type="number" min="0" max="24" step="0.5" inputmode="decimal" data-field="heavyHours" value="${esc(entry.heavyHours)}"></label>
+       <label>Normal day hours<input type="number" min="0" max="24" step="0.5" inputmode="decimal" data-field="normalHours" value="${esc(entry.normalHours)}"></label>
+     </div><div class="field-detail" id="${kind}Detail${i}"></div></div>`).join(''):`<p class="note">No ${kind} items. Select + Add to include this type of electrical load.</p>`;
+ }
+ let stored={};
+ try{
+   const savedV10=localStorage.getItem('tb-commercial-solar-v10');
+   const savedV9=localStorage.getItem('tb-commercial-solar-v9');
+   const savedV8=localStorage.getItem('tb-commercial-solar-v8');
+   const savedV7=localStorage.getItem('tb-commercial-solar-v7');
+   const savedV6=localStorage.getItem('tb-commercial-solar-v6');
+   const savedV5=localStorage.getItem('tb-commercial-solar-v5');
+   const savedV4=localStorage.getItem('tb-commercial-solar-v4');
+   if(savedV10){stored=JSON.parse(savedV10)||{};}
+   else if(savedV9){stored=JSON.parse(savedV9)||{};}
+   else if(savedV8){stored=JSON.parse(savedV8)||{};}
+   else if(savedV7){stored=JSON.parse(savedV7)||{};}
+   else if(savedV6){stored=JSON.parse(savedV6)||{};}
+   else if(savedV5){stored=JSON.parse(savedV5)||{};}
+   else if(savedV4){stored=JSON.parse(savedV4)||{};}
+   else{
+     const old=JSON.parse(localStorage.getItem('tb-hall-solar-v3')||'{}');
+     stored={...old};
+     if(Object.prototype.hasOwnProperty.call(old,'days')){stored.days='30';stored.heavyDays=old.days;}
+     if(old.dayShare!==undefined)stored.heavyDayShare=old.dayShare;
+     if(old.nightShare!==undefined)stored.heavyNightShare=old.nightShare;
+     if(old.idleDayShare!==undefined)stored.normalDayShare=old.idleDayShare;
+     if(old.idleNightShare!==undefined)stored.normalNightShare=old.idleNightShare;
+   }
+   const restored=Array.isArray(stored.acs)?stored.acs:
+     defaultAcs.map((a,i)=>({tons:stored['ton'+i]??a.tons,qty:stored['qty'+i]??a.qty,heavyHours:stored.ach??a.heavyHours,normalHours:stored.normalAch??a.normalHours}));
+   acList=restored.slice(0,100).map(validAc);
+   fanItems=(Array.isArray(stored.fanItems)?stored.fanItems:[{...defaultFanItems[0],qty:stored.fans??defaultFanItems[0].qty,watts:stored.fanw??defaultFanItems[0].watts,heavyHours:stored.fanh??defaultFanItems[0].heavyHours,normalHours:stored.normalFanh??defaultFanItems[0].normalHours}]).slice(0,100).map(x=>cleanItem(x,'fan'));
+   lightItems=(Array.isArray(stored.lightItems)?stored.lightItems:[{...defaultLightItems[0],qty:stored.lights??defaultLightItems[0].qty,watts:stored.lightw??defaultLightItems[0].watts,heavyHours:stored.lighth??defaultLightItems[0].heavyHours,normalHours:stored.normalLighth??defaultLightItems[0].normalHours}]).slice(0,100).map(x=>cleanItem(x,'light'));
+   otherItems=(Array.isArray(stored.otherItems)?stored.otherItems:[{...defaultOtherItems[0],kw:stored.other??defaultOtherItems[0].kw,heavyHours:stored.otherh??defaultOtherItems[0].heavyHours,normalHours:stored.normalOtherh??defaultOtherItems[0].normalHours}]).slice(0,100).map(x=>cleanItem(x,'other'));
+   ids.forEach(id=>{if(Object.prototype.hasOwnProperty.call(stored,id))$(id).value=stored[id];});
+   // Historic per-kWh rate was generic battery, not BESS; auto-tier installed cost defaults for upgraded users.
+   if(!savedV10){$('bessPriceMode').value='auto';$('hybridMinBattery').value='50';$('priceHybridInv').value='0';$('priceOffgridInv').value='0';}
+   // v6 defaults to 100% unit generation, but preserves any explicit v6 target selection.
+   // v5 used 60% as its default, even when the customer asked to meet all monthly units.
+   if(!savedV10 && !savedV9 && !savedV8 && !savedV7 && !savedV6 && (!stored.share || String(stored.share)==='60')) $('share').value='100';
+ }catch(e){}
+ for(const [day,night] of [['heavyDayShare','heavyNightShare'],['normalDayShare','normalNightShare']]){
+   if(!Object.prototype.hasOwnProperty.call(stored,night))$(night).value=100-(Number($(day).value)||0);
+ }
+ renderAcs();
+ for(const kind of Object.keys(categoryConfig))renderCategory(kind);
+ const n=id=>$(id).value===''?0:Number($(id).value)||0;
+ const fmt=(x,d=0)=>Number(x).toLocaleString('en-IN',{minimumFractionDigits:0,maximumFractionDigits:d});
+ const set=(id,s)=>$(id).textContent=s;
+ const fraction=id=>Math.max(0,Math.min(100,Number($(id).value)||0));
+ const addMessage=(message,kind)=>{const el=document.createElement('div');el.className='warning'+(kind==='good'?' good':'');el.textContent=message;$('messages').appendChild(el);};
+ let report='';
+ function synchronize(changed){
+   const pairs=[['heavyDayShare','heavyNightShare'],['normalDayShare','normalNightShare']];
+   for(const [day,night] of pairs){
+     if(changed===day){$(day).value=fraction(day);$(night).value=100-fraction(day);}
+     else if(changed===night){$(night).value=fraction(night);$(day).value=100-fraction(night);}
+   }
+   if(changed==='days'||changed==='heavyDays'){
+     $('days').value=Math.min(30,Math.max(0,Math.floor(n('days'))));
+     $('heavyDays').value=Math.min(n('days'),Math.max(0,Math.floor(n('heavyDays'))));
+   }
+ }
+ function update(){
+   const offgrid=$('gridAvailable').value==='no'||$('independence').value==='yes';
+   $('backupFields').style.display=$('backup').value==='yes'&&!offgrid?'block':'none';
+   $('shiftFields').style.display=$('nightShift').value==='yes'&&!offgrid?'block':'none';
+   $('offgridFields').style.display=offgrid?'block':'none';
+   $('priceBattery').disabled=$('bessPriceMode').value==='auto';
+   $('bessRateHint').textContent=$('bessPriceMode').value==='auto'
+     ?'Automatic tier rates are shown in the BESS package below; choose Custom to enter a supplier price. PCS is included in installed BESS rate.'
+     :'Enter supplier turnkey rate per kWh including BMS, EMS, PCS, safety, civil and commissioning; otherwise price missing items separately.';
+   const p=Object.fromEntries(ids.map(id=>[id,$(id).value]));
+   p.acs=acList.map(validAc);
+   p.fanItems=fanItems.map(x=>cleanItem(x,'fan'));
+   p.lightItems=lightItems.map(x=>cleanItem(x,'light'));
+   p.otherItems=otherItems.map(x=>cleanItem(x,'other'));
+   const r=TrueBrightLogic.evaluate(p);
+   set('usageSummary',`Normal usage: ${fmt(r.normalDays)} days  •  Heavy usage: ${fmt(r.heavyDays)} days  •  Remaining days (assumed 0 kWh): ${fmt(r.unusedDays)}`);
+   for(const [key,load,heavyHours,normalHours,heavyKwh,normalKwh] of r.groups){
+     set(key+'load',fmt(load,2));
+     set(key+'run',heavyHours===null?'Per row':fmt(heavyHours,1));
+     set(key+'normalrun',normalHours===null?'Per row':fmt(normalHours,1));
+     set(key+'units',fmt(heavyKwh??load*heavyHours,1));
+     set(key+'normalunits',fmt(normalKwh??load*normalHours,1));
+     set(key+'monthlyunits',fmt((heavyKwh??load*heavyHours)*r.heavyDays+(normalKwh??load*normalHours)*r.normalDays,0));
+   }
+   r.acRows.forEach((ac,i)=>{
+     const el=$('acDetail'+i);
+     if(el)el.textContent=`${fmt(ac.loadKw,2)} kW running load • Heavy day: ${fmt(ac.heavyKwh,1)} units • Normal day: ${fmt(ac.normalKwh,1)} units`;
+   });
+   set('acSummary',`Total AC: ${fmt(r.tr,1)} TR across ${fmt(r.acRows.reduce((sum,a)=>sum+a.qty,0))} units • Estimated connected AC input: ${fmt(r.groups[0][1],2)} kW • Heavy: ${fmt(r.acHeavyKwh,1)} units/day • Normal: ${fmt(r.acNormalKwh,1)} units/day`);
+   set('showHeavyDay',fmt(r.hdPct)+'%');set('showHeavyNight',fmt(r.hnPct)+'%');
+   set('showNormalDay',fmt(r.ndPct)+'%');set('showNormalNight',fmt(r.nnPct)+'%');
+   for(const [key,value] of Object.entries({normalDayCount:r.normalDays,heavyDayCount:r.heavyDays,normalDayKwh:r.normalEnergy,heavyDayKwh:r.heavyEnergy,normalDaylightKwh:r.normalDaylight,heavyDaylightKwh:r.heavyDaylight,normalNightKwh:r.normalNight,heavyNightKwh:r.heavyNight})){set(key,fmt(value,1));}
+   for(const [kind,cfg] of Object.entries(categoryConfig)){
+     const rows=r[cfg.result],categoryKw=rows.reduce((s,x)=>s+x.loadKw,0);
+     const heavyUnitDay=rows.reduce((s,x)=>s+x.heavyKwh,0),normalUnitDay=rows.reduce((s,x)=>s+x.normalKwh,0);
+     const monthlyUnits=r.heavyDays*heavyUnitDay+r.normalDays*normalUnitDay;
+     rows.forEach((entry,i)=>{const element=$(kind+'Detail'+i);if(element)element.textContent=`${fmt(entry.loadKw,2)} kW • Heavy: ${fmt(entry.heavyKwh,1)} units/day • Normal: ${fmt(entry.normalKwh,1)} units/day • Monthly: ${fmt(entry.heavyKwh*r.heavyDays+entry.normalKwh*r.normalDays,1)} units`;});
+     set(cfg.summary,`${rows.length} ${kind==='other'?'equipment':kind+' group(s)'} • ${fmt(categoryKw,2)} kW connected • Heavy: ${fmt(heavyUnitDay,1)} units/day × ${r.heavyDays} days • Normal: ${fmt(normalUnitDay,1)} units/day × ${r.normalDays} days • Monthly: ${fmt(monthlyUnits,1)} units`);
+   }
+   set('monthlySumUnits',fmt(r.monthlyLoad));
+   set('sumload',fmt(r.totalKw,2));set('sumunits',fmt(r.heavyEnergy,1));set('normalSumUnits',fmt(r.normalEnergy,1));
+   set('tr',fmt(r.tr,1)+' TR');set('kw',fmt(r.totalKw,1)+' kW');set('kva',fmt(r.kva,1)+' kVA');
+   set('daily',fmt(r.heavyEnergy)+' kWh');set('normalDaily',fmt(r.normalEnergy)+' kWh');
+   set('monthly',fmt(r.monthlyLoad)+' kWh');set('cost','₹'+fmt(r.monthlyCost));
+   set('monthlyDay',fmt(r.monthlyDaylight)+' kWh');set('monthlyNight',fmt(r.monthlyNight)+' kWh');
+   set('recType',r.type);set('recReason',r.reason);
+   set('monthlyDemandSolar',fmt(r.monthlyLoad)+' kWh');set('solarTargetUnits',fmt(r.generationTarget)+' kWh');
+   set('targetSolar',fmt(r.targetCapacity,1)+' kWp');set('solarShortfall',fmt(r.generationShortfall)+' kWh');
+   set('solarCapacityGap',fmt(r.capacityShortfall,1)+' kWp');set('targetSelfUse',fmt(r.targetPerf.selfUse)+' kWh');
+   set('solar',fmt(r.size,1)+' kWp');
+   set('neededArea',fmt(r.requiredSqft)+' sq ft');set('usableArea',r.usableRoof===null?'Not entered':fmt(r.usableRoof)+' sq ft');
+   set('roofCap',r.roofCap===null?'Not verified':fmt(r.roofCap,1)+' kWp');
+   set('production',fmt(r.produced)+' kWh');set('selfUse',fmt(r.selfUse)+' kWh');
+   set('directUsed',fmt(r.directUse)+' kWh');set('nightUsed',fmt(r.nightUse)+' kWh');
+   $('nightGoalBox').style.display=r.nightShift&&!r.offgrid?'block':'none';
+   $('shiftPvBox').style.display=r.nightShift&&!r.offgrid?'block':'none';
+   set('nightGoal',fmt(100*r.actualNightHeavyFraction,1)+'%');set('shiftPv',fmt(r.pvForShift,1)+' kWp');
+   set('excess',fmt(r.excess)+' kWh');set('offset',fmt(r.directOffset*100,1)+'%');
+   $('batteryResult').style.display=r.offgrid||r.backup||r.nightShift?'block':'none';
+   set('batteryKwh',r.battery>0?fmt(Math.ceil(r.battery))+' kWh':'Enter battery requirements');
+   set('invKw',r.backupInverter>0?fmt(r.backupInverter,1)+' kW':'Check backup / night load kW');
+   $('messages').replaceChildren();
+   if(r.generationTarget>0)addMessage(`UNIT-FIRST SIZE: ${fmt(r.monthlyLoad)} monthly load units × ${fmt(r.targetFraction*100)}% target = ${fmt(r.targetKwh)} kWh. With ${fmt(r.storageLossKwh)} kWh modeled storage loss, the generation target is ${fmt(r.generationTarget)} kWh/month. Divide by ${fmt(r.monthlyYield)} kWh/kWp/month to obtain ${fmt(r.targetCapacity,1)} kWp (${fmt(r.requiredSqft)} sq ft).`,'good');
+   if(r.unusedDays>0)addMessage(`${fmt(r.unusedDays)} remaining days are assumed to have zero power consumption. If the site uses lights, refrigeration or office equipment on those days, include them under normal usage for accurate solar sizing.`);
+   if(r.offgrid){
+     addMessage('OFF-GRID CAUTION: Check heavy-day maximum load and poor-sun weather. A detailed hourly model, generator redundancy, motor starting currents and battery safety are essential.','good');
+     if(r.constrainedByRoof)addMessage(`NOT FEASIBLE ON ENTERED ROOF: off-grid energy target requires ${fmt(r.targetCapacity,1)} kWp (${fmt(r.requiredSqft)} sq ft), but the roof fits about ${fmt(r.size,1)} kWp. The smaller number is NOT sufficient for stand-alone operation.`);
+     if(r.heavyDays<=10&&r.normalDays<=10)addMessage('Low numbers of usage days may make a standalone solar plant costly relative to grid / DG solutions.');
+   }else{
+     // Gross generation is never reduced to the daytime-only sizing in v6. Report utilization separately.
+     if(!r.verified && !r.nightShift)addMessage('On-grid gross generation target does not imply full EB bill offset. Nighttime load is supplied by grid/DG unless export settlement can offset it financially.');
+     if(r.constrainedByRoof)addMessage(`ROOFTOP SHORTFALL: ${fmt(r.targetCapacity,1)} kWp needs about ${fmt(r.requiredSqft)} sq ft, but the roof fits ${fmt(r.size,1)} kWp. Roof-limited output is approximately ${fmt(r.produced)} kWh/month versus ${fmt(r.generationTarget)} kWh targeted.`);
+     if(!r.verified)addMessage('Export/adjustment is not confirmed. Potential exported solar electricity has not been counted as financial savings.');
+     else addMessage('Export marked eligible: confirm approval, settlement mechanism and export rate. Exported units may not equal retail tariff savings.');
+     if(r.monthlyNight>r.monthlyDaylight){
+       if(r.nightShift)addMessage('Night-majority usage: storage can transfer available surplus daytime solar to night, but a financial comparison with EB / DG is required.');
+       else addMessage('Night-majority usage: on-grid PV will not directly power the night load. Use grid/DG, or assess storage if nighttime solar supply is required.');
+     }
+     if(r.shortfallNightHeavy)addMessage(`WARNING: The suggested ${fmt(r.size,1)} kWp solar plant cannot charge enough storage for ${fmt(r.shiftFraction*100)}% of the selected heavy-night energy. Approx. ${fmt(r.pvForShift,1)} kWp could be needed on a heavy day (${fmt(r.pvForShift*r.usableAreaPerKw)} sq ft), but may be financially poor on low-load days.`);
+     if(r.nightShift&&r.heavyDays<=10&&r.normalEnergy<r.heavyEnergy*0.2)addMessage('Battery cycling may be infrequent. Compare storage ROI against grid and existing generator availability.');
+     if(r.backup)addMessage('Backup requires critical load segregation, hybrid inverter sizing, anti-islanding protection, generator coordination and starting-current assessment.');
+     if(r.directOffset+0.02<r.targetFraction)addMessage(`USAGE CHECK: Even when PV generates the target units, only ${fmt(r.selfUse)} kWh/month is modeled as directly usable or supplied from battery (${fmt(r.directOffset*100,1)}% of usage). Exports or grid credits are separate; verify hourly data.`);
+     if(r.size>0&&r.utilization<0.75)addMessage('Some PV generation may be exported or wasted. Confirm the billing value before quoting.');
+   }
+   if(r.size>0 && r.generationShortfall>0)addMessage(`Gross generation shortfall relative to chosen energy target: ${fmt(r.generationShortfall)} kWh/month. This excludes further limitations from load timing, cloudy periods and battery dispatch.`);
+   if(r.usableRoof===null)addMessage('Roof area not entered. Space requirement is a preliminary estimate; site survey and structural approval are essential.');
+   addMessage('No solar type automatically eliminates EB demand penalties. Verify sanctioned demand, meter demand records, service tariffs and measured 15/30-minute load patterns.','good');
+   const lines=[
+     'TRUEBRIGHT ENERGY SOLUTIONS — COMMERCIAL LOAD & SOLAR ADVISOR v10',
+     'Customer: '+(p.site||'Not specified'),
+     'Usage days/month: '+r.usageDays+'; normal usage: '+r.normalDays+'; heavy usage: '+r.heavyDays+'; remaining zero-use days: '+r.unusedDays,
+     'AC systems: '+p.acs.map((a,i)=>'AC '+(i+1)+': '+a.tons+' TR x '+a.qty+' | heavy '+a.heavyHours+' h ('+fmt(r.acRows[i].heavyKwh,1)+' kWh/day), normal '+a.normalHours+' h ('+fmt(r.acRows[i].normalKwh,1)+' kWh/day)').join('; ')+' = '+fmt(r.tr,1)+' TR',
+     ...[['FAN',r.fanRows],['LIGHT',r.lightRows],['OTHER',r.otherRows]].flatMap(([kind,rows])=>rows.map((entry,i)=>`${kind} ${i+1} (${entry.name}): ${entry.qty} × ${kind==='OTHER'?fmt(entry.kw,2)+' kW':fmt(entry.watts,1)+' W'} = ${fmt(entry.loadKw,2)} kW; heavy ${fmt(entry.heavyHours,1)} h × ${r.heavyDays} days = ${fmt(entry.heavyKwh*r.heavyDays,1)} kWh/month; normal ${fmt(entry.normalHours,1)} h × ${r.normalDays} days = ${fmt(entry.normalKwh*r.normalDays,1)} kWh/month`)),
+     ...r.groups.map(([key,load,heavyHours,normalHours,heavyKwh,normalKwh])=>key.toUpperCase()+': '+fmt(load,2)+' kW | heavy '+(heavyHours===null?'per-row hours':fmt(heavyHours,1)+' h')+' = '+fmt(heavyKwh??load*heavyHours,1)+' kWh | normal '+(normalHours===null?'per-row hours':fmt(normalHours,1)+' h')+' = '+fmt(normalKwh??load*normalHours,1)+' kWh'),
+     'Connected load (all listed equipment): '+fmt(r.totalKw,2)+' kW; '+fmt(r.kva,1)+' kVA at PF '+p.pf+'. Real peak depends on coincidence.',
+     'HEAVY USAGE: '+r.heavyDays+' days x '+fmt(r.heavyEnergy,1)+' kWh/day | daytime '+fmt(r.hdPct)+'% = '+fmt(r.heavyDaylight)+' kWh/day; nighttime '+fmt(r.hnPct)+'% = '+fmt(r.heavyNight)+' kWh/day',
+     'NORMAL USAGE: '+r.normalDays+' days x '+fmt(r.normalEnergy,1)+' kWh/day | daytime '+fmt(r.ndPct)+'% = '+fmt(r.normalDaylight)+' kWh/day; nighttime '+fmt(r.nnPct)+'% = '+fmt(r.normalNight)+' kWh/day',
+     'Other '+r.unusedDays+' days assumed 0 kWh.',
+     'Monthly consumption '+fmt(r.monthlyLoad)+' kWh | daytime '+fmt(r.monthlyDaylight)+' kWh | nighttime '+fmt(r.monthlyNight)+' kWh',
+     'Energy-only EB cost Rs '+fmt(r.monthlyCost)+' / month',
+     'Grid available: '+(r.hasGrid?'Yes':'No')+'; complete grid independence: '+(r.gridIndependence?'Yes':'No'),
+     'Backup needed: '+(r.backup?'Yes':'No')+'; night storage: '+(r.nightShift?'Yes ('+fmt(r.shiftFraction*100)+'% of night energy)':'No'),
+     'Export eligibility: '+(r.verified?'Marked eligible':'Not confirmed'),
+     'RECOMMENDATION: '+r.type,
+     r.reason,
+     'Monthly energy target: '+fmt(r.targetKwh)+' units ('+fmt(r.targetFraction*100)+'% of '+fmt(r.monthlyLoad)+' units); battery storage loss allowance '+fmt(r.storageLossKwh)+' units',
+     'Monthly solar generation requirement: '+fmt(r.generationTarget)+' kWh | solar yield: '+fmt(r.monthlyYield)+' units/kWp/month',
+     'PV NEEDED FOR UNIT TARGET: '+fmt(r.targetCapacity,1)+' kWp DC | ROOF AREA REQUIRED: '+fmt(r.requiredSqft)+' sq ft',
+     'PV FITTING ROOF: '+fmt(r.size,1)+' kWp | gross generation: '+fmt(r.produced)+' kWh/month | gross generation deficit: '+fmt(r.generationShortfall)+' kWh/month | capacity gap: '+fmt(r.capacityShortfall,1)+' kWp',
+     'EXPECTED ON-SITE USAGE at target PV: '+fmt(r.targetPerf.selfUse)+' kWh/month, not the same as gross generation. Verify export credits and hourly demand.',
+     'Usable roof: '+(r.usableRoof===null?'Not entered':fmt(r.usableRoof)+' sq ft')+'; roof capacity: '+(r.roofCap===null?'Not checked':fmt(r.roofCap,1)+' kWp'),
+     ...(r.offgrid&&r.constrainedByRoof?['WARNING: off-grid PV cannot fit measured roof.']:[]),
+     'Monthly PV generation '+fmt(r.produced)+' kWh; direct use '+fmt(r.directUse)+' kWh; delivered from battery at night '+fmt(r.nightUse)+' kWh',
+     'Site energy supplied by PV '+fmt(r.selfUse)+' kWh; excess '+fmt(r.excess)+' kWh; onsite energy offset '+fmt(r.directOffset*100,1)+'%',
+     ...(r.nightShift&&!r.offgrid?['Heavy-night energy served '+fmt(r.actualNightHeavyFraction*100,1)+'% against '+fmt(r.shiftFraction*100)+'% target; PV estimate for requested night storage '+fmt(r.pvForShift,1)+' kWp']:[]),
+     ...(r.offgrid||r.backup||r.nightShift?['Battery estimate '+fmt(r.battery,1)+' kWh; inverter minimum '+fmt(r.backupInverter,1)+' kW before surge study']:[]),
+     'NOTICE: Screening estimate only. Verify real appliance kW, daylight time interval loads, utility export rules, roof capacity, solar yield, battery efficiency, and demand data before EPC quotation.'
+   ];
+   const budgetRec=TrueBrightBudget.evaluate(p);
+   TrueBrightBudget.render(budgetRec);
+   if(budgetRec.preferred.key==='hybrid' && !r.offgrid){
+     set('recType','HYBRID — customer budget preference');
+     set('recReason','Solar energy target above is the gross-unit baseline. The hybrid package below jointly sizes solar PV and commercial BESS within the chosen budget, with actual modeled nighttime use and any unmet target clearly shown.');
+   }
+   report=lines.join('\n')+'\n\n'+TrueBrightBudget.report(budgetRec);
+
+   try{localStorage.setItem('tb-commercial-solar-v10',JSON.stringify({...Object.fromEntries(ids.map(id=>[id,$(id).value])),acs:acList,fanItems,lightItems,otherItems}));}catch(e){}
+ }
+ $('addAc').addEventListener('click',()=>{acList.push({tons:1.5,qty:1,heavyHours:8,normalHours:0});renderAcs();update();const last=$('acs').lastElementChild;if(last)last.scrollIntoView({behavior:'smooth',block:'nearest'});});
+ $('acs').addEventListener('click',e=>{
+   const b=e.target.closest('button[data-remove]');if(!b)return;
+   const idx=Number(b.dataset.remove);if(!Number.isInteger(idx)||idx<0||idx>=acList.length)return;
+   acList.splice(idx,1);renderAcs();update();
+ });
+ $('acs').addEventListener('input',e=>{
+   const el=e.target;if(!el.matches('input[data-ac]'))return;
+   const entry=el.closest('.ac-entry');if(!entry)return;
+   const i=Number(entry.dataset.index);if(!acList[i])return;
+   acList[i][el.dataset.ac]=el.value;update();
+ });
+ $('acs').addEventListener('change',e=>{
+   const el=e.target;if(!el.matches('input[data-ac]'))return;
+   const entry=el.closest('.ac-entry');if(!entry)return;
+   const i=Number(entry.dataset.index);if(!acList[i])return;
+   acList[i]=validAc(acList[i]);el.value=acList[i][el.dataset.ac];update();
+ });
+ for(const [kind,cfg] of Object.entries(categoryConfig)){
+   $(cfg.button).addEventListener('click',()=>{
+     const item=kind==='other'?{name:'New equipment',qty:1,kw:1,heavyHours:8,normalHours:0}:{name:kind==='fan'?'New fan type':'New light type',qty:1,watts:kind==='fan'?75:20,heavyHours:8,normalHours:0};
+     cfg.items().push(item);renderCategory(kind);update();const last=$(cfg.list).lastElementChild;if(last)last.scrollIntoView({behavior:'smooth',block:'nearest'});
+   });
+   $(cfg.list).addEventListener('click',e=>{
+     const button=e.target.closest('button[data-remove-row]');if(!button)return;
+     const i=Number(button.dataset.removeIndex);if(!Number.isInteger(i)||i<0||i>=cfg.items().length)return;
+     cfg.items().splice(i,1);renderCategory(kind);update();
+   });
+   $(cfg.list).addEventListener('input',e=>{
+     const element=e.target;if(!element.matches('input[data-field]'))return;
+     const parent=element.closest('.field-row');if(!parent)return;
+     const i=Number(parent.dataset.index);if(!cfg.items()[i])return;
+     cfg.items()[i][element.dataset.field]=element.value;update();
+   });
+   $(cfg.list).addEventListener('change',e=>{
+     const element=e.target;if(!element.matches('input[data-field]'))return;
+     const parent=element.closest('.field-row');if(!parent)return;
+     const i=Number(parent.dataset.index);if(!cfg.items()[i])return;
+     cfg.items()[i]=cleanItem(cfg.items()[i],kind);
+     element.value=cfg.items()[i][element.dataset.field];update();
+   });
+ }
+ ids.forEach(id=>{$(id).addEventListener('input',()=>{synchronize(id);update();});$(id).addEventListener('change',()=>{synchronize(id);update();});});
+ $('copy').addEventListener('click',()=>{if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(report).then(()=>alert('Assessment copied')).catch(()=>window.prompt('Select and copy:',report));}else window.prompt('Select and copy the assessment:',report);});
+ $('print').addEventListener('click',()=>window.print());
+ $('reset').addEventListener('click',()=>{if(confirm('Reset all entered assessment details?')){try{localStorage.removeItem('tb-commercial-solar-v10');localStorage.removeItem('tb-commercial-solar-v9');localStorage.removeItem('tb-commercial-solar-v8');localStorage.removeItem('tb-commercial-solar-v7');localStorage.removeItem('tb-commercial-solar-v6');localStorage.removeItem('tb-commercial-solar-v5');localStorage.removeItem('tb-commercial-solar-v4');localStorage.removeItem('tb-hall-solar-v3');}catch(e){}window.location.reload();}});
+ if('serviceWorker' in navigator&&location.protocol==='https:')navigator.serviceWorker.register('./service-worker.js').catch(()=>{});
+ update();
+})();
+
+</script>
+</body>
 </html>
